@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Bican\Roles\Models\Role;
+use Illuminate\Http\Request;
 
 
 class RoleController extends Controller
@@ -15,11 +16,11 @@ class RoleController extends Controller
     /**
      * RoleController constructor.
      */
-    public function __construct()
+    public function __construct(Request $request)
     {
         $this->view_dir = 'admin.role.';
-//        $this->middleware('role:administrator|admin');
         $this->model = new Role();
+        $this->permissionCheckSetup($request);
     }
 
 

@@ -7,10 +7,8 @@
  */
 
 namespace App\Http\Controllers;
-use App\User;
 use Illuminate\Http\Request;
 
-use App\Http\Requests;
 
 
 trait CommonController
@@ -29,6 +27,15 @@ trait CommonController
     protected $checkPermission;
     protected function validate_rules() {
         return [];
+    }
+
+
+    public function permissionCheckSetup(Request $request)
+    {
+        $method = explode('@', $request->route()->getActionName());
+        $method = $method[count($method)-1];
+        $model = snake_case(class_basename($this->model));
+        $this->checkPermission = $this->permission[$method].'.'.$model;
     }
 
 
@@ -72,6 +79,9 @@ trait CommonController
      */
     public function store(Request $request)
     {
+        if ($this->checkPermission && !$request->user()->can($this->checkPermission)) {
+            return abort(403);
+        }
         $model = $this->model;
         $this->validate($request,$this->validate_rules($model));
         if (!property_exists(__CLASS__, 'model') || empty($model)) {
@@ -98,11 +108,17 @@ trait CommonController
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param Request $request
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Request $request, $id)
     {
+
+        if ($this->checkPermission && !$request->user()->can($this->checkPermission)) {
+            return abort(403);
+        }
+
         $with = null;
         if (method_exists(__CLASS__, 'showWith')) {
             $with = $this->showWith($id);
@@ -113,11 +129,17 @@ trait CommonController
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param Request $request
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Request $request, $id)
     {
+
+        if ($this->checkPermission && !$request->user()->can($this->checkPermission)) {
+            return abort(403);
+        }
+
         $with = null;
         if (method_exists(__CLASS__, 'editWith')) {
             $with = $this->editWith($id);
@@ -134,6 +156,11 @@ trait CommonController
      */
     public function update(Request $request, $id)
     {
+
+        if ($this->checkPermission && !$request->user()->can($this->checkPermission)) {
+            return abort(403);
+        }
+
         $this->validate($request,$this->validate_rules($id));
 
         if (method_exists(__CLASS__, 'beforeUpdate')) {
@@ -156,11 +183,17 @@ trait CommonController
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param Request $request
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request, $id)
     {
+
+        if ($this->checkPermission && !$request->user()->can($this->checkPermission)) {
+            return abort(403);
+        }
+
         if (method_exists(__CLASS__, 'beforeDelete')) {
             $this->beforeDelete($id);
         }

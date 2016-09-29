@@ -3,19 +3,18 @@
 namespace App\Http\Controllers;
 
 use Bican\Roles\Models\Permission;
-
-use App\Http\Requests;
+use Illuminate\Http\Request;
 
 class PermissionController extends Controller
 {
     use CommonController;
     
 
-    public function __construct()
+    public function __construct(Request $request)
     {
         $this->view_dir = 'admin.permission.';
-//        $this->middleware('role:administrator');
         $this->model = new Permission();
+        $this->permissionCheckSetup($request);
         
     }
 

@@ -5,8 +5,6 @@ namespace App\Http\Controllers;
 use App\User;
 use Illuminate\Http\Request;
 
-use App\Http\Requests;
-
 class UserController extends Controller
 {
     use CommonController;
@@ -15,10 +13,8 @@ class UserController extends Controller
     {
         $this->view_dir = 'admin.user.';
         $this->model = new User();
-        $method = explode('@', $request->route()->getActionName());
-        $method = $method[count($method)-1];
-        $model = snake_case(class_basename($this->model));
-        $this->checkPermission = $this->permission[$method].'.'.$model;
+        $this->permissionCheckSetup($request);
+        
     }
 
     protected  $old_password = null;
