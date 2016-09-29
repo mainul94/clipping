@@ -18,7 +18,7 @@ class RoleController extends Controller
     public function __construct()
     {
         $this->view_dir = 'admin.role.';
-        $this->middleware('role:administrator|admin');
+//        $this->middleware('role:administrator|admin');
         $this->model = new Role();
     }
 

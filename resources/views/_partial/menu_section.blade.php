@@ -17,7 +17,7 @@ $menus = collect([
                                 'label_class' => 'label label-success pull-right',
                                 'label' => 'New'
                         ]),
-                        collect([
+                        /*collect([
                                 'title'=>'Article',
                                 'icon' => 'fa fa-list-alt',
                                 'children'=>collect([
@@ -106,13 +106,13 @@ $menus = collect([
                                                 'label' => 'New'
                                         ])
                                 ])
-                        ])
+                        ])*/
                 ])
         ]),
         collect([
                 'title'=>'Setup',
                 'menu' => collect([
-                        collect([
+                        /*collect([
                                 'title'=>'Region',
                                 'icon' => 'fa fa-globe',
                                 'children' => collect([
@@ -165,7 +165,7 @@ $menus = collect([
                                                 'label' => 'New'
                                         ])
                                 ])
-                        ]),
+                        ]),*/
                         collect([
                                 'title'=>'User',
                                 'icon' => 'fa fa-users',

@@ -21,3 +21,6 @@ Route::group(['prefix'=>'admin'], function () {
     Route::resource('permission','PermissionController');
     Route::resource('setting','SettingController');
 });
+Auth::routes();
+
+Route::get('/home', 'HomeController@index');

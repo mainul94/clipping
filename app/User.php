@@ -2,12 +2,15 @@
 
 namespace App;
 
-use Illuminate\Notifications\Notifiable;
+use Illuminate\Auth\Passwords\CanResetPassword;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Bican\Roles\Traits\HasRoleAndPermission;
+use Bican\Roles\Contracts\HasRoleAndPermission as HasRoleAndPermissionContract;
 
 class User extends Authenticatable
 {
-    use Notifiable;
+
+    use CanResetPassword, HasRoleAndPermission;
 
     /**
      * The attributes that are mass assignable.
@@ -26,4 +29,14 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    /**
+     * Get User Assigned Roles
+     * @return mixed
+     */
+    public function getRoleIdAttribute()
+    {
+        return $this->roles()->pluck('role_id')->all();
+    }
+
 }
