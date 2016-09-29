@@ -7,6 +7,7 @@
  */
 
 namespace App\Http\Controllers;
+use App\User;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -15,19 +16,33 @@ use App\Http\Requests;
 trait CommonController
 {
     protected $view_dir = null;
+    protected $model;
+    protected $permission = [
+        'index'=>'view',
+        'show'=>'view',
+        'create'=>'create',
+        'store'=>'create',
+        'edit'=>'update',
+        'update'=>'update',
+        'destroy'=>'delete'
+    ];
+    protected $checkPermission;
     protected function validate_rules() {
         return [];
     }
 
-    protected $model;
 
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
+        if ($this->checkPermission && !$request->user()->can($this->checkPermission)) {
+            return abort(403);
+        }
+
         $rows = $this->model->paginate();
         return view($this->view_dir.'list_view',compact('rows'))->with('withData',[]);
     }
@@ -37,8 +52,11 @@ trait CommonController
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
+        if ($this->checkPermission && !$request->user()->can($this->checkPermission)) {
+            return abort(403);
+        }
         $with = null;
         if (method_exists(__CLASS__, 'createWith')) {
             $with = $this->createWith();
@@ -56,8 +74,7 @@ trait CommonController
     {
         $model = $this->model;
         $this->validate($request,$this->validate_rules($model));
-
-        if (!method_exists(__CLASS__, 'model')) {
+        if (!property_exists(__CLASS__, 'model') || empty($model)) {
             return redirect()->back()->with('message', ['type'=>'danger','msg'=>'method "model" doesn\'t exist for class"' . __CLASS__ .'"']);
         }
 

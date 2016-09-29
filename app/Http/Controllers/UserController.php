@@ -11,11 +11,14 @@ class UserController extends Controller
 {
     use CommonController;
 
-    public function __construct()
+    public function __construct(Request $request)
     {
         $this->view_dir = 'admin.user.';
-        $this->middleware('role:administrator|admin');
         $this->model = new User();
+        $method = explode('@', $request->route()->getActionName());
+        $method = $method[count($method)-1];
+        $model = snake_case(class_basename($this->model));
+        $this->checkPermission = $this->permission[$method].'.'.$model;
     }
 
     protected  $old_password = null;

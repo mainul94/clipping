@@ -19,5 +19,17 @@ $factory->define(App\User::class, function (Faker\Generator $faker) {
         'email' => $faker->safeEmail,
         'password' => $password ?: $password = bcrypt('secret'),
         'remember_token' => str_random(10),
+        'status' => random_int(0, 1),
+    ];
+});
+
+
+$factory->define(\Bican\Roles\Models\Role::class, function (Faker\Generator $faker) {
+    static $password;
+
+    return [
+        'name' => $faker->name,
+        'slug' => str_slug($faker->name,'.'),
+        'level' => random_int(50, 99),
     ];
 });
