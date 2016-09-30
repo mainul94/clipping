@@ -7,6 +7,7 @@
  */
 
 namespace App\Http\Controllers;
+use App\Http\Database;
 use Illuminate\Http\Request;
 
 
@@ -29,6 +30,7 @@ trait CommonController
         return [];
     }
 
+	use Database;
 
     public function permissionCheckSetup(Request $request)
     {
@@ -49,8 +51,14 @@ trait CommonController
         if ($this->checkPermission && !$request->user()->can($this->checkPermission)) {
             return abort(403);
         }
-
-        $rows = $this->model->paginate();
+		$rows = $this->model;
+        if ($request->get('filters')) {
+			$filters = $this->filteQuery($request->get('filters'));
+			if ($filters) {
+				$rows = $rows->where($filters);
+			}
+        }
+        $rows = $rows->paginate();
         return view($this->view_dir.'list_view',compact('rows'))->with('withData',[]);
     }
 

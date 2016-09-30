@@ -17,155 +17,90 @@ $menus = collect([
                                 'label_class' => 'label label-success pull-right',
                                 'label' => 'New'
                         ]),
-                        /*collect([
-                                'title'=>'Article',
+                        collect([
+                                'title'=>'Task',
                                 'icon' => 'fa fa-list-alt',
                                 'children'=>collect([
                                         collect([
-                                            'title' =>'Articles',
-                                                'link'=>action('ArticleController@index'),
+                                                'title' =>'Tasks',
+                                                'link'=>action('TaskController@index'),
                                                 'label_class' => 'label label-success pull-right',
                                                 'label' => 'All'
                                         ]),
+                                        /*collect([
+                                                'title' =>'Tasks',
+                                                'link'=>action('TaskController@index').'?filters=[{"fieldname":"status","value":"Wating for Review"}]',
+                                                'label_class' => 'label label-success pull-right',
+                                                'label' => 'Pending'
+                                        ]),*/
                                         collect([
-                                            'title' =>'Create Article',
-                                                'link'=>action('ArticleController@create'),
+                                                'title' =>'Create Task',
+                                                'link'=>action('TaskController@create'),
                                                 'label_class' => 'label label-info pull-right',
                                                 'label' => 'New'
                                         ])
                                 ])
                         ]),
-                        collect([
-                                'title'=>'Category',
-                                'icon' => 'fa fa-tags',
-                                'children'=>collect([
-                                        collect([
-                                            'title' =>'Categories',
-                                                'link'=>action('CategoryController@index'),
-                                                'label_class' => 'label label-success pull-right',
-                                                'label' => 'All'
-                                        ]),
-                                        collect([
-                                            'title' =>'Create Category',
-                                                'link'=>action('CategoryController@create'),
-                                                'label_class' => 'label label-info pull-right',
-                                                'label' => 'New'
-                                        ])
-                                ])
-                        ]),
-                        collect([
-                                'title'=>'Page',
-                                'icon' => 'fa fa-file',
-                                'children'=>collect([
-                                        collect([
-                                            'title' =>'Pages',
-                                                'link'=>action('PageController@index'),
-                                                'label_class' => 'label label-success pull-right',
-                                                'label' => 'All'
-                                        ]),
-                                        collect([
-                                            'title' =>'Create Page',
-                                                'link'=>action('PageController@create'),
-                                                'label_class' => 'label label-info pull-right',
-                                                'label' => 'New'
-                                        ])
-                                ])
-                        ]),
-                        collect([
-                                'title'=>'Slide',
-                                'icon' => 'fa fa-play-circle-o',
-                                'children'=>collect([
-                                        collect([
-                                            'title' =>'Slides',
-                                                'link'=>action('SlideController@index'),
-                                                'label_class' => 'label label-success pull-right',
-                                                'label' => 'All'
-                                        ]),
-                                        collect([
-                                            'title' =>'Create Slide',
-                                                'link'=>action('SlideController@create'),
-                                                'label_class' => 'label label-info pull-right',
-                                                'label' => 'New'
-                                        ])
-                                ])
-                        ]),
-                        collect([
-                                'title'=>'Media',
-                                'icon' => 'fa fa-play-circle-o',
-                                'children'=>collect([
-                                        collect([
-                                            'title' =>'Media',
-                                                'link'=>action('MediaController@index'),
-                                                'label_class' => 'label label-success pull-right',
-                                                'label' => 'All'
-                                        ]),
-                                        collect([
-                                            'title' =>'Add Media',
-                                                'link'=>action('MediaController@create'),
-                                                'label_class' => 'label label-info pull-right',
-                                                'label' => 'New'
-                                        ])
-                                ])
-                        ])*/
+
                 ])
         ]),
         collect([
                 'title'=>'Setup',
                 'menu' => collect([
-                        /*collect([
-                                'title'=>'Region',
-                                'icon' => 'fa fa-globe',
-                                'children' => collect([
-                                        collect([
-                                                'title'=>'Region',
-                                                'link'=>action('RegionController@index'),
-                                                'label_class' => 'label label-success pull-right',
-                                                'label' => 'All'
-                                        ]),
-                                        collect([
-                                                'title'=>'Create Region',
-                                                'link'=>action('RegionController@create'),
-                                                'label_class' => 'label label-info pull-right',
-                                                'label' => 'New'
-                                        ])
-                                ])
-                        ]),
-                        collect([
-                                'title'=>'Country',
-                                'icon' => 'fa fa-map',
-                                'children' => collect([
-                                        collect([
-                                                'title'=>'Country',
-                                                'link'=>action('CountryController@index'),
-                                                'label_class' => 'label label-success pull-right',
-                                                'label' => 'All'
-                                        ]),
-                                        collect([
-                                                'title'=>'Create Country',
-                                                'link'=>action('CountryController@create'),
-                                                'label_class' => 'label label-info pull-right',
-                                                'label' => 'New'
-                                        ])
-                                ])
-                        ]),
-                        collect([
-                                'title'=>'Division',
-                                'icon' => 'fa fa-map-o',
-                                'children' => collect([
-                                        collect([
-                                                'title'=>'Division',
-                                                'link'=>action('DivisionController@index'),
-                                                'label_class' => 'label label-success pull-right',
-                                                'label' => 'All'
-                                        ]),
-                                        collect([
-                                                'title'=>'Create Division',
-                                                'link'=>action('DivisionController@create'),
-                                                'label_class' => 'label label-info pull-right',
-                                                'label' => 'New'
-                                        ])
-                                ])
-                        ]),*/
+                    /*collect([
+							'title'=>'Region',
+							'icon' => 'fa fa-globe',
+							'children' => collect([
+									collect([
+											'title'=>'Region',
+											'link'=>action('RegionController@index'),
+											'label_class' => 'label label-success pull-right',
+											'label' => 'All'
+									]),
+									collect([
+											'title'=>'Create Region',
+											'link'=>action('RegionController@create'),
+											'label_class' => 'label label-info pull-right',
+											'label' => 'New'
+									])
+							])
+					]),
+					collect([
+							'title'=>'Country',
+							'icon' => 'fa fa-map',
+							'children' => collect([
+									collect([
+											'title'=>'Country',
+											'link'=>action('CountryController@index'),
+											'label_class' => 'label label-success pull-right',
+											'label' => 'All'
+									]),
+									collect([
+											'title'=>'Create Country',
+											'link'=>action('CountryController@create'),
+											'label_class' => 'label label-info pull-right',
+											'label' => 'New'
+									])
+							])
+					]),
+					collect([
+							'title'=>'Division',
+							'icon' => 'fa fa-map-o',
+							'children' => collect([
+									collect([
+											'title'=>'Division',
+											'link'=>action('DivisionController@index'),
+											'label_class' => 'label label-success pull-right',
+											'label' => 'All'
+									]),
+									collect([
+											'title'=>'Create Division',
+											'link'=>action('DivisionController@create'),
+											'label_class' => 'label label-info pull-right',
+											'label' => 'New'
+									])
+							])
+					]),*/
                         collect([
                                 'title'=>'User',
                                 'icon' => 'fa fa-users',
