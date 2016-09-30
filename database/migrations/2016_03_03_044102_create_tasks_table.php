@@ -22,7 +22,6 @@ class CreateTasksTable extends Migration
             $table->mediumText('comend')->nullable();
             $table->integer('total_qty')->unsigned();
             $table->float('total_amount');
-            $table->enum('type',['Order','Quatetion','Trail'])->default('Order');
             $table->enum('status',['Wating for Review','Accepted','Processing','Rejected','Completed','Finished','Hold'])
                 ->default('Wating for Review');
             $table->timestamps();

@@ -15,7 +15,7 @@ class AddColumnInTasksTable extends Migration
         Schema::table('tasks', function (Blueprint $table) {
             $table->integer('rejected_task_id',0,1)->after('id')->nullable();
             $table->integer('client_id',0,1)->after('total_amount');
-            $table->enum('task_type', ['New', 'Rejected'])->default('New')->after('total_amount');
+            $table->enum('type', ['New', 'Rejected'])->default('New')->after('total_amount');
             $table->foreign('rejected_task_id')->references('id')->on('tasks');
             $table->foreign('client_id')->references('id')->on('users');
         });

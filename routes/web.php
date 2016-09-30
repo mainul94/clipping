@@ -20,6 +20,17 @@ Route::group(['prefix'=>'admin'], function () {
     Route::resource('role','RoleController');
     Route::resource('permission','PermissionController');
     Route::resource('setting','SettingController');
+    Route::resource('task','TaskController');
+    Route::resource('image','ImageController');
+    Route::resource('quotation', 'QuotationController');
+});
+Route::group(['middleware'=>['auth','api']], function () {
+    Route::get('/api/getvalue/','APIController@getValue');
+    Route::get('/api/get-values/','APIController@getValues');
+    Route::delete('/api/delete/','APIController@deleteRecord');
+    Route::delete('/api/child-menu/','APIController@deleteChildMenu');
+    Route::patch('/api/child-menu/','APIController@updateChildMenu');
+    Route::post('/api/child-menu/','APIController@storeChildMenu');
 });
 Auth::routes();
 

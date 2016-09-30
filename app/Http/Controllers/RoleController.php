@@ -43,6 +43,9 @@ class RoleController extends Controller
     public function afterSave($model, $request)
     {
         $model->permissions()->sync($request->get('permission_id')?$request->get('permission_id'):[]);
+        /*foreach ($model->users as $user){
+            $user->permissions()->sync($request->get('permission_id')?$request->get('permission_id'):[]);
+        }*/
     }
 
 

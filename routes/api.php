@@ -16,7 +16,3 @@ use Illuminate\Http\Request;
 Route::get('/user', function (Request $request) {
     return $request->user();
 })->middleware('auth:api');
-Route::group(['middleware'=>'auth'], function () {
-    Route::get('/api/getvalue/','APIController@getValue');
-    Route::get('/api/get-values/','APIController@getValues');
-});

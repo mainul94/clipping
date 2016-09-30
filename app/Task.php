@@ -43,6 +43,8 @@ class Task extends Model
         });
     }
 
+    protected $attributes = ['storage'=>'local'];
+
     /**
      * Get Task Status
      * @return array
@@ -81,4 +83,6 @@ class Task extends Model
     {
         return $this->belongsTo(User::class, 'client_id');
     }
+
+
 }

@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Setting;
 use Bican\Roles\Models\Permission;
 use Bican\Roles\Models\Role;
 use Collective\Html\FormFacade as Form;
@@ -40,6 +41,27 @@ class ViewCustomProvider extends ServiceProvider
             }
             return $form.=Form::close();
         });
+        HTML::macro('taskStatusLabel',function ($status)
+        {
+            switch ($status) {
+                case "Wating for Review":
+                    return "<span class='label label-warning'>".$status."</span>";
+                case "Accepted":
+                    return "<span class='label label-info'>".$status."</span>";
+                case "Processing":
+                    return "<span class='label label-primary'>".$status."</span>";
+                case "Rejected":
+                    return "<span class='label label-danger'>".$status."</span>";
+                case "Completed":
+                    return "<span class='label label-success'>".$status."</span>";
+                case "Finished":
+                    return "<span class='label label-success'>".$status."</span>";
+                case "Hold":
+                    return "<span class='label label-warning'>".$status."</span>";
+                default :
+                    return "<span class='label label-default'>".$status."</span>";
+            }
+        });
 
         view()->composer('admin.role.*', function ($view) {
            return $view->with('permissions', Permission::all());
@@ -47,6 +69,10 @@ class ViewCustomProvider extends ServiceProvider
 
         view()->composer('admin.user.*', function ($view) {
            return $view->with('roles', Role::all());
+        });
+
+        view()->composer('admin.*', function ($view) {
+           return $view->with('setting', new Setting());
         });
     }
 
