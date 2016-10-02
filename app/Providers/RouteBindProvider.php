@@ -8,10 +8,12 @@ use App\Country;
 use App\Division;
 use App\Media;
 use App\Page;
+use App\Quotation;
 use App\Region;
 use App\Setting;
 use App\Slide;
 use App\Task;
+use App\Trail;
 use App\User;
 use Bican\Roles\Models\Permission;
 use Bican\Roles\Models\Role;
@@ -40,6 +42,8 @@ class RouteBindProvider extends ServiceProvider
         $router->model('setting', Setting::class);
 //        $router->model('media', Media::class);
         $router->model('task', Task::class);
+        $router->model('quotation', Quotation::class);
+        $router->model('trail', Trail::class);
     }
 
     /**

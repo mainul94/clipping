@@ -23,6 +23,7 @@ Route::group(['prefix'=>'admin'], function () {
     Route::resource('task','TaskController');
     Route::resource('image','ImageController');
     Route::resource('quotation', 'QuotationController');
+    Route::resource('trail', 'TrailController');
 });
 Route::group(['middleware'=>['auth','api']], function () {
     Route::get('/api/getvalue/','APIController@getValue');

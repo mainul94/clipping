@@ -41,6 +41,42 @@ $menus = collect([
                                         ])
                                 ])
                         ]),
+                        collect([
+                                'title'=>'Quotation',
+                                'icon' => 'fa fa-list-alt',
+                                'children'=>collect([
+                                        collect([
+                                                'title' =>'Quotations',
+                                                'link'=>action('QuotationController@index'),
+                                                'label_class' => 'label label-success pull-right',
+                                                'label' => 'All'
+                                        ]),
+                                        collect([
+                                                'title' =>'Create Quotation',
+                                                'link'=>action('QuotationController@create'),
+                                                'label_class' => 'label label-info pull-right',
+                                                'label' => 'New'
+                                        ])
+                                ])
+                        ]),
+                        collect([
+                                'title'=>'Trail',
+                                'icon' => 'fa fa-list-alt',
+                                'children'=>collect([
+                                        collect([
+                                                'title' =>'Trails',
+                                                'link'=>action('TrailController@index'),
+                                                'label_class' => 'label label-success pull-right',
+                                                'label' => 'All'
+                                        ]),
+                                        collect([
+                                                'title' =>'Create Trail',
+                                                'link'=>action('TrailController@create'),
+                                                'label_class' => 'label label-info pull-right',
+                                                'label' => 'New'
+                                        ])
+                                ])
+                        ])
 
                 ])
         ]),

@@ -16,3 +16,11 @@
 .dropzone.dz-clickable .dz-message, .dropzone.dz-clickable .dz-message * {
   font-size: 1.5em;
 }
+
+.quotation-thumbnail-wrapper {
+  height: 200px;
+  overflow: hidden;
+  img {
+    max-height: 160px;
+  }
+}

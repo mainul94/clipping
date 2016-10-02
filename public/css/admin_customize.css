@@ -9,4 +9,10 @@
 .dropzone.dz-clickable .dz-message, .dropzone.dz-clickable .dz-message * {
   font-size: 1.5em; }
 
+.quotation-thumbnail-wrapper {
+  height: 200px;
+  overflow: hidden; }
+  .quotation-thumbnail-wrapper img {
+    max-height: 160px; }
+
 /*# sourceMappingURL=admin_customize.css.map */
