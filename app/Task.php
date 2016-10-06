@@ -11,7 +11,7 @@ class Task extends Model
     protected $fillable = ['title','slug','referance','rejected_task_id','client_id','type','instruction','comend',
         'total_qty','total_amount','task_type','status'];
 
-    use CreateUpdateByRecord;
+    use CreateUpdateByRecord, HasComment;
 
     protected static function boot()
     {
@@ -41,6 +41,19 @@ class Task extends Model
                 $table->client_id = auth()->user()->id;
             }
         });
+    }
+
+    /**
+     * Task constructor.
+     * @param array $attributes
+     */
+
+    public function __construct(array $attributes = [])
+    {
+        parent::__construct($attributes);
+
+        $this->parent_type = Task::class;
+
     }
 
     protected $attributes = ['storage'=>'local'];

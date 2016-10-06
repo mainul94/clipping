@@ -143,7 +143,6 @@ trait CommonController
      */
     public function edit(Request $request, $id)
     {
-
         if ($this->checkPermission && !$request->user()->can($this->checkPermission)) {
             return abort(403);
         }
