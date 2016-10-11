@@ -27,11 +27,11 @@ class Task extends Model
          * Get Task Filter status
          *
          */
-        static::addGlobalScope('filterTaskStatus', function (Builder $builder) {
+        /*static::addGlobalScope('filterTaskStatus', function (Builder $builder) {
             if (request()->get('status')) {
                 $builder->where('status',request()->get('status'));
             }
-        });
+        });*/
 
         /**
          * Entry client id on Save Data
