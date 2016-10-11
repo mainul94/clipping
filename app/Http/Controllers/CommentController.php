@@ -22,6 +22,12 @@ class CommentController extends Controller
 	}
 
 
+	public function redirectAfterCreate()
+	{
+		return redirect()->back()->with(['message'=> ['type' => 'success', 'msg' => 'Successfully Commented']]);
+	}
+
+
 	public function validate_rules(Comment $data = null)
 	{
 		return [

@@ -78,7 +78,7 @@
                 <label class="control-label col-sm-7">{!! setStatusLabel($id->status) !!}</label>
             @else
                 <div class="col-sm-7">
-                    {!! Form::select('status',$setting->taskStatusList() ,null,['class'=>'form-control']) !!}
+                    {!! Form::select('status',$setting->taskStatusList(), null,['class'=>'form-control']) !!}
                 </div>
             @endif
         </div>

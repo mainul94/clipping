@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use App\Article;
 use App\Category;
+use App\Comment;
 use App\Country;
 use App\Division;
 use App\Media;
@@ -44,6 +45,7 @@ class RouteBindProvider extends ServiceProvider
         $router->model('task', Task::class);
         $router->model('quotation', Quotation::class);
         $router->model('trail', Trail::class);
+        $router->model('comment', Comment::class);
     }
 
     /**
