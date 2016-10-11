@@ -6,7 +6,7 @@
  * Time: 7:51 PM
  */
 
-namespace app;
+namespace App;
 
 
 trait HasComment

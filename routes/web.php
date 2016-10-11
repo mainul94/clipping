@@ -24,6 +24,7 @@ Route::group(['prefix'=>'admin'], function () {
     Route::resource('image','ImageController');
     Route::resource('quotation', 'QuotationController');
     Route::resource('trail', 'TrailController');
+    Route::resource('comment', 'CommentController');
 });
 Route::group(['middleware'=>['auth','api']], function () {
     Route::get('/api/getvalue/','APIController@getValue');

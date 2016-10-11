@@ -46,6 +46,9 @@
                     @unless($rows)
                         <h2>No Data</h2>
                     @endunless
+                    <div>
+                        {!! $rows->render() !!}
+                    </div>
                 </div>
             </div>
         </div>

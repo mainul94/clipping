@@ -26,3 +26,18 @@
   border-right-color:#ddd;
   border-width:8px;
 }
+.comment {
+  .thumbnail {
+    height: auto !important;
+  }
+  >.row > .comment-item {
+    display: block;
+    .comment-item {
+      margin-left: 40px;
+    }
+
+  }
+  .note-toolbar.panel-heading:before, .note-toolbar.panel-heading:after {
+    display: none;
+  }
+}

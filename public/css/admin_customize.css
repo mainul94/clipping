@@ -44,4 +44,15 @@
   border-right-color: #ddd;
   border-width: 8px; }
 
+.comment .thumbnail {
+  height: auto !important; }
+
+.comment > .row > .comment-item {
+  display: block; }
+  .comment > .row > .comment-item .comment-item {
+    margin-left: 40px; }
+
+.comment .note-toolbar.panel-heading:before, .comment .note-toolbar.panel-heading:after {
+  display: none; }
+
 /*# sourceMappingURL=admin_customize.css.map */

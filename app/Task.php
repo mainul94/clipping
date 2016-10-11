@@ -52,7 +52,7 @@ class Task extends Model
     {
         parent::__construct($attributes);
 
-        $this->parent_type = Task::class;
+        $this->parent_type = class_basename($this);
 
     }
 

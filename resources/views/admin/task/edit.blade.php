@@ -72,6 +72,8 @@
             @include('admin.task._image_view')
         @endif
         <div class="clearfix"></div>
+        @include('admin.comment.comment',['row'=>$id])
+        <div class="clearfix"></div>
     </div>
 </div>
 @endsection

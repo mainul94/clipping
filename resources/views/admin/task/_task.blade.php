@@ -109,7 +109,6 @@
 </div><!-- /.box-body -->
 <div class="clearfix"></div>
 <div class="box-footer">
-    @include('admin.comment.comment')
     {{--{!! Form::submit('Save',['class'=>'btn btn-info pull-right']) !!}--}}
 </div><!-- /.box-footer -->
 
