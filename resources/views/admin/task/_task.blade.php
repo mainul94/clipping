@@ -22,7 +22,10 @@
         <div class="form-group">
             {!! Form::label('delivery','Delivery',['class'=>'col-sm-2 control-label']) !!}
             <div class="col-sm-10">
-                {!! Form::text('delivery',null,['class'=>'form-control','placeholder'=>'Delivery Date']) !!}
+                @if(!empty($id))
+                    @php $delivery = $id->delivery->format('Y-m-d H:i:s') @endphp
+                @endif
+                {!! Form::text('delivery',$delivery,['class'=>'form-control','placeholder'=>'Delivery Date']) !!}
             </div>
         </div>
         @if(auth()->user()->type == 'Admin')
@@ -147,12 +150,17 @@
         }
     }).change();
     ///////////
+    var prev_val = $('#delivery').val();
     $('#delivery').daterangepicker({
         singleDatePicker: true,
         timePicker: true,
         calender_style: "picker_2",
         timePicker24Hour:true,
-    });
+        endDate:prev_val,
+        local:{
+            format:'YYYY-MM-DD hh:mm:ss'
+        }
+    }).val(prev_val);
     $('#delivery').on('apply.daterangepicker', function(ev, picker) {
         $('#delivery').val(picker.startDate.format('YYYY-MM-DD hh:mm:ss'));
     });

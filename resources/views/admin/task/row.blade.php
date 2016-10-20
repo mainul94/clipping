@@ -13,7 +13,13 @@
     <td>{!! $task->total_qty !!}</td>
     <td>{!! $task->total_amount !!}</td>
     <td>{!! $task->task_type !!}</td>
-    <td>No Data</td>
+    <td>
+        @if(in_array($task->status, ['Rejected', 'Completed', 'Finished']))
+            {!! $task->delivery !!}
+        @else
+            <strong class="text-danger">{!! $task->delivery !!}</strong>
+        @endif
+    </td>
     <td>{!! Html::taskStatusLabel($task->status) !!}</td>
     <td>
         @permission("update.task")

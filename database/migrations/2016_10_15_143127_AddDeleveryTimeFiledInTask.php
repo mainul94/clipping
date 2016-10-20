@@ -14,7 +14,7 @@ class AddDeleveryTimeFiledInTask extends Migration
     public function up()
     {
         Schema::table('tasks', function (Blueprint $table) {
-            $table->dateTimeTz('delivery')->after('');
+            $table->dateTimeTz('delivery')->after('slug');
         });
     }
 
@@ -26,7 +26,7 @@ class AddDeleveryTimeFiledInTask extends Migration
     public function down()
     {
         Schema::table('tasks', function (Blueprint $table) {
-            //
+            $table->dropColumn('delivery');
         });
     }
 }
