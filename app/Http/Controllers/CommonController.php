@@ -76,7 +76,15 @@ trait CommonController
         if (method_exists(__CLASS__, 'createWith')) {
             $with = $this->createWith();
         }
-        return view($this->view_dir.'create')->with('withData',$with);
+        if ($request->ajax()) {
+            return response()->json([
+                'csrf_token' => csrf_token()
+            ]);
+        }
+        return response()->json([
+            'csrf_token' => csrf_token()
+        ]);
+//        return view($this->view_dir.'create')->with('withData',$with);
     }
 
     /**

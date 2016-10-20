@@ -19,6 +19,12 @@
                 {!! Form::text('title',null,['class'=>'form-control','placeholder'=>'Title']) !!}
             </div>
         </div>
+        <div class="form-group">
+            {!! Form::label('delivery','Delivery',['class'=>'col-sm-2 control-label']) !!}
+            <div class="col-sm-10">
+                {!! Form::text('delivery',null,['class'=>'form-control','placeholder'=>'Delivery Date']) !!}
+            </div>
+        </div>
         @if(auth()->user()->type == 'Admin')
             <div class="form-group">
                 {!! Form::label('client_id','Client',['class'=>'col-sm-2 control-label']) !!}
@@ -111,6 +117,16 @@
 <div class="box-footer">
     {{--{!! Form::submit('Save',['class'=>'btn btn-info pull-right']) !!}--}}
 </div><!-- /.box-footer -->
+@section('head')
+    @parent
+    <link rel="stylesheet" href="{{ asset('vendors/bootstrap-daterangepicker/daterangepicker.css') }}">
+@endsection
+
+@section('footer_script')
+    @parent
+    <script src="{{ asset('vendors/moment/moment.js') }}"></script>
+    <script src="{{ asset('vendors/bootstrap-daterangepicker/daterangepicker.js') }}"></script>
+@endsection
 
 @section('script_call')
     @parent
@@ -130,5 +146,15 @@
             task_field.val(null);
         }
     }).change();
+    ///////////
+    $('#delivery').daterangepicker({
+        singleDatePicker: true,
+        timePicker: true,
+        calender_style: "picker_2",
+        timePicker24Hour:true,
+    });
+    $('#delivery').on('apply.daterangepicker', function(ev, picker) {
+        $('#delivery').val(picker.startDate.format('YYYY-MM-DD hh:mm:ss'));
+    });
 </script>
 @endsection

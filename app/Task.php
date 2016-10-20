@@ -9,9 +9,11 @@ class Task extends Model
 {
 
     protected $fillable = ['title','slug','referance','rejected_task_id','client_id','type','instruction','comend',
-        'total_qty','total_amount','task_type','status'];
+        'total_qty','total_amount','task_type','status', 'delivery'];
 
     use CreateUpdateByRecord, HasComment;
+
+    protected $dates = ['delivery'];
 
     protected static function boot()
     {

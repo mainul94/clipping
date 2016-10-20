@@ -26,8 +26,9 @@ Route::group(['prefix'=>'admin'], function () {
     Route::resource('trail', 'TrailController');
     Route::resource('comment', 'CommentController');
 });
-Route::group(['middleware'=>['auth','api']], function () {
+Route::group(['middleware'=>['auth','api','cors']], function () {
     Route::get('/api/getvalue/','APIController@getValue');
+    Route::get('/api/trail/','TrailController@create');
     Route::get('/api/get-values/','APIController@getValues');
     Route::delete('/api/delete/','APIController@deleteRecord');
     Route::delete('/api/child-menu/','APIController@deleteChildMenu');
