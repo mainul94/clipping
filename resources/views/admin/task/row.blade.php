@@ -17,7 +17,11 @@
         @if(in_array($task->status, ['Rejected', 'Completed', 'Finished']))
             {!! $task->delivery !!}
         @else
-            <strong class="text-danger">{!! $task->delivery !!}</strong>
+            @if($task->delivery->diffInMinutes() <= 240 )
+                <strong class="text-danger">{!! $task->delivery !!}</strong>
+                @else
+                <strong class="text-success">{!! $task->delivery !!}</strong>
+            @endif
         @endif
     </td>
     <td>{!! Html::taskStatusLabel($task->status) !!}</td>
