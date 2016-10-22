@@ -15,6 +15,7 @@
 			<div class="x_panel">
 				<div class="x_title">
 					<h2>Invoice View </h2>
+					<a class="btn btn-primary pull-right" href="{!! action('InvoiceController@edit',$id->id) !!}">Edit</a>
 					<div class="clearfix"></div>
 				</div>
 				<div class="x_content">
@@ -25,7 +26,7 @@
 							<div class="col-xs-12 invoice-header">
 								<h1>
 									<i class="fa fa-globe"></i> Invoice.
-									<small class="pull-right">@if(isset($id->invoice_date))Date: {!! $id->invoice_date->format('Y-M-d') !!} @endif</small>
+									<small class="pull-right">@if(isset($id->invoice_date))Date: {!! $id->invoice_date->format('d-M-Y') !!} @endif</small>
 								</h1>
 							</div>
 							<!-- /.col -->
@@ -78,7 +79,7 @@
 									@foreach($id->children as $sl=>$child)
 										<tr>
 											<td>{!! ++$sl !!}</td>
-											<td>{!! $child->task->created_at->format('Y-M-d') !!}</td>
+											<td>{!! $child->task->created_at->format('d-M-Y') !!}</td>
 											<td>{!! $child->task_id !!}</td>
 											<td>{!! $child->task->title !!}</td>
 											<td>{!! $child->qty !!} {!! $child->uom !!}</td>
@@ -106,7 +107,7 @@
 							</div>
 							<!-- /.col -->
 							<div class="col-xs-6">
-								<p class="lead">@if(isset($id->invoice_date))Amount Due {!! $id->invoice_date->format('Y-M-d') !!} @endif </p>
+								<p class="lead">@if(isset($id->invoice_date))Amount Due {!! $id->invoice_date->format('d-M-Y') !!} @endif </p>
 								<div class="table-responsive">
 									<table class="table">
 										<tbody>

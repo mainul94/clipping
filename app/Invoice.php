@@ -10,6 +10,12 @@ class Invoice extends Model
 	    'currency', 'paid_amount', 'invoice_date', 'due_date', 'status', 'is_return'];
 
 
+	protected $dates = ['invoice_date', 'due_date'];
+
+
+	/**
+	 * @return \Illuminate\Database\Eloquent\Relations\HasMany
+	 */
 	public function children()
 	{
 		return $this->hasMany(InvoiceChild::class);
