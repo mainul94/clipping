@@ -44,6 +44,9 @@ trait LeftColMenu
     {
         $html = '';
         foreach ($menus as $menu) {
+            if (!empty($menu->get('permission')) && !(auth()->check() && auth()->user()->can($menu->get('permission')))) {
+                continue;
+            }
             $html .= '<li><a '.($menu->get('link')? ' href="'.url($menu->get('link')).'"':'').'><i class="'
                 . $menu->get('icon').'"></i> '. $menu->get('title').
                 ($menu->get('label_class')?' <span class="'.$menu->get('label_class').'">'. $menu->get('label').'</span>':
