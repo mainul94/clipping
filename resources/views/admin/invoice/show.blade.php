@@ -25,7 +25,7 @@
 							<div class="col-xs-12 invoice-header">
 								<h1>
 									<i class="fa fa-globe"></i> Invoice.
-									<small class="pull-right">Date: {!! $id->invoice_date !!}</small>
+									<small class="pull-right">@if(isset($id->invoice_date))Date: {!! $id->invoice_date->format('Y-M-d') !!} @endif</small>
 								</h1>
 							</div>
 							<!-- /.col -->
@@ -36,10 +36,7 @@
 								From
 								<address>
 									<strong>Clipping Path Associate</strong>
-									<br>795 Freedom Ave, Suite 600
-									<br>New York, CA 94107
-									<br>Phone: 1 (804) 123-9876
-									<br>Email: ironadmin.com
+									{!! $id->from_address !!}
 								</address>
 							</div>
 							<!-- /.col -->
@@ -55,11 +52,9 @@
 								<b>Invoice #{!! $id->id !!}</b>
 								<br>
 								<br>
-								<b>Order ID:</b> 4F3S8J
+								<b>Payment Due:</b> <i class="fa fa-{{ strtolower($id->currency) }}"></i>{!! $id->totals - $id->paid_amount !!}
 								<br>
-								<b>Payment Due:</b> {!! $id->due_date !!}
-								<br>
-								<b>Account:</b> {!! $id->account !!}
+								@if(isset($id->account))<b>Account:</b> {!! $id->account !!} @endif
 							</div>
 							<!-- /.col -->
 						</div>
@@ -83,7 +78,7 @@
 									@foreach($id->children as $sl=>$child)
 										<tr>
 											<td>{!! ++$sl !!}</td>
-											<td>{!! $child->task->created_at !!}</td>
+											<td>{!! $child->task->created_at->format('Y-M-d') !!}</td>
 											<td>{!! $child->task_id !!}</td>
 											<td>{!! $child->task->title !!}</td>
 											<td>{!! $child->qty !!} {!! $child->uom !!}</td>
@@ -111,7 +106,7 @@
 							</div>
 							<!-- /.col -->
 							<div class="col-xs-6">
-								<p class="lead">Amount Due {!! $id->due_date !!}</p>
+								<p class="lead">@if(isset($id->invoice_date))Amount Due {!! $id->invoice_date->format('Y-M-d') !!} @endif </p>
 								<div class="table-responsive">
 									<table class="table">
 										<tbody>
