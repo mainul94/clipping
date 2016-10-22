@@ -7,6 +7,7 @@ use App\Category;
 use App\Comment;
 use App\Country;
 use App\Division;
+use App\Invoice;
 use App\Media;
 use App\Page;
 use App\Quotation;
@@ -33,19 +34,12 @@ class RouteBindProvider extends ServiceProvider
         $router->model('role', Role::class);
         $router->model('permission', Permission::class);
         $router->model('user', User::class);
-//        $router->model('region', Region::class);
-//        $router->model('country', Country::class);
-//        $router->model('division', Division::class);
-//        $router->model('page', Page::class);
-//        $router->model('category', Category::class);
-//        $router->model('article', Article::class);
-//        $router->model('slide', Slide::class);
         $router->model('setting', Setting::class);
-//        $router->model('media', Media::class);
         $router->model('task', Task::class);
         $router->model('quotation', Quotation::class);
         $router->model('trail', Trail::class);
         $router->model('comment', Comment::class);
+        $router->model('invoice', Invoice::class);
     }
 
     /**

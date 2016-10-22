@@ -49,6 +49,11 @@ class Handler extends ExceptionHandler
             return abort(403, 'Unauthorized action.');
         }
 
+        if ($exception instanceof NoTask) {
+            //
+            return redirect()->back()->withInput()->with('message', ['type' => 'danger', 'msg' => $exception->getMessage()]);
+        }
+
         return parent::render($request, $exception);
     }
 

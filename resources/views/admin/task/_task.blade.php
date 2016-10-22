@@ -24,6 +24,8 @@
             <div class="col-sm-10">
                 @if(!empty($id))
                     @php $delivery = $id->delivery->format('Y-m-d H:i:s') @endphp
+                @else
+                    @php $delivery = null @endphp
                 @endif
                 {!! Form::text('delivery',$delivery,['class'=>'form-control','placeholder'=>'Delivery Date']) !!}
             </div>
@@ -150,19 +152,17 @@
         }
     }).change();
     ///////////
-    var prev_val = $('#delivery').val();
+    var prev_val = $('#delivery').val() || moment();
     $('#delivery').daterangepicker({
         singleDatePicker: true,
         timePicker: true,
         calender_style: "picker_2",
         timePicker24Hour:true,
+        startDate:prev_val,
         endDate:prev_val,
-        local:{
+        locale:{
             format:'YYYY-MM-DD hh:mm:ss'
         }
-    }).val(prev_val);
-    $('#delivery').on('apply.daterangepicker', function(ev, picker) {
-        $('#delivery').val(picker.startDate.format('YYYY-MM-DD hh:mm:ss'));
     });
 </script>
 @endsection

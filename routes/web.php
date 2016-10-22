@@ -25,6 +25,7 @@ Route::group(['prefix'=>'admin'], function () {
     Route::resource('quotation', 'QuotationController');
     Route::resource('trail', 'TrailController');
     Route::resource('comment', 'CommentController');
+    Route::resource('invoice', 'InvoiceController');
 });
 Route::group(['middleware'=>['auth','api','cors']], function () {
     Route::get('/api/getvalue/','APIController@getValue');

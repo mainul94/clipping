@@ -76,6 +76,24 @@ $menus = collect([
                                                 'label' => 'New'
                                         ])
                                 ])
+                        ]),
+                        collect([
+                                'title'=>'Invoice',
+                                'icon' => 'fa fa-list-alt',
+                                'children'=>collect([
+                                        collect([
+                                                'title' =>'Invoices',
+                                                'link'=>action('InvoiceController@index'),
+                                                'label_class' => 'label label-success pull-right',
+                                                'label' => 'All'
+                                        ]),
+                                        collect([
+                                                'title' =>'Create Invoice',
+                                                'link'=>action('InvoiceController@create'),
+                                                'label_class' => 'label label-info pull-right',
+                                                'label' => 'New'
+                                        ])
+                                ])
                         ])
 
                 ])

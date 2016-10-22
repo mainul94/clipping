@@ -81,10 +81,7 @@ trait CommonController
                 'csrf_token' => csrf_token()
             ]);
         }
-        return response()->json([
-            'csrf_token' => csrf_token()
-        ]);
-//        return view($this->view_dir.'create')->with('withData',$with);
+        return view($this->view_dir.'create')->with('withData',$with);
     }
 
     /**
@@ -218,7 +215,7 @@ trait CommonController
             $this->afterDelete();
         }
 
-        if (method_exists(__CLASS__, 'redirectAfterCreate')) {
+        if (method_exists(__CLASS__, 'redirectAfterDelete')) {
             return $this->redirectAfterDelete();
         }
 
