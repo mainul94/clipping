@@ -96,25 +96,26 @@
                         @else
                             @php $task_id_list = []; $task_id = null; @endphp
                         @endif
-                        {!! Form::select('task_id[]',$task_id_list,$task_id, ['class'=>'form-control']) !!}
+                        {!! Form::select('task_id[]',$task_id_list,$task_id, ['class'=>'form-control', 'onchange'=>'javascript:setTaskChangeEvent(this)']) !!}
                         {!! Form::hidden('ch_id[]', $child->id) !!}
                     </td>
                     <td data-fieldname="task_title">{!! $child->task->title !!}</td>
                     <td data-fieldname="qty">
                         {!! Form::text('qty[]',(isset($child->qty)?$child->qty:null),['class'=>'form-control', 'onchange'=>'javascript:__total_qty()']) !!}
                     </td>
-                    <td data-fieldname="uom">{!! Form::text('uom',(isset($child->uom)?$child->uom:null),['class'=>'form-control']) !!}</td>
+                    <td data-fieldname="uom">{!! Form::text('uom[]',(isset($child->uom)?$child->uom:null),['class'=>'form-control']) !!}</td>
                     <td  data-fieldname="amount" class="input-group" @if($sl ==0)style="margin-top: -1px"@endif>
                         <span class="input-group-addon"><i class="fa fa-{{ strtolower($id->currency) }}"></i></span>
                         {!! Form::text('amount[]',(isset($child->amount)?$child->amount:null),['class'=>'form-control', 'onchange'=>'javascript:subtotals()']) !!}
                     </td>
                     <td class="remove">
-                        <button type="button" class="btn btn-small text-danger"><i class="fa fa-trash"></i></button>
+                        <button type="button" onclick="javascript: delete_row(this)" class="btn btn-small text-danger"><i class="fa fa-trash"></i></button>
                     </td>
                 </tr>
             @endforeach
             </tbody>
         </table>
+        <button type="button" class="btn btn-info" onclick="javascript:add_new_row()">Add Row</button>
     </div>
     {{--/Children--}}
 
@@ -165,6 +166,56 @@
     <script src="{{ asset('vendors/bootstrap-daterangepicker/daterangepicker.js') }}"></script>
     <script src="{!! asset('js/panel.js') !!}"></script>
     <script>
+        getvalueForSelect2('[name^=task_id]', 'tasks', ['id','id'],[['client_id',{{$id->client_id}}]],'id','id');
+
+        
+        function setTaskChangeEvent(me) {
+            getValue('{{ action('TaskController@index') }}'+'/'+$(me).val(), function (data) {
+                var $parent = $(me).closest('tr.child-row');
+                $parent.find('[data-fieldname="task_title"]').html(data.title);
+                $parent.find('[data-fieldname="task_created_at"]').html(moment(data.created_at).format('YYYY-MMM-DD'));
+                $parent.find('input[name^="qty"]').val(data.total_qty).trigger('change');
+                $parent.find('input[name^="amount"]').val(data.total_amount).trigger('change');
+            });
+        }
+
+        //////////////////////////////////
+
+        function add_new_row() {
+            var $row = $('<tr class="child-row">' +
+                    '<td data-fieldname="task_created_at"></td>'+
+                    '<td data-fieldname="task_id">'+
+                    '{!! Form::select("task_id[]",[],null, ["class"=>"form-control", "onchange"=>"javascript:setTaskChangeEvent(this)"]) !!}</td>'+
+                    '<td data-fieldname="task_title"></td>'+
+                    '<td data-fieldname="qty">'+
+                    '{!! Form::text("qty[]",null,["class"=>"form-control", "onchange"=>"javascript:__total_qty()"]) !!}</td>' +
+                    '<td data-fieldname="uom">{!! Form::text("uom[]",null,["class"=>"form-control"]) !!}</td>'+
+                    '<td  data-fieldname="amount" class="input-group"><span class="input-group-addon"><i class="fa fa-{{ strtolower($id->currency) }}"></i></span>'+
+                    '{!! Form::text("amount[]",null,["class"=>"form-control", "onchange"=>"javascript:subtotals()"]) !!}</td>'+
+                    '<td class="remove">'+
+                    '<button type="button" onclick="javascript: delete_row(this)" class="btn btn-small text-danger"><i class="fa fa-trash"></i></button>'+
+                    '</td>'+
+                    '</tr>');
+            $('.child-body').append($row);
+            getvalueForSelect2($row.find('[name^=task_id]'), 'tasks', ['id','id'],[['client_id',{{$id->client_id}}]],'id','id');
+        }
+
+        function delete_row(me) {
+            swal({
+                title: 'Are you sure?',
+                text: "You won't be able to revert this!",
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, delete it!'
+            }).then(function() {
+                $(me).closest('tr.child-row').remove();
+                subtotals();
+                __total_qty()
+            });
+        }
+        ////////////////////////////
         $('#invoice_date, #due_date').daterangepicker({
             singleDatePicker: true,
             calender_style: "picker_2",

@@ -48,8 +48,13 @@ function filtersForSelect2Dependancy(filters) {
  * @param f_v
  */
 function getvalueForSelect2(selector,table,select,filters,f_k,f_v,defaultValue) {
-
-    var $selecttor = $(selector).select2({
+    console.log();
+    if (typeof selector === "object") {
+        $selector = selector;
+    }else {
+        $selector = $(selector);
+    }
+    var $selecttor = $selector.select2({
         ajax: {
             url: "/api/getvalue",
             dataType: 'json',

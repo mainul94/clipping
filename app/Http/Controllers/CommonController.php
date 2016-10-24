@@ -136,6 +136,10 @@ trait CommonController
         if (method_exists(__CLASS__, 'showWith')) {
             $with = $this->showWith($id);
         }
+
+        if ($request->ajax()) {
+            return response()->json($id->toArray());
+        }
         return view($this->view_dir.'show', compact('id'))->with('withData', $with);
     }
 
