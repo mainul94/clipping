@@ -51,7 +51,6 @@ class InvoiceController extends Controller
 
 	public function afterSave(Invoice $model, Request $request)
 	{
-		$children_id = [];
 		$child_val = ['invoice_id' => $model->id, 'uom' => 'PCS'];
 		foreach ($this->tasks as $task) {
 			$child = new InvoiceChild();
@@ -59,12 +58,45 @@ class InvoiceController extends Controller
 			$child_val['qty'] = $task->total_qty;
 			$child_val['amount'] = $task->total_amount;
 			$child->fill($child_val)->save();
-			array_push($children_id, $child->id);
 			$model->total_qty += $task->total_qty;
 			$model->subtotal += $task->total_amount;
 		}
 		$model->totals = $model->subtotal + $model->tax;
 		$model->save();
+	}
+
+
+	public function afterUpdate(Invoice $invoice, Request $request)
+	{
+		$preChild = collect($invoice->children()->get(['id'])->toArray())->flatten();
+		$invoice->total_qty =0;
+		$invoice->subtotal =0;
+		$children_id = [];
+		$child_val = ['invoice_id' => $invoice->id];
+		foreach ($request->get('task_id') as $key=>$task) {
+			if (empty($request->get('ch_id')[$key])) {
+				$child = new InvoiceChild();
+			}
+			else
+			{
+				$child = InvoiceChild::find($request->get('ch_id')[$key]);
+			}
+			$child_val['task_id'] = $task;
+			$child_val['qty'] = $request->get('qty')[$key];
+			$child_val['amount'] = $request->get('amount')[$key];
+			$child_val['amount'] = $request->get('amount')[$key];
+			$child_val['uom'] = $request->get('uom')[$key];
+			$child->fill($child_val)->save();
+			array_push($children_id, $child->id);
+			$invoice->total_qty += $child->qty;
+			$invoice->subtotal += $child->amount;
+		}
+		foreach ($preChild->diff($children_id) as $item) {
+			$row = InvoiceChild::find($item);
+			$row->delete();
+		}
+		$invoice->totals = $invoice->subtotal + $invoice->tax;
+		$invoice->save();
 	}
 
 
