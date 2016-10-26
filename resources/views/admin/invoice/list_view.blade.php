@@ -41,10 +41,12 @@
                                 <td>{!! $row->total_qty !!}</td>
                                 <td>{!! $row->totals !!}</td>
                                 <td>
-                                    @if(!empty($row->due_date) && $row->status == "Unpaid" && $row->due_date->diffInDays() <=0)
-                                        {!! $row->due_date->format('d-M-Y') !!}
-                                    @else
-                                        {!! $row->due_date->format('d-M-Y') !!}
+                                    @if(!empty($row->due_date))
+                                        @if($row->status == "Unpaid" && $row->due_date->diffInDays() <=0)
+                                            {!! $row->due_date->format('d-M-Y') !!}
+                                        @else
+                                            {!! $row->due_date->format('d-M-Y') !!}
+                                        @endif
                                     @endif
                                 </td>
                                 <td>{!! $row->status !!}</td>
