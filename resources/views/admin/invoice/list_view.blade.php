@@ -14,7 +14,9 @@
             <div class="x_panel">
                 <div class="x_title">
                     <h3>Invoice list
+                        @permission("create.invoice")
                         <small><a class="btn btn-primary pull-right" href="{!! action('InvoiceController@create') !!}">New</a></small>
+                        @endpermission
                     </h3>
                 </div>
                 <div class="x_content">
@@ -51,9 +53,15 @@
                                 </td>
                                 <td>{!! $row->status !!}</td>
                                 <td class="text-center action-btn-wrapper">
-                                    <a class="text-success" href="{!! action('InvoiceController@show',$row->id) !!}"><i class="fa fa-eye"></i></a>
+                                    @permission("view.invoice")
+                                        <a class="text-success" href="{!! action('InvoiceController@show',$row->id) !!}"><i class="fa fa-eye"></i></a>
+                                    @endpermission
+                                    @permission("update.invoice")
                                     <a class="text-warning" href="{!! action('InvoiceController@edit',$row->id) !!}"><i class="fa fa-pencil-square-o"></i></a>
+                                    @endpermission
+                                    @permission("delete.invoice")
                                     {!! Html::delete('InvoiceController@destroy',$row->id) !!}
+                                    @endpermission
                                 </td>
                             </tr>
                         @endforeach

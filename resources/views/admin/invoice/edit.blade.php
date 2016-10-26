@@ -13,7 +13,9 @@
             <div class="x_panel">
                 <div class="x_title">
                     Edit Invoice
+                    @permission("view.invoice")
                     <a class="btn btn-primary pull-right" href="{!! action('InvoiceController@show',$id->id) !!}">Preview</a>
+                    @endpermission
                     <div class="clearfix"></div>
                 </div>
                 <div class="x_content">

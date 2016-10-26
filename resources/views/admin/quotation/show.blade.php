@@ -14,7 +14,9 @@
 			<div class="x_panel">
 				<div class="x_title">
 					<h2>View Quotation </h2>
+					@permission("update.quotation")
 					<a class="btn btn-primary pull-right" href="{!! action('QuotationController@edit',$id->id) !!}">Edit</a>
+					@endpermission
 					<div class="clearfix"></div>
 				</div>
 				<div class="x_content">
