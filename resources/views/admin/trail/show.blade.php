@@ -70,31 +70,31 @@
 					<div class="row padding-vertical-p5em">
 						<strong class="col-sm-3">Sample Image</strong>
 						<div class="col-sm-8">
-							<div class="col-sm-4 quotation-thumbnail-wrapper">
-								@if(!empty($id) && isset($id->sample_one))
+							@if(!empty($id) && !empty($id->sample_one))
+								<div class="col-sm-4 quotation-thumbnail-wrapper">
 									<img class="img-responsive img-thumbnail" src="{!! asset($id->sample_one) !!}" alt="">
-								@endif
-							</div>
-							<div class="col-sm-4 quotation-thumbnail-wrapper">
-								@if(!empty($id) && isset($id->sample_two))
+								</div>
+							@endif
+							@if(!empty($id) && !empty($id->sample_two))
+								<div class="col-sm-4 quotation-thumbnail-wrapper">
 									<img class="img-responsive img-thumbnail" src="{!! asset($id->sample_two) !!}" alt="">
-								@endif
-							</div>
-							<div class="col-sm-4 quotation-thumbnail-wrapper">
-								@if(!empty($id) && isset($id->sample_three))
+								</div>
+							@endif
+							@if(!empty($id) && !empty($id->sample_three))
+								<div class="col-sm-4 quotation-thumbnail-wrapper">
 									<img class="img-responsive img-thumbnail" src="{!! asset($id->sample_three) !!}" alt="">
-								@endif
-							</div>
-							<div class="col-sm-4 quotation-thumbnail-wrapper">
-								@if(!empty($id) && isset($id->sample_four))
+								</div>
+							@endif
+							@if(!empty($id) && !empty($id->sample_four))
+								<div class="col-sm-4 quotation-thumbnail-wrapper">
 									<img class="img-responsive img-thumbnail" src="{!! asset($id->sample_four) !!}" alt="">
-								@endif
-							</div>
-							<div class="col-sm-4 quotation-thumbnail-wrapper">
-								@if(!empty($id) && isset($id->sample_five))
+								</div>
+							@endif
+							@if(!empty($id) && !empty($id->sample_five))
+								<div class="col-sm-4 quotation-thumbnail-wrapper">
 									<img class="img-responsive img-thumbnail" src="{!! asset($id->sample_five) !!}" alt="">
-								@endif
-							</div>
+								</div>
+							@endif
 						</div>
 					</div>
 
