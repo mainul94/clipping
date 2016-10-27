@@ -30,6 +30,7 @@
                 {!! Form::text('delivery',$delivery,['class'=>'form-control','placeholder'=>'Delivery Date']) !!}
             </div>
         </div>
+        @permission("view.client.name")
         @if(auth()->user()->type == 'Admin')
             <div class="form-group">
                 {!! Form::label('client_id','Client',['class'=>'col-sm-2 control-label']) !!}
@@ -43,6 +44,7 @@
                 </div>
             </div>
         @endif
+        @endpermission
     </div>
     <div class="col-sm-6">
         <div class="form-group">

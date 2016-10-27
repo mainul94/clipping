@@ -30,7 +30,9 @@
                                 <th>Task ID</th>
                                 <th>Title</th>
                                 <th>Total Qty</th>
+                                @permission("priceview.task")
                                 <th>Total Amount</th>
+                                @endpermission
                                 <th>Type</th>
                                 <th>Delivery</th>
                                 <th>Status</th>
@@ -47,7 +49,9 @@
                                 <th>Task ID</th>
                                 <th>Title</th>
                                 <th>Total Qty</th>
+                                @permission("priceview.task")
                                 <th>Total Amount</th>
+                                @endpermission
                                 <th>Type</th>
                                 <th>Delivery</th>
                                 <th>Status</th>

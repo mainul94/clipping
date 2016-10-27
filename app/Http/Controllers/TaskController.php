@@ -36,29 +36,6 @@ class TaskController extends Controller
 
     }
 
-
-
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    /*public function index()
-    {
-        $tasks = Task::all();
-        return view('task.tasks',compact('tasks'));
-    }*/
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    /*public function create()
-    {
-        return view('task.create');
-    }*/
-
     /**
      * Store a newly created resource in storage.
      *
@@ -74,17 +51,11 @@ class TaskController extends Controller
         Storage::disk($task->storage)->makeDirectory($base_directory.'/Done/preview');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    /*public function show($id)
+    public function showWith(Task $task)
     {
-        //
-    }*/
-
+        return $this->editWith($task);
+    }
+    
     /**
      * Show the form for editing the specified resource.
      *

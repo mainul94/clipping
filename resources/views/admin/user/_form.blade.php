@@ -38,6 +38,14 @@
     </div>
 </div>
 
+<div class="form-group {!! $errors->has('type')? 'has-error':'' !!}">
+    {!! Form::label('type','User Type',['class'=>'control-label col-md-3']) !!}
+    <div class="col-md-7">
+        {!! Form::select('type',['Admin' => 'Admin','Client' => 'Client','Support' =>'Support'], null, ['class'=>'form-control col-md-7 col-xs-12']) !!}
+        {!! $errors->first('type','<span class="help-block">:message</span>') !!}
+    </div>
+</div>
+
 {{--<div class="form-group {!! $errors->has('role_id')? 'has-error':'' !!}">
     {!! Form::label('role_id','Role',['class'=>'control-label col-md-3']) !!}
     <div class="col-md-7">

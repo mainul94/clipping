@@ -124,7 +124,7 @@ $menus = collect([
 												'permission' => 'view.user'
 										]),
 										collect([
-												'title'=>'Create Role',
+												'title'=>'Create User',
 												'link'=>action('UserController@create'),
 												'label_class' => 'label label-info pull-right',
 												'label' => 'New',
