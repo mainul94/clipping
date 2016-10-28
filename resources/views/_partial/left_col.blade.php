@@ -8,7 +8,10 @@
 ?>
 <div class="left_col scroll-view">
     <div class="navbar nav_title" style="border: 0;">
-        <a href="{!! url('/') !!}" class="site_title"><i class="fa fa-paw"></i> <span>CA</span></a>
+        <a href="{!! url('/') !!}" class="site_title">
+            <img src="{{ asset('images/f-icon.png')  }}" alt="Clipping Associats" class="img-responsive">
+	        <span>Clipping Associates</span>
+        </a>
     </div>
 
     <div class="clearfix"></div>
@@ -44,7 +47,8 @@
         <a data-toggle="tooltip" data-placement="top" title="Lock">
             <span class="glyphicon glyphicon-eye-close" aria-hidden="true"></span>
         </a>
-        <a data-toggle="tooltip" data-placement="top" title="Logout">
+        <a data-toggle="tooltip" data-placement="top" title="Logout"
+           onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
             <span class="glyphicon glyphicon-off" aria-hidden="true"></span>
         </a>
     </div>

@@ -59,4 +59,17 @@
 .comment .note-toolbar.panel-heading:before, .comment .note-toolbar.panel-heading:after {
   display: none; }
 
+.site_title img {
+  max-height: 100%;
+  display: inline-block;
+  float: left; }
+
+.site_title span {
+  color: #2a96d3;
+  padding-left: 3px;
+  font-size: 18px; }
+
+.navbar.nav_title {
+  background-color: #ededed; }
+
 /*# sourceMappingURL=admin_customize.css.map */

@@ -15,6 +15,9 @@
 @section('body')
     <div class="container body">
         <div class="main_container">
+            <form id="logout-form" action="{{ url('/logout') }}" method="POST" style="display: none;">
+                {{ csrf_field() }}
+            </form>
             <div class="col-md-3 left_col">
                 @include('_partial.left_col')
             </div>
@@ -42,7 +45,8 @@
                                         </a>
                                     </li>
                                     <li><a href="javascript:;">Help</a></li>
-                                    <li><a href="{!! url('logout') !!}"><i class="fa fa-sign-out pull-right"></i> Log Out</a></li>
+                                    <li><a href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                                            <i class="fa fa-sign-out pull-right"></i> Log Out</a></li>
                                 </ul>
                             </li>
 
