@@ -47,7 +47,7 @@ trait LeftColMenu
             if (!empty($menu->get('permission')) && !(auth()->check() && auth()->user()->can($menu->get('permission')))) {
                 continue;
             }
-            $html .= '<li><a '.($menu->get('link')? ' href="'.url($menu->get('link')).'"':'').'><i class="'
+            $html .= '<li><a '.($menu->get('link')? ' href="'.url($menu->get('link')).'"':'').($menu->get('filters')?'data-filters=\''.$menu->get('filters').'\'':'').'><i class="'
                 . $menu->get('icon').'"></i> '. $menu->get('title').
                 ($menu->get('label_class')?' <span class="'.$menu->get('label_class').'">'. $menu->get('label').'</span>':
                     ($menu->get('children') && $menu->get('children')->count() ?'<span class="fa fa-chevron-down"></span>':'')).'</a>';

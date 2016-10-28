@@ -30,13 +30,14 @@ $menus = collect([
 												'label' => 'All',
 												'permission' => 'view.task'
 										]),
-									/*collect([
-											'title' =>'Tasks',
-											'link'=>action('TaskController@index').'?filters=[{"fieldname":"status","value":"Wating for Review"}]',
-											'label_class' => 'label label-success pull-right',
-											'label' => 'Pending',
-									'permission
-=> '                                        ]),*/
+										/*collect([
+												'title' =>'Tasks',
+												'link'=>action('TaskController@index'),
+												'filters'=>'[{"fieldname":"status","value":"Wating for Review"}]',
+												'label_class' => 'label label-success pull-right',
+												'label' => 'Pending',
+												'permission' => 'view.task'
+										]),*/
 										collect([
 												'title' =>'Create Task',
 												'link'=>action('TaskController@create'),
@@ -109,6 +110,14 @@ $menus = collect([
 		collect([
 				'title'=>'Setup',
 				'menu' => collect([
+						collect([
+								'title'=>'Client',
+								'link'=>action('UserController@index'),
+								'label_class' => 'label label-success pull-right',
+								'filters'=>'[{"fieldname":"type","value":"Client"}]',
+								'label' => 'Client',
+								'permission' => 'view.user'
+						]),
 						collect([
 								'title'=>'User',
 								'icon' => 'fa fa-users',

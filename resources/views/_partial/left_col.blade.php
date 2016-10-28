@@ -8,7 +8,7 @@
 ?>
 <div class="left_col scroll-view">
     <div class="navbar nav_title" style="border: 0;">
-        <a href="{!! url('/') !!}" class="site_title"><i class="fa fa-paw"></i> <span>UHSSP</span></a>
+        <a href="{!! url('/') !!}" class="site_title"><i class="fa fa-paw"></i> <span>CA</span></a>
     </div>
 
     <div class="clearfix"></div>
@@ -20,7 +20,7 @@
         </div>
         <div class="profile_info">
             <span>Welcome,</span>
-            <h2>{!! auth()->user()? auth()->user()->name : 'John Doe' !!}</h2>
+            <h2>{!! auth()->user()? auth()->user()->name : '' !!}</h2>
         </div>
     </div>
     <!-- /menu profile quick info -->
@@ -50,3 +50,16 @@
     </div>
     <!-- /menu footer buttons -->
 </div>
+@section('footer_script')
+    @parent
+    <script>
+        $('#sidebar-menu').find('[data-filters]').on('click',function () {
+            var filters = $(this).data('filters');
+            if (typeof filters == 'object') {
+                filters = JSON.stringify(filters)
+            }
+            window.location.assign($(this).attr('href')+'?filters='+filters);
+            return false
+        });
+    </script>
+@endsection
