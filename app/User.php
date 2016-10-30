@@ -39,4 +39,13 @@ class User extends Authenticatable
         return $this->roles()->pluck('role_id')->all();
     }
 
+
+    /**
+     * Get user Profile
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function profile()
+    {
+        return $this->hasOne(Profile::class);
+    }
 }

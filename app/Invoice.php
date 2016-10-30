@@ -10,7 +10,25 @@ class Invoice extends Model
 	    'currency', 'paid_amount', 'invoice_date', 'due_date', 'status', 'is_return'];
 
 
+	/**
+	 * @var array
+	 */
 	protected $dates = ['invoice_date', 'due_date'];
+
+
+	/**
+	 *
+	 */
+	protected static function boot()
+	{
+		parent::boot();
+
+		static::addGlobalScope('isClient', function (Builder $builder) {
+			if (auth()->user() && auth()->user()->type == "Client") {
+				$builder->where('client_id', auth()->user()->id);
+			}
+		});
+	}
 
 
 	/**
