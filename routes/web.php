@@ -26,6 +26,9 @@ Route::group(['prefix'=>'admin'], function () {
     Route::resource('trail', 'TrailController');
     Route::resource('comment', 'CommentController');
     Route::resource('invoice', 'InvoiceController');
+    Route::group(['prefix'=>'report'], function () {
+        Route::get('{report}', 'ReportController');
+    });
 });
 Route::group(['middleware'=>['auth','api','cors']], function () {
     Route::get('/api/getvalue/','APIController@getValue');
@@ -39,3 +42,4 @@ Route::group(['middleware'=>['auth','api','cors']], function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index');
+

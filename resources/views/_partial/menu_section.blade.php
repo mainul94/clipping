@@ -108,16 +108,20 @@ $menus = collect([
 				])
 		]),
 		collect([
-				'title'=>'Setup',
+				'title'=>'Report',
 				'menu' => collect([
 						collect([
 								'title'=>'Client',
-								'link'=>action('UserController@index'),
+								'link'=>action('ReportController', 'client'),
 								'label_class' => 'label label-success pull-right',
-								'filters'=>'[{"fieldname":"type","value":"Client"}]',
-								'label' => 'Client',
+								'label' => 'Report',
 								'permission' => 'view.user'
-						]),
+						])
+				])
+		]),
+		collect([
+				'title'=>'Setup',
+				'menu' => collect([
 						collect([
 								'title'=>'User',
 								'icon' => 'fa fa-users',
