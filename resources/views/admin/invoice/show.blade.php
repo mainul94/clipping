@@ -13,7 +13,7 @@
 	<div class="row">
 		<div class="col-md-12">
 			<div class="x_panel">
-				<div class="x_title">
+				<div class="x_title hidden-print">
 					<h2>Invoice View </h2>
 					@permission("update.invoice")
 					<a class="btn btn-primary pull-right" href="{!! action('InvoiceController@edit',$id->id) !!}">Edit</a>
@@ -136,9 +136,9 @@
 						<!-- this row will not appear when printing -->
 						<div class="row no-print">
 							<div class="col-xs-12">
-								<button class="btn btn-default" onclick="window.print();"><i class="fa fa-print"></i> Print</button>
-								<button class="btn btn-success pull-right"><i class="fa fa-credit-card"></i> Submit Payment</button>
-								<button class="btn btn-primary pull-right" style="margin-right: 5px;"><i class="fa fa-download"></i> Generate PDF</button>
+								<button class="btn btn-default hidden-print" onclick="window.print();"><i class="fa fa-print"></i> Print</button>
+								<button class="btn btn-success pull-right hidden-print"><i class="fa fa-credit-card"></i> Submit Payment</button>
+								<button class="btn btn-primary pull-right hidden-print" style="margin-right: 5px;"><i class="fa fa-download"></i> Generate PDF</button>
 							</div>
 						</div>
 					</section>

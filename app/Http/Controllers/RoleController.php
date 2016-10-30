@@ -31,6 +31,7 @@ class RoleController extends Controller
     protected function validate_rules($data = null) {
         return [
             'name' => 'Required',
+            'level' => 'Required',
             'slug' => 'Required|Unique:roles'.($data && $data->id?',slug,'.$data->id:'')
         ];
     }

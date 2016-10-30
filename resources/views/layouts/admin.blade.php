@@ -23,7 +23,7 @@
             </div>
 
             <!-- top navigation -->
-            <div class="top_nav">
+            <div class="top_nav hidden-print">
                 <div class="nav_menu">
                     <nav>
                         <div class="nav toggle">

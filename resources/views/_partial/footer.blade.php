@@ -8,7 +8,7 @@
 ?>
 <footer>
     <div class="pull-right">
-        Control Panel - Build by <a href="https://techbeeo.com">TechBeeo Software Ltd.</a>
+        Control Panel - Build by <a href="mailto:mainulkhan94@gmail.com">Mainul Islam.</a>
     </div>
     <div class="clearfix"></div>
 </footer>

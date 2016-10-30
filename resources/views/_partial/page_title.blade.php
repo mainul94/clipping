@@ -6,7 +6,7 @@
  * Time: 3:31 PM
  */
 ?>
-<div class="page-title">
+<div class="page-title hidden-print">
     <div class="title_left">
         @yield('page_title_left')
         {{--<h3>{!! $page_title or "" !!} <small>{!! $page_sub_title or "" !!}</small></h3>--}}
