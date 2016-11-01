@@ -43,3 +43,18 @@
         <div class="clearfix"></div>
     @endif
 @endforeach
+
+
+@section('head')
+    @parent
+    <link rel="stylesheet" href="{!! asset('vendors/colorbox/colorbox.css') !!}">
+@endsection
+@section('footer_script')
+    @parent
+    <script src="{{ asset('vendors/colorbox/jquery.colorbox-min.js') }}"></script>
+    <script>
+        $('a.light_box').colorbox({rel:'gal','maxWidth':'700px','title':function () {
+            return $(this).parents('.row').children('h5.image-title').html()
+        }});
+    </script>
+@endsection

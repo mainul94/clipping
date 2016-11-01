@@ -27,12 +27,17 @@ class TaskController extends Controller
 
     public function validate_rules(Task $data = null)
     {
-        return [
+        $rules =  [
             'title'=>'required',
-            'client_id'=>'required',
             'total_qty'=>'required',
             'slug' => 'Unique:tasks'.($data && $data->id?',slug,'.$data->id:'')
         ];
+
+        if (request()->user()->type != 'Client') {
+            $rules['client_id'] = 'required';
+        }
+
+        return $rules;
 
     }
 

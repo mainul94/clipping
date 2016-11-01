@@ -87,12 +87,12 @@
     <div class="col-sm-4">
         <div class="form-group">
             {!! Form::label('status','Status',['class'=>'col-sm-5 control-label']) !!}
-            @if(!empty($id) && auth()->user()->type == 'Client')
-                <label class="control-label col-sm-7">{!! Html::taskStatusLabel($id->status) !!}</label>
-            @else
+            @if(auth()->user()->type == 'Admin')
                 <div class="col-sm-7">
                     {!! Form::select('status',$setting->taskStatusList(), null,['class'=>'form-control']) !!}
                 </div>
+            @elseif(!empty($id))
+                <label class="control-label col-sm-7">{!! Html::taskStatusLabel($id->status) !!}</label>
             @endif
         </div>
     </div>
@@ -109,9 +109,11 @@
             <div class="form-group">
                 {!! Form::label('total_amount','Total Amount',['class'=>'col-sm-5 control-label']) !!}
                 <div class="col-sm-7">
-                    @if(auth()->user()->type == "Admin" || (auth()->user()->type == "Client") && !empty($id) && $id->status == "Wating for Review")
+                    @if(auth()->user()->type == "Admin")
                         {!! Form::number('total_amount',null,['class'=>'form-control'/*,'disabled'=>'disabled'*/]) !!}
-                    @elseif(auth()->user()->type == "Client" && !empty($id))
+                    @elseif((auth()->user()->type == "Client" && empty($id)) || (auth()->user()->type == "Client" && $id->status =="Wating for Review"))
+                        {!! Form::number('total_amount',null,['class'=>'form-control'/*,'disabled'=>'disabled'*/]) !!}
+                    @else
                         <strong>{!! $id->total_amount !!}</strong>
                     @endif
                 </div>
