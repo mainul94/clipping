@@ -88,7 +88,7 @@
         <div class="form-group">
             {!! Form::label('status','Status',['class'=>'col-sm-5 control-label']) !!}
             @if(!empty($id) && auth()->user()->type == 'Client')
-                <label class="control-label col-sm-7">{!! setStatusLabel($id->status) !!}</label>
+                <label class="control-label col-sm-7">{!! Html::taskStatusLabel($id->status) !!}</label>
             @else
                 <div class="col-sm-7">
                     {!! Form::select('status',$setting->taskStatusList(), null,['class'=>'form-control']) !!}
