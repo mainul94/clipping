@@ -100,4 +100,26 @@ class Task extends Model
     }
 
 
+    public static function filtersOptions()
+    {
+        return [
+            "status" => [
+                "filed_name" => "status",
+                "filed_type" => "select",
+                "field_options" => self::status(),
+                "default" => "Processing"
+            ],
+            "title" => [
+                "filed_name" => "title",
+                "filed_type" => "data",
+                "field_options" => null
+            ],
+            "delivery_date" => [
+                "filed_name" => "delivery_date",
+                "filed_type" => "date",
+                "field_options" => null
+            ]
+        ];
+    }
+
 }

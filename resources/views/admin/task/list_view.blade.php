@@ -24,6 +24,9 @@
                         <h3>All Taks {{ auth()->user()->type }}</h3>
                     </div><!-- /.box-header -->
                     <div class="x_content">
+                        {{--Filters--}}
+                        @include('_partial.filters')
+                        {{--Data--}}
                         <table id="rows" class="table table-bordered table-striped">
                             <thead>
                             <tr>
