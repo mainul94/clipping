@@ -32,10 +32,13 @@ trait CommonController
 
 	use Database;
 
-    public function permissionCheckSetup(Request $request)
+    public function permissionCheckSetup(Request $request, array $except=[])
     {
         $method = explode('@', $request->route()->getActionName());
         $method = $method[count($method)-1];
+        if (in_array($method, $except)) {
+            return $this->checkPermission = false;
+        }
         $model = snake_case(class_basename($this->model));
         $this->checkPermission = $this->permission[$method].'.'.$model;
     }

@@ -50,12 +50,14 @@ $menus = collect([
 						collect([
 								'title'=>'Quotation',
 								'icon' => 'fa fa-list-alt',
+								'permission' => 'view.quotation',
 								'children'=>collect([
 										collect([
 												'title' =>'Quotations',
 												'link'=>action('QuotationController@index'),
 												'label_class' => 'label label-success pull-right',
-												'label' => 'All'
+												'label' => 'All',
+												'permission' => 'view.quotation',
 										]),
 										collect([
 												'title' =>'Create Quotation',
@@ -68,12 +70,14 @@ $menus = collect([
 						collect([
 								'title'=>'Trail',
 								'icon' => 'fa fa-list-alt',
+								'permission' => 'view.trail',
 								'children'=>collect([
 										collect([
 												'title' =>'Trails',
 												'link'=>action('TrailController@index'),
 												'label_class' => 'label label-success pull-right',
-												'label' => 'All'
+												'label' => 'All',
+												'permission' => 'view.trail'
 										]),
 										collect([
 												'title' =>'Create Trail',

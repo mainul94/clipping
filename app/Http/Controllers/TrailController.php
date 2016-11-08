@@ -16,7 +16,7 @@ class TrailController extends Controller
 	{
 		$this->view_dir = 'admin.trail.';
 		$this->model = new Trail();
-//		$this->permissionCheckSetup($request);
+		$this->permissionCheckSetup($request, ['create','store']);
 
 	}
 

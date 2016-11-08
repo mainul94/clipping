@@ -43,10 +43,17 @@
                                 <td>{!! $row->phone !!}</td>
                                 <td>{!! $row->title !!}</td>
                                 <td>{!! $row->quantity !!}</td>
+                                <td>{!! $row->instruction !!}</td>
                                 <td class="text-center action-btn-wrapper">
+                                    @permission("view.trail")
                                     <a class="text-success" href="{!! action('TrailController@show',$row->id) !!}"><i class="fa fa-eye"></i></a>
+                                    @endpermission
+                                    @permission("update.trail")
                                     <a class="text-warning" href="{!! action('TrailController@edit',$row->id) !!}"><i class="fa fa-pencil-square-o"></i></a>
+                                    @endpermission
+                                    @permission("delete.trail")
                                     {!! Html::delete('TrailController@destroy',$row->id) !!}
+                                    @endpermission
                                 </td>
                             </tr>
                         @endforeach

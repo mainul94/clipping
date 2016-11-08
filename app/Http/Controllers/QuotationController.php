@@ -16,8 +16,7 @@ class QuotationController extends Controller
 	{
 		$this->view_dir = 'admin.quotation.';
 		$this->model = new Quotation();
-//		$this->permissionCheckSetup($request);
-		
+		$this->permissionCheckSetup($request, ['create', 'store']);
 	}
 
 
