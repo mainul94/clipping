@@ -62,6 +62,9 @@
                             </tr>
                             </tfoot>
                         </table>
+                        <div>
+                            @include('_partial.paginate_with_filters')
+                        </div>
                     </div><!-- /.box-body -->
                 </div><!-- /.box -->
             </div><!-- /.col -->

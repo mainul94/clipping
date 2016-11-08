@@ -222,8 +222,11 @@
 			if ($formFiltersWrapper.is(":visible")) {
 				$formFiltersWrapper.hide()
 			}
-
-			window.location.assign($filtesWrapper.data('url')+'/?filters='+rearrangeFilters());
+			if ($setFiltersWrapper.find('li.btn-group').length) {
+				window.location.assign($filtesWrapper.data('url')+'/?filters='+rearrangeFilters());
+			}else {
+				window.location.assign($filtesWrapper.data('url'))
+			}
 		}
 
 		function rearrangeFilters() {
