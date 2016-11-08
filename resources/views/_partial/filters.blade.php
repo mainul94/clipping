@@ -5,17 +5,31 @@
  * Date: 11/5/16
  * Time: 5:49 PM
  */?>
-<div class="filters" data-options="">
+<div class="filters" data-url="{!! $filter_url or '' !!}">
 	{{--Filters View--}}
 	<ul class="set_filters list-inline">
 		<li>
 			<button class="btn btn-info btn-xs new-filter text-muted">Add Filter</button>
 		</li>
+		@if(request('filters'))
+			@php $filters = json_decode(request('filters')) @endphp
+			@foreach($filters as $filter)
+				<li class="btn-group" data-field-name="{{ $filter->fieldname }}" data-field-condition="{{ $filter->oparetion or '=' }}"
+				data-field-value="{{$filter->value}}">
+					@php $showValue = $filter->fieldname;
+						$showValue .= empty($filter->oparetion)?'=':$filter->oparetion;
+						$showValue .= "''".$filter->value."''"
+					@endphp
+					<button class="btn btn-default btn-xs edit-filter" onclick="filterForm('Edit',$(this).closest('li').index())">{!! $showValue !!}</button>
+					<button class="btn btn-default btn-xs" onclick="$(this).closest('li').remove(); runFilterRequest();"><i class="fa fa-close"></i></button>
+				</li>
+			@endforeach
+		@endif
 	</ul>
 	{{--Filters Form--}}
 	<div class="form_filters">
 		<div class="fieldname_select_area col-sm-4 form-group ui-front">
-			<input class="form-control filter_field">
+			<select class="form-control filter_field"></select>
 		</div>
 		<div class="col-sm-2 form-group">
 			<select class="condition form-control">
@@ -58,35 +72,6 @@
 @section('script_call')
 	@prent
 	<script>
-		filedsOptions = {
-			"status": {
-				"label": "Status",
-				"filed_name": "status",
-				"filed_type": "Select",
-				"field_options": [
-					{'id': 'Wating for Review','text': 'Wating for Review'},
-					{'id': 'Accepted','text': 'Accepted'},
-					{'id': 'Processing', 'text': 'Processing'},
-					{'id': 'Rejected', 'text': 'Rejected'},
-					{'id': 'Completed', 'text': 'Completed'},
-					{'id':'Finished', 'text': 'Finished'},
-					{'id': 'Hold', 'text': 'Hold'}
-				],
-				"default": "Processing"
-			},
-			"title": {
-				"label": "Title",
-				"filed_name": "title",
-				"filed_type": "Data",
-				"field_options": null
-			},
-			"delivery_date": {
-				"label": "Delivery Date",
-				"filed_name": "delivery_date",
-				"filed_type": "Date",
-				"field_options": null
-			}
-		};
 		$filtesWrapper = $('.filters');
 		$setFiltersWrapper = $filtesWrapper.children('.set_filters');
 		$formFiltersWrapper = $filtesWrapper.children('.form_filters');
@@ -101,16 +86,22 @@
 			$formFiltersWrapper.show();
 			if (list_index) {
 				$formFiltersWrapper.attr('data-list-index', list_index);
+				if (type == "Edit") {
+					var $setfilterItem = $setFiltersWrapper.find('li').eq(list_index);
+					$formFiltersWrapper.find('select.filter_field').val($setfilterItem.attr('data-field-name')).trigger('change');// ToDo Thats doesn't Work Perfectly
+					$formFiltersWrapper.find('select.condition').val($setfilterItem.attr('data-field-condition')).trigger("change");
+					$formFiltersWrapper.find('.filter_value input').val($setfilterItem.attr('data-field-value')).trigger("change");
+				}
 			}else  {
 				$formFiltersWrapper.removeAttr('data-list-index')
 			}
 			///////////
-			if (!$formFiltersWrapper.find('input.filter_field').data('select2')) {
+			if (!$formFiltersWrapper.find('select.filter_field').data('select2')) {
 				var field_names = [];
 				$.each(filedsOptions, function (key,val) {
 					field_names.push({'id':key, 'text': val['label']})
 				});
-				$formFiltersWrapper.find('input.filter_field').select2({
+				$formFiltersWrapper.find('select.filter_field').select2({
 					data:field_names
 				}).on('change', function () {
 					setUpFilterValueField($(this).val())
@@ -118,7 +109,7 @@
 			}
 			/////////////
 			$formFiltersWrapper.find('select.condition').select2().on('change', function () {
-				setUpFilterValueField($formFiltersWrapper.find('input.filter_field').val())
+				setUpFilterValueField($formFiltersWrapper.find('select.filter_field').val())
 			});
 		}
 		/////////////Set Filter and Run
@@ -128,14 +119,26 @@
 		});
 		/////////////Remove Filter
 		$formFiltersWrapper.find('.remove-filter').on('click', function () {
+			var attr = $formFiltersWrapper.attr('data-list-index');
+			if (typeof attr !== typeof undefined && attr !== false) {
+				$setFiltersWrapper.find('li').eq(attr).remove();
+			}
 			$formFiltersWrapper.hide();
 		});
 		
 		/////////////////
 		function setUpFilterValueField(value) {
+			if (!(value in filedsOptions)) {
+				return
+			}
 			var field = filedsOptions[value];
-			var $field = $formFiltersWrapper.find('.filter_value input');
-			$field.val(null);
+			var $field = $formFiltersWrapper.find('.filter_value input'); //Todo Need to add select field for fieldtype Select
+
+			if ('default' in field) {
+				$field.val(field.default)
+			}else {
+//				$field.val(null);
+			}
 			if (field.filed_type == "Date") {
 				if ($field.data('select2')) {
 					$field.select2('destroy');
@@ -180,9 +183,9 @@
 			$setfilterItem.addClass('btn-group');
 			if (typeof values === "undefined") {
 				$setfilterItem.attr({
-					"data-field-name": $formFiltersWrapper.find('input.filter_field').val(),
+					"data-field-name": $formFiltersWrapper.find('select.filter_field').val(),
 					"data-field-condition": $formFiltersWrapper.find('select.condition').val(),
-					"data-field-value": "'"+$formFiltersWrapper.find('.filter_value input').val()+"'"
+					"data-field-value": $formFiltersWrapper.find('.filter_value input').val()
 				});
 			}else {
 				$setfilterItem.attr({
@@ -193,7 +196,7 @@
 			}
 
 			var showValue = filedsOptions[$setfilterItem.attr('data-field-name')].label + $setfilterItem.attr('data-field-condition')+
-					$setfilterItem.attr('data-field-value');
+					"'"+$setfilterItem.attr('data-field-value')+"'";
 			if (attr) {
 				$setfilterItem.find('.edit-filter').html(showValue)
 			}else {
@@ -219,6 +222,20 @@
 			if ($formFiltersWrapper.is(":visible")) {
 				$formFiltersWrapper.hide()
 			}
+
+			window.location.assign($filtesWrapper.data('url')+'/?filters='+rearrangeFilters());
+		}
+
+		function rearrangeFilters() {
+			var filters = [];
+			$setFiltersWrapper.find('li.btn-group').each(function () {
+				filters.push({
+					"fieldname": $(this).data('field-name'),
+					"oparetion": $(this).data('field-condition'),
+					"value": $(this).data('field-value')
+				});
+			});
+			return encodeURI(JSON.stringify(filters))
 		}
 	</script>
 @endsection

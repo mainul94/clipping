@@ -25,7 +25,7 @@
                     </div><!-- /.box-header -->
                     <div class="x_content">
                         {{--Filters--}}
-                        @include('_partial.filters')
+                        @include('_partial.filters',['filter_url'=>action('TaskController@index')])
                         {{--Data--}}
                         <table id="rows" class="table table-bordered table-striped">
                             <thead>
@@ -67,4 +67,39 @@
             </div><!-- /.col -->
         </div><!-- /.row -->
     </section>
+@endsection
+@section('footer_script')
+    @parent
+    <script>
+
+        filedsOptions = {
+            "title": {
+                "label": "Title",
+                "filed_name": "title",
+                "filed_type": "Data",
+                "field_options": null
+            },
+            "delivery": {
+                "label": "Delivery Date",
+                "filed_name": "delivery_date",
+                "filed_type": "Date",
+                "field_options": null
+            },
+            "status": {
+                "label": "Status",
+                "filed_name": "status",
+                "filed_type": "Select",
+                "field_options": [
+                    {'id': 'Wating for Review','text': 'Wating for Review'},
+                    {'id': 'Accepted','text': 'Accepted'},
+                    {'id': 'Processing', 'text': 'Processing'},
+                    {'id': 'Rejected', 'text': 'Rejected'},
+                    {'id': 'Completed', 'text': 'Completed'},
+                    {'id':'Finished', 'text': 'Finished'},
+                    {'id': 'Hold', 'text': 'Hold'}
+                ],
+                "default": "Processing"
+            }
+        };
+    </script>
 @endsection
