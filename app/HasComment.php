@@ -21,7 +21,7 @@ trait HasComment
 
 	public function comments()
 	{
-		return $this->hasMany(Comment::class,'parent')->where('parent_type', $this->parent_type);
+		return $this->hasMany(Comment::class,'parent')->where('parent_type', $this->parent_type)->whereNull('comment_id');
 	}
 
 	/**

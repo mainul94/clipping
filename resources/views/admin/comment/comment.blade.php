@@ -17,68 +17,53 @@
 		@foreach($row->comments as $comment)
 			@include('admin.comment._row')
 		@endforeach
-		{{--<div class="comment-item">
-			<div class="col-sm-1">
-				<div class="thumbnail">
-					<img class="img-responsive user-photo" src="https://ssl.gstatic.com/accounts/ui/avatar_2x.png">
-				</div><!-- /thumbnail -->
-			</div><!-- /col-sm-1 -->
-
-			<div class="col-sm-11">
-				<div class="panel panel-default">
-					<div class="panel-heading">
-						<strong>myusername</strong> <span class="text-muted">commented 5 days ago</span>
-					</div>
-					<div class="panel-body">
-						Panel content
-					</div><!-- /panel-body -->
-				</div><!-- /panel panel-default -->
-			</div><!-- /col-sm-11 -->
-			<div class="comment-item">
-				<div class="col-sm-1">
-					<div class="thumbnail">
-						<img class="img-responsive user-photo" src="https://ssl.gstatic.com/accounts/ui/avatar_2x.png">
-					</div><!-- /thumbnail -->
-				</div><!-- /col-sm-1 -->
-
-				<div class="col-sm-11">
-					<div class="panel panel-default">
-						<div class="panel-heading">
-							<strong>myusername</strong> <span class="text-muted">commented 5 days ago</span>
-						</div>
-						<div class="panel-body">
-							Panel content
-						</div><!-- /panel-body -->
-					</div><!-- /panel panel-default -->
-				</div><!-- /col-sm-11 -->
-			</div>
-			<div class="comment-item">
-				<div class="col-sm-1">
-					<div class="thumbnail">
-						<img class="img-responsive user-photo" src="https://ssl.gstatic.com/accounts/ui/avatar_2x.png">
-					</div><!-- /thumbnail -->
-				</div><!-- /col-sm-1 -->
-
-				<div class="col-sm-11">
-					<div class="panel panel-default">
-						<div class="panel-heading">
-							<strong>myusername</strong> <span class="text-muted">commented 5 days ago</span>
-						</div>
-						<div class="panel-body">
-							Panel content
-						</div><!-- /panel-body -->
-					</div><!-- /panel panel-default -->
-				</div><!-- /col-sm-11 -->
-			</div>
-		</div>--}}
 	</div><!-- /row -->
 	<hr>
-	<div class="row comment-form">
-		{!! Form::open(['action'=>'CommentController@store']) !!}
-			<div class="col-xs-12">
-				<h2>Leave a comment</h2>
-			</div>
-			@include('admin.comment._form',['row'=>collect(['parent_type'=>'Task', 'parent'=>$row->id])])
-		{!! Form::close() !!}
-	</div>
 </div><!-- /container -->
+@section('footer_script')
+	@parent
+	<!-- include summernote css/js-->
+	<link href="{!! asset('vendors/summernote/css/summernote.css') !!}" rel="stylesheet">
+	<script src="{!! asset('vendors/summernote/js/summernote.js') !!}"></script>
+	<script>
+		function comment_form(e,options) {
+			if (typeof options === "undefined") {
+				options = {}
+			}
+			if (typeof e !== "undefined" && e) {
+				options.title = $(e).data('title');
+				options.parent_type = $(e).data('parent-type');
+				options.parent = $(e).data('parent');
+				options.comment_id = $(e).data('comment-id');
+				var $comment_wrapper = $($(e).closest('.panel')).find('.panel-body:last');
+			}else
+			{
+				var $comment_wrapper = $('.container.comment');
+			}
+			var $comment = $('<div class="row comment-form">').appendTo($comment_wrapper);
+			var $comment_title = $('<h2>');
+			$comment_title.html(options.title || 'Leave a comment').appendTo($comment);
+			var $comment_form = $('<form>').appendTo($comment);
+			$comment_form.append('<input name="_token" type="hidden" value="{{ csrf_token() }}">');
+			$comment_form.append('<input name="parent_type" type="hidden" value="'+(options.parent_type || 'Task')+'">');
+			$comment_form.append('<input name="parent" type="hidden" value="'+(options.parent || '{{ $row->id or null }}')+'">');
+			if (typeof options.comment_id !== "undefined") {
+				$comment_form.append('<input name="comment_id" type="hidden" value="'+options.comment_id+'">');
+			}
+			var $comment_field = $('<textarea>').appendTo($comment_form);
+			$comment_field.attr('name','comment').summernote({
+				height:100
+			});
+
+			$comment_form.attr({
+				'action':'{{ action("CommentController@store") }}',
+				'method': 'POST'
+			});
+			// add submit button
+			var $comment_form_submit_btn = $('<input type="submit">').appendTo($comment_form);
+			$comment_form_submit_btn.addClass('btn btn-info')
+		}
+
+		comment_form()
+	</script>
+@endsection

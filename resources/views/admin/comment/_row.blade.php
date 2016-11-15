@@ -16,6 +16,9 @@
 		<div class="panel panel-default">
 			<div class="panel-heading">
 				<strong>{!! $comment->createdBy->name !!}</strong> <span class="text-muted">{!! $comment->created_at->diffForHumans() !!}</span>
+				<span class="text-muted pull-right"><a onclick="comment_form(this)" href="javascript:void(0)"
+					data-parent-type="{!! $comment->parent_type !!}" data-parent="{!! $comment->parent !!}"
+                    data-comment-id="{!! $comment->id !!}" data-title="Leave a  Reply">Reply</a></span>
 			</div>
 			<div class="panel-body">
 				{!! $comment->comment !!}
