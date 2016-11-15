@@ -122,4 +122,12 @@ class Task extends Model
         ];
     }
 
+
+    public function setTotalAmountAttribute($data)
+    {
+        if (empty($data)) {
+            $this->attributes['total_amount'] = 0;
+        }
+    }
+
 }
