@@ -66,7 +66,7 @@
 						<!-- Table row -->
 						<div class="row">
 							<div class="col-xs-12 table">
-								<table class="table table-striped">
+								<table class="table table-striped table-bordered">
 									<thead>
 									<tr>
 										<th>SL</th>
