@@ -12,10 +12,13 @@
 */
 
 Route::get('/', function () {
-    return redirect('login');
+//    return redirect('login');
+    $user = \App\User::first();
+    $task = \App\Task::first();
+    $user->notify(new \App\Notifications\TaskUpdate($task));
 });
 
-Route::group(['prefix'=>'admin'], function () {
+Route::group(['middleware'=>['auth'],'prefix'=>'admin'], function ($admin ='admin') {
     Route::resource('user','UserController');
     Route::resource('role','RoleController');
     Route::resource('permission','PermissionController');
@@ -29,6 +32,7 @@ Route::group(['prefix'=>'admin'], function () {
     Route::group(['prefix'=>'report'], function () {
         Route::get('{report}', 'ReportController');
     });
+    Route::resource('profile','ProfileController');
 });
 Route::group(['middleware'=>['auth','api','cors']], function () {
     Route::get('/api/getvalue/','APIController@getValue');

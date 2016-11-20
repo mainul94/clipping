@@ -1,10 +1,5 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: mainul
- * Date: 8/23/16
- * Time: 3:35 PM
- */
+/**quantity*/
 ?>
 
 @extends('layouts.base')
@@ -53,65 +48,24 @@
                             <li role="presentation" class="dropdown">
                                 <a href="javascript:;" class="dropdown-toggle info-number" data-toggle="dropdown" aria-expanded="false">
                                     <i class="fa fa-envelope-o"></i>
-                                    <span class="badge bg-green">6</span>
+                                    <span class="badge bg-green">{!! count(auth()->user()->notifications) !!}</span>
                                 </a>
                                 <ul id="menu1" class="dropdown-menu list-unstyled msg_list" role="menu">
+                                    @foreach(auth()->user()->notifications as $notification)
+
                                     <li>
                                         <a>
                                             <span class="image"><img src="{!! url('images/img.jpg') !!}" alt="Profile Image" /></span>
-                        <span>
-                          <span>John Smith</span>
-                          <span class="time">3 mins ago</span>
-                        </span>
-                        <span class="message">
-                          Film festivals used to be do-or-die moments for movie makers. They were where...
-                        </span>
+                                            <span>
+                                              <span>{!! $notification->data['title'] or "" !!}</span>
+                                              <span class="time">{!! $notification->created_at->diffForHumans() !!}</span>
+                                            </span>
+                                            <span class="message">
+                                              Qty:{!! $notification->data['total_qty'] or "" !!}
+                                            </span>
                                         </a>
                                     </li>
-                                    <li>
-                                        <a>
-                                            <span class="image"><img src="{!! url('images/img.jpg') !!}" alt="Profile Image" /></span>
-                        <span>
-                          <span>John Smith</span>
-                          <span class="time">3 mins ago</span>
-                        </span>
-                        <span class="message">
-                          Film festivals used to be do-or-die moments for movie makers. They were where...
-                        </span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a>
-                                            <span class="image"><img src="{!! url('images/img.jpg') !!}" alt="Profile Image" /></span>
-                        <span>
-                          <span>John Smith</span>
-                          <span class="time">3 mins ago</span>
-                        </span>
-                        <span class="message">
-                          Film festivals used to be do-or-die moments for movie makers. They were where...
-                        </span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a>
-                                            <span class="image"><img src="{!! url('images/img.jpg') !!}" alt="Profile Image" /></span>
-                        <span>
-                          <span>John Smith</span>
-                          <span class="time">3 mins ago</span>
-                        </span>
-                        <span class="message">
-                          Film festivals used to be do-or-die moments for movie makers. They were where...
-                        </span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <div class="text-center">
-                                            <a>
-                                                <strong>See All Alerts</strong>
-                                                <i class="fa fa-angle-right"></i>
-                                            </a>
-                                        </div>
-                                    </li>
+                                    @endforeach
                                 </ul>
                             </li>
                         </ul>

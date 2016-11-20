@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Notifications\Notifiable;
 
 class Task extends Model
 {
@@ -11,7 +12,7 @@ class Task extends Model
     protected $fillable = ['title','slug','referance','rejected_task_id','client_id','type','instruction','comend',
         'total_qty','total_amount','task_type','status', 'delivery'];
 
-    use CreateUpdateByRecord, HasComment;
+    use CreateUpdateByRecord, HasComment, Notifiable;
 
     protected $dates = ['delivery'];
 

@@ -6,11 +6,12 @@ use Illuminate\Auth\Passwords\CanResetPassword;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Bican\Roles\Traits\HasRoleAndPermission;
 use Bican\Roles\Contracts\HasRoleAndPermission as HasRoleAndPermissionContract;
+use Illuminate\Notifications\Notifiable;
 
 class User extends Authenticatable
 {
 
-    use CanResetPassword, HasRoleAndPermission;
+    use CanResetPassword, HasRoleAndPermission, Notifiable;
 
     /**
      * The attributes that are mass assignable.
