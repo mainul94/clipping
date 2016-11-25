@@ -13,8 +13,10 @@
 
 Route::get('/', function () {
 //    return redirect('login');
-    $user = \App\User::first();
+    $user = auth()->user();
     $task = \App\Task::first();
+    $input = \Illuminate\Support\Facades\Input::get('name');
+//    event(new \App\Events\SomeEvent($input));
     $user->notify(new \App\Notifications\TaskUpdate($task));
 });
 

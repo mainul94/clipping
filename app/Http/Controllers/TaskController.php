@@ -2,10 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Notifications\CreatedTask;
+use App\Notifications\TaskUpdate;
 use App\Task;
+use App\User;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
+use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\Storage;
 use Intervention\Image\Facades\Image;
 
@@ -54,6 +58,10 @@ class TaskController extends Controller
         Storage::disk($task->storage)->makeDirectory($base_directory.'/Original/preview');
         Storage::disk($task->storage)->makeDirectory($base_directory.'/Done/thumbnail');
         Storage::disk($task->storage)->makeDirectory($base_directory.'/Done/preview');
+        $users = User::where('status', 1)->whereIn('type',['Admin', 'Support'])->WhereOr('id',$request->user()->id)->get();
+        Notification::send($users, new CreatedTask($task));
+
+
     }
 
     public function showWith(Task $task)
@@ -96,12 +104,11 @@ class TaskController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    /*public function update(Request $request, Task $id)
+    public function afterUpdate(Task $id, Request $request)
     {
-        $this->validateRule($request);
-        $id->fill($request->all())->save();
-        return redirect()->back()->with('message', ['type'=>'success', 'msg'=>'successfully Updated']);
-    }*/
+        $users = User::where('status', 1)->whereIn('type',['Admin', 'Support'])->WhereOr('id',$request->user()->id)->get();
+        Notification::send($users, new TaskUpdate($id));
+    }
 
     /**
      * Remove the specified resource from storage.

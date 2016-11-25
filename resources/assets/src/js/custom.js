@@ -80,9 +80,9 @@ $(document).ready(function() {
     }).parent().addClass('active');
 
     // recompute content when resizing
-    $(window).smartresize(function(){  
+    /*$(window).smartresize(function(){
         setContentHeight();
-    });
+    });*/
 
     setContentHeight();
 
@@ -127,9 +127,9 @@ $(document).ready(function() {
 
 // Tooltip
 $(document).ready(function() {
-    $('[data-toggle="tooltip"]').tooltip({
+    /*$('[data-toggle="tooltip"]').tooltip({
         container: 'body'
-    });
+    });*/
 });
 // /Tooltip
 

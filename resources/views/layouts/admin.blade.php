@@ -3,9 +3,9 @@
 ?>
 
 @extends('layouts.base')
-@push('head')
+{{--@push('head')
 <meta name="csrf-token" content="{{ csrf_token() }}">
-@endpush
+@endpush--}}
 @section('body_class') nav-md @endsection
 @section('body')
     <div class="container body">
@@ -111,6 +111,8 @@
     <script src="{!! asset('vendors/sweetalert2/dist/sweetalert2.min.js') !!}"></script>
     <script src="{!! asset('vendors/select2/dist/js/select2.full.min.js') !!}"></script>
     <script src="{!! asset('js/panel.js') !!}"></script>
+    <script src="{!! asset('js/app.js') !!}"></script>
+
 
 @endsection
 @section('script_call')

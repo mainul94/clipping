@@ -18,3 +18,8 @@ Vue.component('example', require('./components/Example.vue'));
 const app = new Vue({
     el: 'body'
 });
+
+Echo.private('App.User.1')
+    .notification((notification) => {
+    console.log(notification.type);
+});
