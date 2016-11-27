@@ -75,4 +75,21 @@
 .filters .set_filters {
   padding-left: 0; }
 
+#notification .unread {
+  background-color: #ededed; }
+
+#notification .item {
+  float: left; }
+
+#notification .mark-as-read {
+  width: 7%;
+  position: absolute;
+  top: 0;
+  right: 5px; }
+  #notification .mark-as-read i.fa {
+    font-size: .8em; }
+
+#notification .mark-as-read:hover {
+  background-color: transparent; }
+
 /*# sourceMappingURL=admin_customize.css.map */

@@ -1,0 +1,21 @@
+#notification {
+  .unread {
+    background-color: #ededed;
+  }
+  .item {
+    //width: 90%;
+    float: left;
+  }
+  .mark-as-read {
+    width: 7%;
+    position: absolute;
+    top: 0;
+    right: 5px;
+    i.fa {
+      font-size: .8em;
+    }
+  }
+  .mark-as-read:hover {
+    background-color: transparent;
+  }
+}

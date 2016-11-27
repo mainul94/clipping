@@ -44,6 +44,34 @@ Route::group(['middleware'=>['auth','api','cors']], function () {
     Route::delete('/api/child-menu/','APIController@deleteChildMenu');
     Route::patch('/api/child-menu/','APIController@updateChildMenu');
     Route::post('/api/child-menu/','APIController@storeChildMenu');
+
+    Route::get('notification', function () {
+        return response()->json(
+            auth()->user()->notifications
+        );
+    });
+
+    Route::post('notification', function () {
+        if (request('all')) {
+            auth()->user()->unreadNotifications->markAsRead();
+            $type = 'success';
+            $msg = 'Marked All Notification as Read';
+        } elseif (request('id')) {
+            $notification = auth()->user()->notifications()->where('id',request('id'));
+            if (request('mark_as', 'Read') == 'Read') {
+                $read_at = \Carbon\Carbon::now();
+            } elseif (request('mark_as') == 'Unread') {
+                $read_at = null;
+            }
+            $notification->update(['read_at' => $read_at]);
+            $type = 'success';
+            $msg = 'Marked All Notification as '.request('mark_as');
+        }
+        return response()->json([
+            'type' => $type,
+            'msg' => $msg
+        ]);
+    });
 });
 Auth::routes();
 

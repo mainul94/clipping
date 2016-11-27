@@ -45,29 +45,7 @@
                                 </ul>
                             </li>
 
-                            <li role="presentation" class="dropdown">
-                                <a href="javascript:;" class="dropdown-toggle info-number" data-toggle="dropdown" aria-expanded="false">
-                                    <i class="fa fa-envelope-o"></i>
-                                    <span class="badge bg-green">{!! count(auth()->user()->notifications) !!}</span>
-                                </a>
-                                <ul id="menu1" class="dropdown-menu list-unstyled msg_list" role="menu">
-                                    @foreach(auth()->user()->notifications as $notification)
-
-                                    <li>
-                                        <a>
-                                            <span class="image"><img src="{!! url('images/img.jpg') !!}" alt="Profile Image" /></span>
-                                            <span>
-                                              <span>{!! $notification->data['title'] or "" !!}</span>
-                                              <span class="time">{!! $notification->created_at->diffForHumans() !!}</span>
-                                            </span>
-                                            <span class="message">
-                                              Qty:{!! $notification->data['total_qty'] or "" !!}
-                                            </span>
-                                        </a>
-                                    </li>
-                                    @endforeach
-                                </ul>
-                            </li>
+                            <li role="presentation" class="dropdown" id="notification"></li>
                         </ul>
                     </nav>
                 </div>
@@ -108,9 +86,17 @@
     <link rel="stylesheet" href="{!! asset('css/admin_customize.css') !!}">
 @endsection
 @section('footer_script')
+    @parent
+    <script>
+        $.ajaxSetup({
+            headers:{'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')}
+        });
+    </script>
     <script src="{!! asset('vendors/sweetalert2/dist/sweetalert2.min.js') !!}"></script>
     <script src="{!! asset('vendors/select2/dist/js/select2.full.min.js') !!}"></script>
     <script src="{!! asset('js/panel.js') !!}"></script>
+    <script src="{!! asset('vendors/pnotify/dist/pnotify.js') !!}"></script>
+    <script src="{!! asset('js/notification.js') !!}"></script>
     <script src="{!! asset('js/app.js') !!}"></script>
 
 

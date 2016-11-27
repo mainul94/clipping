@@ -21,5 +21,11 @@ const app = new Vue({
 
 Echo.private('App.User.1')
     .notification((notification) => {
-    console.log(notification.type);
+        Window.Notify.add_notification(notification);
+        console.log(notification)
+        new PNotify({
+            title: notification.title,
+            text: '<span class="user-profile"><img src="'+ notification.avatar+'"></span> <p>'+notification.message+'</p>',
+            type: notification.data_type.toLowerCase()
+        });
 });

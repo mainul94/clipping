@@ -8,7 +8,7 @@ use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 
-class TaskUpdate extends Notification
+class TaskUpdate extends Notification implements ShouldQueue
 {
     use Queueable;
 
@@ -56,14 +56,26 @@ class TaskUpdate extends Notification
      * @param  mixed  $notifiable
      * @return array
      */
+
     public function toArray($notifiable)
     {
-        return $this->task->toArray();
-    }
-
-
-    public function toBroadcast($notifiable)
-    {
-        return $this->task->toArray();
+        $avatar = auth()->user()->profile?auth()->user()->profile->avatar:null;
+        if (in_array($this->task->status, ['Wating for Review','Processing','Hold'])) {
+            $type = 'Warning';
+        }elseif ($this->task->status == 'Finished') {
+            $type = "Success";
+        } elseif ($this->task->status == 'Rejected') {
+            $type = "Danger";
+        } else {
+            $type = "Info";
+        }
+        return [
+            "action" => action('TaskController@show', $this->task->id),
+            "title"=> "<strong>".auth()->user()->name."</strong> Update the Task <strong>".$this->task->id."</strong>",
+            "message" => null,
+            "image" => null,
+            "avatar" => $avatar,
+            "data_type" => $type
+        ];
     }
 }
