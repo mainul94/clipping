@@ -13,6 +13,7 @@ class TaskUpdate extends Notification implements ShouldQueue
     use Queueable;
 
     protected $task;
+    protected $purpose;
 
     /**
      * Create a new notification instance.
@@ -22,6 +23,7 @@ class TaskUpdate extends Notification implements ShouldQueue
     public function __construct(Task $task)
     {
         $this->task = $task;
+        $this->purpose = is_null($task->updatedBy)? 'Created New': 'Updated the';
     }
 
     /**
@@ -44,7 +46,7 @@ class TaskUpdate extends Notification implements ShouldQueue
     public function toMail($notifiable)
     {
         return (new MailMessage)
-	                ->subject('Update Task '. $this->task->title)
+	                ->subject($this->purpose.'Task '. $this->task->title)
                     ->line('The introduction to the notification.')
                     ->action('Notification Action', 'https://laravel.com')
                     ->line('Thank you for using our application!');
@@ -71,7 +73,7 @@ class TaskUpdate extends Notification implements ShouldQueue
         }
         return [
             "action" => action('TaskController@show', $this->task->id),
-            "title"=> "<strong>".auth()->user()->name."</strong> Update the Task <strong>".$this->task->id."</strong>",
+            "title"=> "<strong>".auth()->user()->name."</strong>'.$this->purpose.'<strong>".$this->task->id."</strong>",
             "message" => null,
             "image" => null,
             "avatar" => $avatar,

@@ -12,12 +12,7 @@
 */
 
 Route::get('/', function () {
-//    return redirect('login');
-    $user = auth()->user();
-    $task = \App\Task::first();
-    $input = \Illuminate\Support\Facades\Input::get('name');
-//    event(new \App\Events\SomeEvent($input));
-    $user->notify(new \App\Notifications\TaskUpdate($task));
+    return redirect('login');
 });
 
 Route::group(['middleware'=>['auth'],'prefix'=>'admin'], function ($admin ='admin') {
@@ -34,7 +29,9 @@ Route::group(['middleware'=>['auth'],'prefix'=>'admin'], function ($admin ='admi
     Route::group(['prefix'=>'report'], function () {
         Route::get('{report}', 'ReportController');
     });
-    Route::resource('profile','ProfileController');
+    Route::get('profile','ProfileController@show');
+    Route::get('profile/edit','ProfileController@edit');
+    Route::patch('profile/{profile}','ProfileController@update');
 });
 Route::group(['middleware'=>['auth','api','cors']], function () {
     Route::get('/api/getvalue/','APIController@getValue');

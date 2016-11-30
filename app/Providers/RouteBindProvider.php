@@ -10,6 +10,7 @@ use App\Division;
 use App\Invoice;
 use App\Media;
 use App\Page;
+use App\Profile;
 use App\Quotation;
 use App\Region;
 use App\Setting;
@@ -40,6 +41,7 @@ class RouteBindProvider extends ServiceProvider
         $router->model('trail', Trail::class);
         $router->model('comment', Comment::class);
         $router->model('invoice', Invoice::class);
+        $router->model('profile', Profile::class);
     }
 
     /**

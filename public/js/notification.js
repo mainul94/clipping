@@ -39,7 +39,7 @@ class Notification {
 			}
 		});
 	}
-	add_notification(data){
+	add_notification(data, sound){
 		var me = this;
 		// Add Item
 		this.$itemWrapper = $('<li>').prependTo(this.$listWrapper).attr('data-id',data.id);
@@ -73,6 +73,18 @@ class Notification {
 			me.set_as_mark(this);
 			return false
 		});
+		// Sound Setup
+		if (sound) {
+			this.play_sound()
+		}
+	}
+	play_sound(){
+		var $audio = $('#sound-email')[0];
+		if ($audio.paused) {
+			$audio.play();
+		}else{
+			$audio.currentTime = 0
+		}
 	}
 	update_count(plus){
 		var value = parseInt(this.$count_html.html()) || 0;

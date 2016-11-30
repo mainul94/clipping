@@ -21,8 +21,7 @@ const app = new Vue({
 
 Echo.private('App.User.1')
     .notification((notification) => {
-        Window.Notify.add_notification(notification);
-        console.log(notification)
+        Window.Notify.add_notification(notification,true);
         new PNotify({
             title: notification.title,
             text: '<span class="user-profile"><img src="'+ notification.avatar+'"></span> <p>'+notification.message+'</p>',

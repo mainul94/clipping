@@ -9,6 +9,7 @@ use App\User;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\Storage;
 use Intervention\Image\Facades\Image;
@@ -49,7 +50,7 @@ class TaskController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function afterSave(Task $task, Request $request)
     {
@@ -58,10 +59,7 @@ class TaskController extends Controller
         Storage::disk($task->storage)->makeDirectory($base_directory.'/Original/preview');
         Storage::disk($task->storage)->makeDirectory($base_directory.'/Done/thumbnail');
         Storage::disk($task->storage)->makeDirectory($base_directory.'/Done/preview');
-        $users = User::where('status', 1)->whereIn('type',['Admin', 'Support'])->WhereOr('id',$request->user()->id)->get();
-        Notification::send($users, new CreatedTask($task));
-
-
+        $this->sendTheNotificaion($request, $task);
     }
 
     public function showWith(Task $task)
@@ -73,7 +71,7 @@ class TaskController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function editWith(Task $id)
     {
@@ -100,25 +98,36 @@ class TaskController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param Task $task
+     * @param  \Illuminate\Http\Request $request
+     * @return Response
      */
-    public function afterUpdate(Task $id, Request $request)
+    public function afterUpdate(Task $task, Request $request)
     {
-        $users = User::where('status', 1)->whereIn('type',['Admin', 'Support'])->WhereOr('id',$request->user()->id)->get();
-        Notification::send($users, new TaskUpdate($id));
+        $this->sendTheNotificaion($request, $task);
     }
 
     /**
      * Remove the specified resource from storage.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     /*public function destroy(Task $id)
     {
         $id->delete();
         return redirect()->back()->with('message', ['type' => 'successfully Deleted']);
     }*/
+
+
+    /**
+     * @param Request $request
+     * @param Task $task
+     */
+    public function sendTheNotificaion(Request $request, Task $task)
+    {
+        $users = User::where('status', '1')->whereIn('type',['Admin', 'Support'])
+            ->orWhere('id',$request->get('client_id'))->get();
+        Notification::send($users, new TaskUpdate($task));
+    }
 }

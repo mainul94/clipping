@@ -28,11 +28,13 @@
                         <ul class="nav navbar-nav navbar-right">
                             <li class="">
                                 <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                                    <img src="{!! asset('images/img.jpg') !!}" alt="">{!! auth()->user()? auth()->user()->name : 'John Doe' !!}
+                                    <img src="{!! asset((empty(auth()->user()->profile->avatar)?'images/img.jpg':
+                                    auth()->user()->profile->avatar)) !!}" alt="">
+                                    {!! auth()->user()? auth()->user()->name : 'John Doe' !!}
                                     <span class=" fa fa-angle-down"></span>
                                 </a>
                                 <ul class="dropdown-menu dropdown-usermenu pull-right">
-                                    <li><a href="javascript:;"> Profile</a></li>
+                                    <li><a href="{!! action('ProfileController@edit') !!}"> Profile</a></li>
                                     <li>
                                         <a href="javascript:;">
                                             <span class="badge bg-red pull-right">50%</span>
@@ -78,7 +80,9 @@
         <!-- /footer content -->
 
         </div>
+        @include('_partial._sound')
     </div>
+
 @endsection
 @section('head')
     <link rel="stylesheet" href="{!! asset('vendors/sweetalert2/dist/sweetalert2.min.css') !!}">
@@ -97,7 +101,7 @@
     <script src="{!! asset('js/panel.js') !!}"></script>
     <script src="{!! asset('vendors/pnotify/dist/pnotify.js') !!}"></script>
     <script src="{!! asset('js/notification.js') !!}"></script>
-    <script src="{!! asset('js/app.js') !!}"></script>
+    {{--<script src="{!! asset('js/app.js') !!}"></script>--}}
 
 
 @endsection
@@ -120,6 +124,12 @@
                     confirmButtonText: 'Yes, delete it!'
                 }).then(function() {
                     deleteFun();
+                    var $audio = $('#sound-delete')[0];
+                    if ($audio.paused) {
+                        $audio.play();
+                    }else{
+                        $audio.currentTime = 0
+                    }
                     swal(
                             'Deleted!',
                             'Your file has been deleted.',

@@ -41,6 +41,9 @@ class UserController extends Controller
         $model->save();
 
         $model->roles()->sync($request->get('role_id')?$request->get('role_id'):[]);
+        if (empty(auth()->user()->profile)) {
+            auth()->user()->profile()->create(['user_id'=>$model->id]);
+        }
     }
 
 

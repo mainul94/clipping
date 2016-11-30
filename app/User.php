@@ -49,4 +49,21 @@ class User extends Authenticatable
     {
         return $this->hasOne(Profile::class);
     }
+
+
+    public function tasks()
+    {
+        $tasks = $this->belongsToMany(Taks::class);
+        if (auth()->user()->type === 'Client') {
+            return $tasks->where('client_id', auth()->user()->id);
+        }
+        return $tasks;
+    }
+
+
+    public function pendingTasks()
+    {
+        return $this->tasks()->where('status', 'Wating for Review');
+    }
+
 }

@@ -210,6 +210,7 @@ trait CommonController
     {
 
         if ($this->checkPermission && !$request->user()->can($this->checkPermission)) {
+            dd('sd');
             return abort(403);
         }
 

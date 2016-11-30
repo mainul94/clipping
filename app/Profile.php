@@ -6,9 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class Profile extends Model
 {
-    protected $fillable = ['user_id', 'avatar', 'phone', 'designation', 'web', 'address', 'country', 'bio'];
+    protected $fillable = ['user_id', 'avatar', 'phone', 'company', 'designation', 'web', 'address', 'country', 'bio'];
 
-	use CreateUpdateByRecord;
+	use CreateUpdateByRecord, UploadFiles;
 
 
 	/**
@@ -30,8 +30,12 @@ class Profile extends Model
 
 	public function setAvatarAttribute($data)
 	{
-		if ($data->isValid()) {
-			dd($data);
-		}
+		$this->fileUploadOnlyRowAndSetAttribute($data,'avatar','app/public/avatar/');
+	}
+
+
+	public function tasks()
+	{
+		return $this->user()->taskes;
 	}
 }
