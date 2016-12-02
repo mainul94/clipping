@@ -101,7 +101,7 @@
     <script src="{!! asset('js/panel.js') !!}"></script>
     <script src="{!! asset('vendors/pnotify/dist/pnotify.js') !!}"></script>
     <script src="{!! asset('js/notification.js') !!}"></script>
-    {{--<script src="{!! asset('js/app.js') !!}"></script>--}}
+    <script src="{!! asset('js/app.js') !!}"></script>
 
 
 @endsection

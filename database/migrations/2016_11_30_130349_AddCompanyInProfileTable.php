@@ -14,7 +14,7 @@ class AddCompanyInProfileTable extends Migration
     public function up()
     {
         Schema::table('profiles', function (Blueprint $table) {
-            $table->string('company')->after('phone');
+            $table->string('company')->after('phone')->nullable();
         });
     }
 

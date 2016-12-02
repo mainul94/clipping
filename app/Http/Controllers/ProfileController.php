@@ -14,10 +14,16 @@ class ProfileController extends Controller
 	 */
 	public function show()
 	{
-		if (empty(auth()->user()->profile)) {
-			$profile = Profile::create(['user_id'=>auth()->user()->id]);
+		if (request()->route()->getParameter('user')) {
+			$user = request()->route()->getParameter('user');
 		}else {
-			$profile = auth()->user()->profile;
+			$user = auth()->user();
+		}
+
+		if (empty($user->profile)) {
+			$profile = Profile::create(['user_id'=>$user->id]);
+		}else {
+			$profile = $user->profile;
 		}
 		return view('admin.profile.show')->with(['id'=>$profile]);
 	}

@@ -53,17 +53,7 @@ class User extends Authenticatable
 
     public function tasks()
     {
-        $tasks = $this->belongsToMany(Taks::class);
-        if (auth()->user()->type === 'Client') {
-            return $tasks->where('client_id', auth()->user()->id);
-        }
-        return $tasks;
-    }
-
-
-    public function pendingTasks()
-    {
-        return $this->tasks()->where('status', 'Wating for Review');
+        return $this->hasMany(Task::class,'client_id');
     }
 
 }

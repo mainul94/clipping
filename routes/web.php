@@ -14,8 +14,14 @@
 Route::get('/', function () {
     return redirect('login');
 });
+$middleware = ['auth'];
+if (!empty(auth()->check())) {
+    $prefix = strtolower(auth()->user()->type);
+}else {
+    $prefix = 'admin';
+}
 
-Route::group(['middleware'=>['auth'],'prefix'=>'admin'], function ($admin ='admin') {
+Route::group(compact('middleware', 'prefix'), function () {
     Route::resource('user','UserController');
     Route::resource('role','RoleController');
     Route::resource('permission','PermissionController');
@@ -29,8 +35,8 @@ Route::group(['middleware'=>['auth'],'prefix'=>'admin'], function ($admin ='admi
     Route::group(['prefix'=>'report'], function () {
         Route::get('{report}', 'ReportController');
     });
-    Route::get('profile','ProfileController@show');
     Route::get('profile/edit','ProfileController@edit');
+    Route::get('profile/{user?}','ProfileController@show');
     Route::patch('profile/{profile}','ProfileController@update');
 });
 Route::group(['middleware'=>['auth','api','cors']], function () {

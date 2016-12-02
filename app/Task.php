@@ -124,6 +124,9 @@ class Task extends Model
     }
 
 
+    /**
+     * @param $data
+     */
     public function setTotalAmountAttribute($data)
     {
         if (empty($data)) {
@@ -131,4 +134,45 @@ class Task extends Model
         }
     }
 
+
+    public function scopePending($query)
+    {
+        return $query->where('status', 'Wating for Review')->get();
+    }
+
+
+    public function scopeAccepted($query)
+    {
+        return $query->where('status', 'Accepted')->get();
+    }
+
+
+    public function scopeRejected($query)
+    {
+        return $query->where('status', 'Rejected')->get();
+    }
+
+
+    public function scopeHold($query)
+    {
+        return $query->where('status', 'Hold')->get();
+    }
+
+
+    public function scopeProcessing($query)
+    {
+        return $query->where('status', 'Processing')->get();
+    }
+
+
+    public function scopeCompleted($query)
+    {
+        return $query->where('status', 'Completed')->get();
+    }
+
+
+    public function scopeFinished($query)
+    {
+        return $query->where('status', 'Finished')->get();
+    }
 }
