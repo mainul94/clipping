@@ -51,9 +51,21 @@ class User extends Authenticatable
     }
 
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
     public function tasks()
     {
         return $this->hasMany(Task::class,'client_id');
+    }
+
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function invoice()
+    {
+        return $this->hasMany(Invoice::class, 'client_id');
     }
 
 }

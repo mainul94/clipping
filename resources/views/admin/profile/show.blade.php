@@ -69,32 +69,32 @@
 						<div class="row tile_count">
 							<div class="col-md-3 col-sm-4 col-xs-6 tile_stats_count">
 								<span class="count_top">Total Invoices</span>
-								<div class="count blue">{!! $id->user->tasks->count() !!}</div>
-								<span class="count_bottom"><i class="green"></i></span>
-							</div>
-							<div class="col-md-3 col-sm-4 col-xs-6 tile_stats_count">
-								<span class="count_top">Unpaid Invoice</span>
-								<div class="count orange">{!! $id->user->tasks()->pending()->count() !!}</div>
-								<span class="count_bottom"><i class="green"></i></span>
-							</div>
-							<div class="col-md-3 col-sm-4 col-xs-6 tile_stats_count">
-								<span class="count_top">Paid Invoice</span>
-								<div class="count green">{!! $id->user->tasks()->accepted()->count() !!}</div>
+								<div class="count blue">{!! $id->user->invoice->count() !!}</div>
 								<span class="count_bottom"><i class="green"></i></span>
 							</div>
 							<div class="col-md-3 col-sm-4 col-xs-6 tile_stats_count">
 								<span class="count_top">Total Invoiced Amount</span>
-								<div class="count orange">{!! $id->user->tasks()->hold()->count() !!}</div>
+								<div class="count blue">$ {!! $id->user->invoice()->sum('totals') !!}</div>
 								<span class="count_bottom"><i class="green"></i></span>
 							</div>
 							<div class="col-md-3 col-sm-4 col-xs-6 tile_stats_count">
-								<span class="count_top">Paid Invoice Amount</span>
-								<div class="count orange">{!! $id->user->tasks()->processing()->count() !!}</div>
+								<span class="count_top">Unpaid Invoice</span>
+								<div class="count orange">{!! $id->user->invoice()->unpaidInvoice()->count() !!}</div>
 								<span class="count_bottom"><i class="green"></i></span>
 							</div>
 							<div class="col-md-3 col-sm-4 col-xs-6 tile_stats_count">
 								<span class="count_top">Unpaid Invoice Amount</span>
-								<div class="count green">{!! $id->user->tasks()->completed()->count() !!}</div>
+								<div class="count orange">$ {!! $id->user->invoice()->unpaidInvoice()->sum('totals') !!}</div>
+								<span class="count_bottom"><i class="green"></i></span>
+							</div>
+							<div class="col-md-3 col-sm-4 col-xs-6 tile_stats_count">
+								<span class="count_top">Paid Invoice</span>
+								<div class="count green">{!! $id->user->invoice()->paidInvoice()->count() !!}</div>
+								<span class="count_bottom"><i class="green"></i></span>
+							</div>
+							<div class="col-md-3 col-sm-4 col-xs-6 tile_stats_count">
+								<span class="count_top">Paid Invoice Amount</span>
+								<div class="count green">$ {!! $id->user->invoice()->paidInvoice()->sum('totals') !!}</div>
 								<span class="count_bottom"><i class="green"></i></span>
 							</div>
 						</div>

@@ -48,4 +48,15 @@ class Invoice extends Model
 	{
 		return $this->belongsTo(User::class, 'client_id');
 	}
+
+	public function scopeUnpaidInvoice($query)
+	{
+		return $query->where('status','Unpaid');
+	}
+
+	public function scopePaidInvoice($query)
+	{
+		return $query->where('status','Paid');
+	}
+	
 }
