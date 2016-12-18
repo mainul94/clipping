@@ -2,21 +2,21 @@
 /**
  * Created by PhpStorm.
  * User: mainul
- * Date: 8/25/16
- * Time: 2:32 PM
+ * Date: 8/24/16
+ * Time: 4:27 PM
  */
 ?>
 @extends('layouts.admin')
 @section('content')
     <div class="row">
-        <div class="col-md-12">
+        <div class="col-md-6">
             <div class="x_panel">
                 <div class="x_title">
-                    Edit Page
+                    Add FTP Account
                 </div>
                 <div class="x_content">
-                    {!! Form::model($id,['action'=>['PageController@update',$id->slug], 'method'=>'PATCH', 'class'=>'form-horizontal']) !!}
-                    @include('admin.page._form')
+                    {!! Form::open(['action'=>'FTPController@store', 'class'=>'form-horizontal']) !!}
+                    @include('admin.ftp._form')
                     {!! Form::close() !!}
                 </div>
             </div>

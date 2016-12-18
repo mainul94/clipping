@@ -32,6 +32,7 @@ Route::group(compact('middleware', 'prefix'), function () {
     Route::resource('trail', 'TrailController');
     Route::resource('comment', 'CommentController');
     Route::resource('invoice', 'InvoiceController');
+    Route::resource('ftp', 'FTPController');
     Route::group(['prefix'=>'report'], function () {
         Route::get('{report}', 'ReportController');
     });

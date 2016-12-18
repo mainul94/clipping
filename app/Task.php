@@ -16,7 +16,7 @@ class Task extends Model
 
     protected $dates = ['delivery'];
 
-    protected static function boot()
+    public static function boot()
     {
         parent::boot();
 

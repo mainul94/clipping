@@ -150,6 +150,29 @@ $menus = collect([
 								])
 						]),
 						collect([
+								'title'=>'FTPs',
+								'icon' => 'fa fa-cloud-upload',
+								'label_class' => 'fa fa-chevron-down',
+								'label' => '',
+								'permission' => 'view.ftp',
+								'children' => collect([
+										collect([
+												'title'=>'FTPs',
+												'link'=>action('FTPController@index'),
+												'label_class' => 'label label-success pull-right',
+												'label' => 'All',
+												'permission' => 'view.ftp'
+										]),
+										collect([
+												'title'=>'Create FTP Account',
+												'link'=>action('FTPController@create'),
+												'label_class' => 'label label-info pull-right',
+												'label' => 'New',
+												'permission' => 'create.ftp'
+										])
+								])
+						]),
+						collect([
 								'title'=>'Roles',
 								'icon' => 'fa fa-cogs',
 								'label_class' => 'fa fa-chevron-down',

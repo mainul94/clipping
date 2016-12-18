@@ -66,11 +66,11 @@ class TaskController extends Controller
     {
         return $this->editWith($task);
     }
-    
+
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param Task|object $id
      * @return Response
      */
     public function editWith(Task $id)
