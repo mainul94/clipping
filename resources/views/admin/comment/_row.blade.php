@@ -8,7 +8,7 @@
 <div class="comment-item">
 	<div class="col-sm-1">
 		<div class="thumbnail">
-			<img class="img-responsive user-photo" src="https://ssl.gstatic.com/accounts/ui/avatar_2x.png">
+			<img class="img-responsive user-photo" src="{!! $comment->createdBy->profile->avatar or 'https://ssl.gstatic.com/accounts/ui/avatar_2x.png' !!}">
 		</div><!-- /thumbnail -->
 	</div><!-- /col-sm-1 -->
 

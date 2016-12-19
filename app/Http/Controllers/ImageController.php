@@ -8,17 +8,37 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use Illuminate\Support\Facades\Storage;
 use Intervention\Image\Facades\Image;
+use League\Flysystem\Config;
 
 class ImageController extends Controller
 {
-    /**
+    protected $disk;
+
+    public function __construct(Request $request)
+    {
+        if (empty(auth()->user()->ftp->host)) {
+            $this->disk = 'ftp';
+        }else
+        {
+            config(['filesystems.disks.ftp'.auth()->user()->id => auth()->user()->ftp]);
+            $this->disk = 'ftp'.auth()->user()->id;
+        }
+    }
+
+    /**s
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        $dir = $request->get('root','');
+        $directories = Storage::disk($this->disk)->directories($dir);
+        $files = Storage::disk($this->disk)->files($dir);
+        return [
+            'directories'=>$directories,
+            'files'=>$files
+        ];
     }
 
     /**

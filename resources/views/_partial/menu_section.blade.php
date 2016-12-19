@@ -181,14 +181,14 @@ $menus = collect([
 								'children' => collect([
 										collect([
 												'title'=>'Roles',
-												'link'=>'admin/role',
+												'link'=>action('RoleController@index'),
 												'label_class' => 'label label-success pull-right',
 												'label' => 'All',
 												'permission' => 'view.role'
 										]),
 										collect([
 												'title'=>'Create Role',
-												'link'=>'admin/role/create',
+												'link'=>action('RoleController@create'),
 												'label_class' => 'label label-info pull-right',
 												'label' => 'New',
 												'permission' => 'create.role'
@@ -204,14 +204,14 @@ $menus = collect([
 								'children' => collect([
 										collect([
 												'title'=>'Permissions',
-												'link'=>'admin/permission',
+												'link'=>action('PermissionController@index'),
 												'label_class' => 'label label-success pull-right',
 												'label' => 'All',
 												'permission' => 'view.permission'
 										]),
 										collect([
 												'title'=>'Create Permission',
-												'link'=>'admin/permission/create',
+												'link'=>action('PermissionController@create'),
 												'label_class' => 'label label-info pull-right',
 												'label' => 'New',
 												'permission' => 'create.permission'

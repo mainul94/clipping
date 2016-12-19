@@ -1,0 +1,129 @@
+$color : #222;
+$wrapper-bg : #eee;
+$folder-wrapper-bg : #fff;
+$folder-bg : #fafafa;
+$folder-color : slategrey;
+$folder-text-color : slategrey;
+$thumbnail-wrapper-bg : $folder-wrapper-bg;
+$selected-bg:#4285f4;
+$selected-color:#fff;
+$section-title-color:#646464;
+
+.mi-media-wrapper {
+  background-color: $wrapper-bg;
+  min-height:200px;
+  width:100%;
+  float:left;
+  padding:0 2em 2em 2em;
+  display: block;
+  .section-title {
+    padding-top: 1em;
+    color: $section-title-color;
+    display: block;
+    float: left;
+    width: 100%;
+  }
+  .mi-folder-wrapper, .mi-file-wrapper {
+    display: block;
+    float: left;
+    width: 100%;
+  }
+  .mi-folder-sub-wrapper, .mi-file-sub-wrapper>.text {
+    float: left;
+    margin-top: 2%;
+    margin-right: 2%;
+    background-color: $folder-wrapper-bg;
+    overflow: hidden;
+    border-radius: 2px;
+    box-shadow: 0 1px 1px 0 rgba(0,0,0,.2);
+    display: flex;
+    .folder-icon, .mi-file-sub-wrapper>.text>.folder-icon {
+      float: left;
+      height: 100%;
+      width: 44px;
+      display: inline;
+      background-color: $folder-bg;
+      i.fa, .mi-file-sub-wrapper>.text>.folder-icon>i.fa {
+        margin:10px;
+        border-bottom-left-radius: 1px;
+        border-top-left-radius: 1px;
+        font-size: 1.6em;
+      }
+    }
+    .folder-text, .mi-file-sub-wrapper>.text>.folder-text {
+      float: left;
+      padding-right: 13px;
+      text-overflow:ellipsis;
+      color: $color;
+      white-space: nowrap;
+      overflow: hidden;
+      display: inline;
+      span, .mi-file-sub-wrapper>.text>.folder-text>span {
+        line-height: 40px;
+        padding-left: 10px;
+        padding-right: 13px;
+      }
+    }
+    @media (min-width: 1200px) {
+      width: 10.5%;
+    }
+    @media (min-width: 992px) {
+      width: 18%;
+    }
+    @media (min-width: 768px) {
+      width: 23%;
+    }
+  }
+
+  .mi-file-wrapper {
+    .mi-file-sub-wrapper {
+      width: 200px;
+      height: auto;
+      float: left;
+      display: block;
+      overflow: hidden;
+      background-color: transparent;
+      text-align: center;
+      margin-top: 15px;
+      margin-right: 15px;
+      .thumbnail-image {
+        height: 180px;
+        display: block;
+        overflow: hidden;
+        background-color: $folder-bg;
+        img, svg {
+          max-width: 100%;
+          max-height: 100%;
+        }
+      }
+      .text {
+        width:100% !important;
+        background-color: transparent;
+        .folder-icon {
+          background-color: inherit;
+        }
+      }
+    }
+  }
+
+
+  .mi-folder-sub-wrapper.selected, .mi-file-sub-wrapper.selected {
+    background-color: $selected-bg;
+    box-shadow: 0 2px 8px 0 rgba(0,0,0,.25);
+    color: $selected-color;
+    .folder-icon {
+      background-color: inherit;
+    }
+    .folder-text {
+      color: inherit;
+    }
+  }
+}
+
+///////////////////////Context Menu
+.context-menu-icon.context-menu-icon--fa {
+  line-height: 2em;
+}
+.context-menu-icon.context-menu-icon--fa::before {
+  color: inherit;
+}
