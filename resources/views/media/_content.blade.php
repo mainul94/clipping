@@ -99,17 +99,19 @@
 	@parent
 	<link rel="stylesheet" href="{!! asset('css/media.css') !!}">
 	<link rel="stylesheet" href="{!! asset('media/context-menu/jquery.contextMenu.min.css') !!}">
+	<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 @endsection
 
 @section('footer_script')
 	@parent
 	<script src="{!! asset('media/context-menu/jquery.contextMenu.min.js') !!}"></script>
+	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 	@include('media._call_script')
 	<script>
 		new MiMedia({
 			index_url: '{{ action("ImageController@index") }}',
 			data:{
-				root:'/job/{{ $id->id }}/Done'
+				root:'/job/{{ $id->id }}'
 			}
 		});
 	</script>

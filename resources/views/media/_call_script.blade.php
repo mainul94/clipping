@@ -9,20 +9,28 @@
 	class MiMedia {
 		constructor (args){
 			this.args = args || {};
+			if (this.args.data.root.charAt(0)=='/') {
+				this.args.data.root = this.args.data.root.substring(1);
+			}
+			this.root = this.args.data.root;
 			this.$selector = $(this.args.selector || '.init-media');
 			this.setup();
 		}
-		setup () {
+		setup (data) {
 			this.$selector.html(null);
 			this.$wrapper = $('<div>').addClass('mi-media-wrapper').appendTo(this.$selector);
 			this.wrapper_context_menu();
+			this.init_breadcrumb(data);
 			this.init_folder_section();
 			this.init_file_wrapper();
-			this.call_data_from_root()
+			this.call_data_from_root(data)
 		}
 		init_folder_section () {
 			this.$folderTitle = $('<div>').addClass('section-title').appendTo(this.$wrapper).html('Folder');
-			this.$folderWrapper = $('<div>').addClass('mi-folder-wrapper').appendTo(this.$wrapper);
+			this.$folderWrapper = $('<div>').addClass('mi-folder-wrapper').appendTo(this.$wrapper)/*.selectable({
+				filter: "div.mi-folder-sub-wrapper",
+				disabled: true
+			})*/;
 		}
 		init_file_wrapper () {
 			this.$fileTitle = $('<div>').addClass('section-title').appendTo(this.$wrapper).html('File');
@@ -38,7 +46,17 @@
 				if (data.directories.length) {
 					$.each(data.directories, function (idx, directory) {
 						me.args.directory = directory;
-						new MiFolder(me.$folderWrapper,me.args,me.$folderTitle);
+						var $folder = new MiFolder(me.$folderWrapper,me.args,me.$folderTitle);
+						$folder.$directoryWrapper.on('dblclick', function () {
+							me.open_folder($(this));
+						});
+						$folder.$directoryWrapper.click(function (e) {
+							if(!e.ctrlKey)
+							{
+								me.$wrapper.find('.selected').removeClass('selected');
+							}
+							$(this).toggleClass('selected');
+						})
 					});
 				}else {
 					me.$folderTitle.hide();
@@ -46,24 +64,81 @@
 				if (data.files.length) {
 					$.each(data.files, function (idx, file) {
 						me.args.file = file;
-						new MiFile(me.$fileWrapper,me.args,me.$fileTitle);
+						var $file = new MiFile(me.$fileWrapper,me.args,me.$fileTitle);
+						$file.$fileWrapper.on('dblclick', function () {
+							alert("Please setup preview")
+						});
+						$file.$fileWrapper.click(function (e) {
+							if(!e.ctrlKey)
+							{
+								me.$wrapper.find('.selected').removeClass('selected');
+							}
+							$(this).toggleClass('selected');
+						})
 					});
 				}else {
 					me.$fileTitle.hide();
 				}
-				console.log(data)
 			}).fail(function () {
-				console.log('Faild')
+//				console.log('Faild')
 			}).always(function () {
-				console.log('FIrst Complete')
+//				console.log('FIrst Complete')
 			});
 
 			$jqXHR.always(function () {
-				console.log('Cansel')
+//				console.log('Cansel')
 			})
 		}
 		static basename (value){
 			return new String(value).substring(value.lastIndexOf('/') + 1);
+		}
+		init_breadcrumb(data) {
+			var root;
+			if (typeof data !== 'undefined') {
+				root = data.root
+			}else
+			{
+				root = this.args.data.root;
+			}
+			this.$bradecome = $('<ol class="breadcrumb">').appendTo(this.$wrapper);
+			this.set_breadcrumb(root);
+		}
+		set_breadcrumb (root) {
+			root = root || this.args.data.root;
+			var me = this;
+			root = root.replace(this.root,'').split('/');
+			var tmp_root = this.args.data.root;
+			this.$bradecome_item = $('<li data-root="'+tmp_root+'"></li>').html('<a href="javascript:void(0)">Root</a>');
+			this.$bradecome_item.on('click', function () {
+				me.open_folder($(this));
+			});
+			this.$bradecome.html(this.$bradecome_item);
+			$.each(root, function (key, val) {
+				if (val === "" || val === 'undefined') {
+					return
+				}
+				tmp_root +='/'+val;
+				if (key <root.length-1) {
+					me.$bradecome_item =$('<li data-root="'+tmp_root+'"></li>').html('<a href="javascript:void(0)">'+val+'</a>');
+				}else {
+					me.$bradecome_item = $('<li class="active">'+val+'</li>')
+				}
+				me.$bradecome.append(me.$bradecome_item);
+				me.$bradecome_item.on('click', function () {
+					me.open_folder($(this));
+				});
+
+			});
+		}
+		open_folder ($wrapper){
+			var me = this;
+			if ($wrapper === 'undefined' || !($wrapper.hasAttribute('data-root'))) {
+				return
+			}
+			me.$selector.html(null);
+			me.setup({
+				root:$wrapper.attr('data-root')
+			});
 		}
 		wrapper_context_menu() {
 			$.contextMenu({
@@ -108,14 +183,14 @@
 		}
 		make_directory() {
 			this.$directoryWrapper = $('<div>').addClass('mi-folder-sub-wrapper').appendTo(this.$wrapper)
-					.html('<div class="folder-icon">'+
-							'<i class="fa fa-folder"></i>'+
-							'</div>'+
-							'<div class="folder-text">'+
-							'<span>'+MiMedia.basename(this.args.directory)+'</span>'+
-						'</div>'
-					)
 					.attr('data-root',this.args.directory);
+			var $html = '<div class="folder-icon">'+
+					'<i class="fa fa-folder"></i>'+
+					'</div>'+
+					'<div class="folder-text">'+
+					'<span>'+MiMedia.basename(this.args.directory)+'</span>'+
+					'</div>';
+			this.$directoryWrapper.html($html);
 
 		}
 		create_new_directory() {
