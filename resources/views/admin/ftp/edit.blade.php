@@ -15,7 +15,7 @@
                     Edit FTP Account Info
                 </div>
                 <div class="x_content">
-                    {!! Form::model($id,['action'=>['FTPController@update',$id->slug], 'method'=>'PATCH', 'class'=>'form-horizontal']) !!}
+                    {!! Form::model($id,['action'=>['FTPController@update',$id->id], 'method'=>'PATCH', 'class'=>'form-horizontal']) !!}
                     @include('admin.ftp._form')
                     {!! Form::close() !!}
                 </div>
