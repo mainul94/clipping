@@ -253,14 +253,16 @@
 		}
 		make_directory() {
 			this.$fileWrapper = $('<div>').addClass('mi-file-sub-wrapper').appendTo(this.$wrapper)
+					// ToDo Need Ftp information from daynamically and also check error if ftp not set
 					.html('<div class="thumbnail-image">\
-							<img src="ftp://ftp1user:123456@localhost/'+this.args.file+'" alt="">\
+							<img src="ftp://{{ auth()->user()->ftp->username }}:{{ auth()->user()->ftp->password."@".auth()->user()->ftp->host}}/'+this.args.file+'" alt="">\
 					</div>\
 					<div class="text">\
 					<div class="folder-icon">\
 					<i class="fa fa-picture-o" aria-hidden="true"></i>\
 					</div>\
 					<div class="folder-text">\
+					\
 					<span>'+MiMedia.basename(this.args.file)+'</span>\
 					</div>\
 					</div>')
