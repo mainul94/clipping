@@ -132,7 +132,7 @@
 		}
 		open_folder ($wrapper){
 			var me = this;
-			if ($wrapper === 'undefined' || !($wrapper.hasAttribute('data-root'))) {
+			if ($wrapper === 'undefined' || !($wrapper.attr('data-root'))) {
 				return
 			}
 			me.$selector.html(null);

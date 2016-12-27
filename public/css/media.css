@@ -134,6 +134,13 @@
     text-overflow: ellipsis;
     vertical-align: top;
     white-space: nowrap;
-    width: 100%; }
+    max-width: 200px;
+    font-size: 1.4em; }
+  .mi-media-wrapper .breadcrumb li:last-child {
+    font-weight: bold; }
+
+.breadcrumb {
+  margin-left: -2em;
+  margin-right: -2em; }
 
 /*# sourceMappingURL=media.css.map */
