@@ -25,7 +25,7 @@ elixir(function(mix) {
     mix.scripts('../src/js/dropzone.js','public/js/dropzone.js');
     mix.scripts('../src/js/helpers/smartresize.js','public/js/smartresize.js');
     mix.copy('resources/assets/src/js/helpers/panel.js','public/js/panel.js');
-    mix.copy('resources/assets/vendors/','public/vendors/');
+    // mix.copy('resources/assets/vendors/','public/vendors/');
     mix.copy('resources/assets/sounds/','public/sounds/');
     mix.copy('resources/assets/media/','public/media/');
 });

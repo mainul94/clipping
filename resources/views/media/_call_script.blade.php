@@ -56,7 +56,8 @@
 								me.$wrapper.find('.selected').removeClass('selected');
 							}
 							$(this).toggleClass('selected');
-						})
+						});
+						me.directory_context_menu($folder.$directoryWrapper)
 					});
 				}else {
 					me.$folderTitle.hide();
@@ -160,6 +161,42 @@
 					}
 				}
 			});
+		}
+		directory_context_menu($wrapper) {
+			var me = this;
+			$.contextMenu({
+				selector:'.mi-folder-sub-wrapper:eq('+$wrapper.index()+')',
+				items: {
+					open_direct: {
+						name: "Open Folder",
+						icon:"fa-folder-open",
+						callback: function(key, opt){
+							me.open_folder($(this));
+						}
+					},
+					delete_direct: {
+						name: "Delete Folder",
+						icon:"fa-trash",
+						callback: function(key, opt){
+							me.delete_directory($wrapper);
+						}
+					}
+				}
+			});
+		}
+
+		delete_directory($wrapper) {
+			if ($wrapper.hasClass('selected')) {
+
+			}else {
+
+			}
+		}
+		delete_file_dir (args, callback) {
+			$.ajax(
+
+			);
+
 		}
 
 	}
