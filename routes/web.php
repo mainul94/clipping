@@ -18,7 +18,7 @@ $middleware = ['auth'];
 if (!empty(auth()->check())) {
     $prefix = strtolower(auth()->user()->type);
 }else {
-    $prefix = 'admin';
+    $prefix = '';
 }
 
 Route::group(compact('middleware', 'prefix'), function () {
