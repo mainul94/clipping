@@ -41,6 +41,31 @@ class ImageController extends Controller
         ];
     }
 
+
+    public function directory(Request $request)
+    {
+        if (in_array($request->get('type'), ['New', 'Post'])) {
+            $dir = $request->get('root').
+                (strrev($request->get('root'))[0] == '/' || $request->get('folder_name') == '/' ? '':'/').
+                $request->get('folder_name');
+            Storage::disk($this->disk)->makeDirectory($dir);
+            return ['type'=>'new', 'directory'=>$dir];
+        }
+        elseif (strtolower($request->get('type')) === 'delete') {
+            Storage::disk($this->disk)->deleteDirectory($request->get('root'));
+            return ['type'=>'delete', 'directory'=>$request->get('root')];
+        } elseif (in_array($request->get('type'), ['Rename', 'Edit', 'Patch'])) {
+            $form_dir = $request->get('root').
+                (strrev($request->get('root'))[0] == '/' || $request->get('folder_name') == '/' ? '':'/').
+                $request->get('folder_name');
+            $to_dir = $request->get('root').
+                (strrev($request->get('root'))[0] == '/' || $request->get('new_name') == '/' ? '':'/').
+                $request->get('new_name');
+            Storage::disk($this->disk)->move($form_dir,$to_dir);
+            return ['type'=>'rename', 'from_dir'=>$form_dir, 'to_dir'=>$to_dir];
+        }
+    }
+
     /**
      * Show the form for creating a new resource.
      *
