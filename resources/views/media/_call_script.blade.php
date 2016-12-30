@@ -5,6 +5,8 @@
  * Date: 12/19/16
  * Time: 6:00 PM
  */?>
+
+<script src="{!! asset('js/dropzone.js') !!}"></script>
 <script>
 	class MiMedia {
 		constructor (args){
@@ -26,6 +28,8 @@
 			this.$wrapper.attr({
 				'data-root': root
 			});
+			this.notification_message();
+			this.init_dropzone();
 			this.wrapper_context_menu();
 			this.init_breadcrumb(data);
 			this.init_folder_section();
@@ -33,6 +37,89 @@
 			this.call_data_from_root(data);
 			this.make_create_folder();
 			this.make_rename_folder();
+		}
+		notification_message() {
+			var me = this;
+			this.$notification = {};
+			this.$notification.$wrappwer = $('<ul class="notification-wrapper">').appendTo(document.body).hide();
+			this.$notification.$header = $('<li class="header">')
+					.appendTo(this.$notification.$wrappwer);
+			this.$notification.$header.helptext = $('<span>').appendTo(this.$notification.$header);
+			this.$notification.$header.$closeBtn = $('<a href="javascript:void(0)"  class="pull-right">' +
+					'<i class="fa fa-close" aria-hidden="true"></i></a>').appendTo(this.$notification.$header)
+					.on('click', function () {
+						me.$notification.$wrappwer.hide();
+					});
+			this.$notification.$header.$minOrReBtn = $('<a href="javascript:void(0)" class="pull-right">' +
+					'<i class="fa fa-chevron-down" aria-hidden="true"></i></a>').appendTo(this.$notification.$header)
+					.on('click', function () {
+						var $parent = $(this).closest('li.header');
+						$parent.toggleClass('minimize');
+						if ($parent.hasClass('minimize')) {
+							$(this).find('i.fa').removeClass('fa-chevron-down').addClass('fa-chevron-up')
+						}else {
+							$(this).find('i.fa').addClass('fa-chevron-down').removeClass('fa-chevron-up')
+						}
+					});
+			this.$notification.$body = $('<li><ul class="notification-body"><li>').appendTo(this.$notification.$wrappwer);
+			this.$notification.previewTemplate = '<li class="dz-preview dz-file-preview">' +
+					'<img data-dz-thumbnail /><span data-dz-name></span>' +
+					'<span data-dz-size></span>' +
+					'<span class="dz-success-mark"><i class="fa fa-check" aria-hidden="true"></i></span>' +
+					'<span class="dz-error-mark"><i class="fa fa-close" aria-hidden="true"></i></span>' +
+					'<div class="dz-progress"><span class="dz-upload" data-dz-uploadprogress></span></div></li>';
+
+		}
+		init_dropzone($wrapper) {
+			var me = this;
+			if (typeof $wrapper === 'undefined') {
+				$wrapper = this.$wrapper;
+			}
+			$wrapper.$overWrapper = $('<div class="drags">').prependTo(me.$wrapper).hide();
+			$wrapper.dropzone({
+				url: me.args.image_upload_url,
+				previewTemplate:me.$notification.previewTemplate,
+				previewsContainer: '.notification-body',
+				uploadMultiple:true,
+				paramName: "images",
+				headers: {
+					'X-CSRF-TOKEN': "{{ csrf_token() }}"
+				},
+				drop:function () {
+					me.$notification.$wrappwer.show();
+					me.$notification.$header.helptext.html('Uploading...');
+					$wrapper.$overWrapper.hide();
+				},
+				dragenter:function () {
+					$wrapper.$overWrapper.show();
+				},
+				sendingmultiple:function (file) {
+					console.log(file)
+				},
+				sending:function (file, xhr, formData) {
+					formData.append("root", $wrapper.attr('data-root'));
+				},
+				success:function (file) {
+					$(file.previewElement).addClass('alert-success')
+							.find('.dz-error-mark').hide();
+				},
+				error:function (file) {
+					$(file.previewElement).addClass('alert-danger')
+							.find('.dz-success-mark').hide();
+				},
+				complete:function (file) {
+					$(file.previewElement).find('.dz-upload').css("background", 'transparent');
+				},
+				queuecomplete:function () {
+					console.log('Uncommend below line if you want to see files');
+					me.$notification.$header.helptext.html('Uploaded');
+//					me.open_folder(me.$wrapper)
+				},
+				uploadprogress: function(file, progress, bytesSent) {
+					$(file.previewElement).find('.dz-upload').html(progress.toFixed(2)+' %').css("width", progress.toFixed(2)+'%');
+				}
+			});
+
 		}
 		make_create_folder() {
 			var me = this;
@@ -325,6 +412,19 @@
 				me.delete_folder($wrapper.attr('data-root'))
 			}
 		}
+
+	}
+
+	class FileUpload {
+		constructor($miMedia) {
+			if (typeof $miMedia !== 'object') {
+				console.log('You must send a object that crated from MiMedia Class')
+				return
+			}
+			this.parent = $miMedia
+		}
+
+
 
 	}
 

@@ -26,6 +26,7 @@
 		new MiMedia({
 			index_url: '{{ action("ImageController@index") }}',
 			directory_url: '{{ action("ImageController@directory") }}',
+			image_upload_url: '{{ action("ImageController@store") }}',
 			data:{
 				root:'/job/{{ $id->id }}'
 			}

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Exceptions\NoTask;
 use App\Task;
 use Illuminate\Http\Request;
 
@@ -84,26 +85,12 @@ class ImageController extends Controller
      */
     public function store(Request $request)
     {
-//        return $request->all();
-        $task = Task::find($request->get('task'));
-        if ($request->hasFile('image') && $request->file('image')->isValid()) {
-            $dir = 'jobs/'.$task->id.'/'.$request->get('type').'/';
-            $file = Storage::disk($task->storage)->put(
-                $dir.$request->file('image')->getClientOriginalName(),
-                file_get_contents($request->file('image')->getRealPath())
-            );
-            Storage::disk($task->storage)->makeDirectory($dir.'thumbnail/');
-            Storage::disk($task->storage)->makeDirectory($dir.'preview/');
-            $img = Image::make($request->file('image')->getRealPath());
-            $img->resize(300, null, function ($constraint) {
-                $constraint->aspectRatio();
-            })->save(storage_path('app/'.$dir.'thumbnail/'.$request->file('image')->getClientOriginalName()));
-            $img1= Image::make($request->file('image')->getRealPath());
-            $img1->resize(700, null, function ($constraint) {
-                $constraint->aspectRatio();
-            })->save(storage_path('app/'.$dir.'preview/'.$request->file('image')->getClientOriginalName()));
-        }
-        return $request->all();
+	    $paths = [];
+	    foreach ($request->file('images') as $file) {
+		    $path = $file->storeAs($request->get('root'), $file->getClientOriginalName(), $this->disk);
+		    array_push($paths, $path);
+	    }
+	    return $paths;
     }
 
     /**
