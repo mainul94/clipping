@@ -32,6 +32,7 @@
 			this.init_file_wrapper();
 			this.call_data_from_root(data);
 			this.make_create_folder();
+			this.make_rename_folder();
 		}
 		make_create_folder() {
 			var me = this;
@@ -51,6 +52,27 @@
 //				me.$createFolder.hide();
 			})
 		}
+		make_rename_folder(){
+			var me = this;
+			this.$renameFolder = new PopModel({
+				modal_options:{
+					show:false
+				}
+			});
+			this.$renameFolder.add_field({
+				fieldname:'rename_folder',
+				fieldtype:'text',
+				label:'New Name'
+			});
+			this.$renameFolder.set_primary_button('Rename', function () {
+				me.ajax_for_folder({
+					'folder_name':MiMedia.basename(me.$renameFolder.dir_root),
+					'new_name':me.$renameFolder.get_value('rename_folder'),
+					'root':me.$renameFolder.dir_root.substring(0, me.$renameFolder.dir_root.lastIndexOf("/")),
+					'type':'Rename'
+				})
+			})
+		}
 		post_new_folder() {
 			this.ajax_for_folder({
 				'folder_name':this.$createFolder.get_value('new_folder'),
@@ -62,10 +84,39 @@
 			if (typeof root === 'undefined') {
 				return
 			}
-			this.ajax_for_folder({
-				'root':root,
-				'type':'delete'
-			})
+			var me = this;
+			swal({
+				title: 'Are you sure?',
+				text: "You won't be able to revert this!",
+				type: 'warning',
+				showCancelButton: true,
+				confirmButtonColor: '#3085d6',
+				cancelButtonColor: '#d33',
+				confirmButtonText: 'Yes, delete it!'
+			}).then(function() {
+				me.ajax_for_folder({
+					'root':root,
+					'type':'delete'
+				});
+				var $audio = $('#sound-delete')[0];
+				if ($audio.paused) {
+					$audio.play();
+				}else{
+					$audio.currentTime = 0
+				}
+				swal(
+						'Deleted!',
+						'Your file has been deleted.',
+						'success'
+				);
+			});
+		}
+		rename_directory($wrapper) {
+			if (!$wrapper.attr('data-root')) {
+				return
+			}
+			this.$renameFolder.dir_root = $wrapper.attr('data-root');
+			this.$renameFolder.$dir = $wrapper;
 		}
 		ajax_for_folder(data, type) {
 			var me = this;
@@ -79,10 +130,14 @@
 				success:function (r) {
 					if (r.type == 'new') {
 						me.initialize_directory(r.directory);
+						me.$createFolder.hide();
 					} else if (r.type == 'delete') {
 						me.$folderWrapper.find('[data-root="'+r.directory+'"]').remove();
+					} else if (r.type == 'rename') {
+						me.$renameFolder.$dir.find('.folder-text span').html(data.new_name);
+						me.$renameFolder.$dir.attr('data-root',r.to_dir);
+						me.$renameFolder.hide();
 					}
-					me.$createFolder.hide();
 				}
 			});
 		}
@@ -241,32 +296,19 @@
 							me.open_folder($(this));
 						}
 					},
+					rename_direct: {
+						name: "Rename Folder",
+						icon:"fa-edit",
+						callback: function(key, opt){
+							me.$renameFolder.show();
+							me.rename_directory($wrapper);
+						}
+					},
 					delete_direct: {
 						name: "Delete Folder",
 						icon:"fa-trash",
 						callback: function(key, opt){
-							swal({
-								title: 'Are you sure?',
-								text: "You won't be able to revert this!",
-								type: 'warning',
-								showCancelButton: true,
-								confirmButtonColor: '#3085d6',
-								cancelButtonColor: '#d33',
-								confirmButtonText: 'Yes, delete it!'
-							}).then(function() {
-								me.delete_directory($wrapper);
-								var $audio = $('#sound-delete')[0];
-								if ($audio.paused) {
-									$audio.play();
-								}else{
-									$audio.currentTime = 0
-								}
-								swal(
-										'Deleted!',
-										'Your file has been deleted.',
-										'success'
-								);
-							});
+							me.delete_directory($wrapper);
 						}
 					}
 				}
@@ -282,12 +324,6 @@
 			}else {
 				me.delete_folder($wrapper.attr('data-root'))
 			}
-		}
-		delete_file_dir (args, callback) {
-			$.ajax(
-
-			);
-
 		}
 
 	}
