@@ -86,8 +86,6 @@
 					'X-CSRF-TOKEN': "{{ csrf_token() }}"
 				},
 				drop:function () {
-					me.$notification.$wrappwer.show();
-					me.$notification.$header.helptext.html('Uploading...');
 					$wrapper.$overWrapper.hide();
 				},
 				dragenter:function () {
@@ -97,6 +95,8 @@
 					console.log(file)
 				},
 				sending:function (file, xhr, formData) {
+					me.$notification.$wrappwer.show();
+					me.$notification.$header.helptext.html('Uploading...');
 					formData.append("root", $wrapper.attr('data-root'));
 				},
 				success:function (file) {
@@ -203,6 +203,7 @@
 				return
 			}
 			this.$renameFolder.dir_root = $wrapper.attr('data-root');
+			this.$renameFolder.set_value('rename_folder', MiMedia.basename(this.$renameFolder.dir_root));
 			this.$renameFolder.$dir = $wrapper;
 		}
 		ajax_for_folder(data, type) {
@@ -365,7 +366,7 @@
 						name: "Upload",
 						icon:"fa-cloud-upload",
 						callback: function(key, opt){
-							alert("Clicked on " + key);
+							me.$wrapper.trigger('click');
 						}
 					}
 				}
@@ -609,7 +610,7 @@
 				console.warn('field name is mandatory to set Value in field');
 				return
 			}
-			this[fieldname].$label.val(value)
+			this[fieldname].$input.val(value)
 		}
 		get_value (fieldname) {
 			return this[fieldname].$input.val();
