@@ -37,6 +37,7 @@
 			this.call_data_from_root(data);
 			this.make_create_folder();
 			this.make_rename_folder();
+			this.make_rename_file();
 		}
 		notification_message() {
 			var me = this;
@@ -160,6 +161,27 @@
 				})
 			})
 		}
+		make_rename_file(){
+			var me = this;
+			this.$renameFile = new PopModel({
+				modal_options:{
+					show:false
+				}
+			});
+			this.$renameFile.add_field({
+				fieldname:'rename_file',
+				fieldtype:'text',
+				label:'New Name'
+			});
+			this.$renameFile.set_primary_button('Rename', function () {
+				me.ajax_for_file({
+					'file_name':MiMedia.basename(me.$renameFile.file_root),
+					'new_name':me.$renameFile.get_value('rename_file'),
+					'root':me.$renameFile.file_root.substring(0, me.$renameFile.file_root.lastIndexOf("/")),
+					'type':'Rename'
+				})
+			})
+		}
 		post_new_folder() {
 			this.ajax_for_folder({
 				'folder_name':this.$createFolder.get_value('new_folder'),
@@ -229,6 +251,26 @@
 				}
 			});
 		}
+		ajax_for_file(data, type) {
+			var me = this;
+			if (typeof type === 'undefined') {
+				type = 'POST'
+			}
+			$.ajax({
+				url:this.args.file_url,
+				type:type,
+				data:data,
+				success:function (r) {
+					if (r.type == 'delete') {
+						me.$fileWrapper.find('[data-root="'+r.file+'"]').remove();
+					} else if (r.type == 'rename') {
+						me.$renameFile.$file.find('.folder-text span').html(data.new_name);
+						me.$renameFile.$file.attr('data-root',r.to_file);
+						me.$renameFile.hide();
+					}
+				}
+			});
+		}
 		initialize_directory(directory) {
 			var me = this;
 			me.args.directory = directory;
@@ -272,18 +314,7 @@
 				}
 				if (data.files.length) {
 					$.each(data.files, function (idx, file) {
-						me.args.file = file;
-						var $file = new MiFile(me.$fileWrapper,me.args,me.$fileTitle);
-						$file.$fileWrapper.on('dblclick', function () {
-							alert("Please setup preview")
-						});
-						$file.$fileWrapper.click(function (e) {
-							if(!e.ctrlKey)
-							{
-								me.$wrapper.find('.selected').removeClass('selected');
-							}
-							$(this).toggleClass('selected');
-						})
+						me.initialize_file(file)
 					});
 				}else {
 					me.$fileTitle.hide();
@@ -297,6 +328,25 @@
 			$jqXHR.always(function () {
 //				console.log('Cansel')
 			})
+		}
+
+		initialize_file(file) {
+			var me = this;
+			me.args.file = file;
+
+			me.args.file = file;
+			var $file = new MiFile(me.$fileWrapper,me.args,me.$fileTitle);
+			$file.$fileWrapper.on('dblclick', function () {
+				me.preview_file($(this))
+			});
+			$file.$fileWrapper.click(function (e) {
+				if(!e.ctrlKey)
+				{
+					me.$wrapper.find('.selected').removeClass('selected');
+				}
+				$(this).toggleClass('selected');
+			});
+			me.file_context_menu($file.$fileWrapper)
 		}
 		static basename (value){
 			return new String(value).substring(value.lastIndexOf('/') + 1);
@@ -402,6 +452,101 @@
 				}
 			});
 		}
+		file_context_menu($wrapper) {
+			var me = this;
+			$.contextMenu({
+				selector:'.mi-file-sub-wrapper:eq('+$wrapper.index()+')',
+				items: {
+					preview: {
+						name: "Preview",
+						icon:"fa-eye",
+						callback: function(key, opt){
+							me.preview_file($(this));
+						}
+					},
+					rename_file: {
+						name: "Rename File",
+						icon:"fa-edit",
+						callback: function(key, opt){
+							me.$renameFile.show();
+							me.rename_file($wrapper);
+						}
+					},
+					delete_file: {
+						name: "Delete File",
+						icon:"fa-trash",
+						callback: function(key, opt){
+							me.delete_files($wrapper);
+						}
+					}
+				}
+			});
+		}
+		preview_file($file){
+			var me = this;
+			var $model = new PopModel();
+			$model.set_title(MiMedia.basename($file.attr('data-root')));
+			$model.set_body_html($file.find('.thumbnail-image').html());
+			$model.$body.css({
+				'overflow':'scroll',
+				'max-height': '400px'
+			})
+		}
+
+		rename_file($file) {
+			$file = $($file[0]);
+			if (!$file.attr('data-root')) {
+				return
+			}
+			this.$renameFile.file_root = $file.attr('data-root');
+			this.$renameFile.set_value('rename_file', MiMedia.basename(this.$renameFile.file_root));
+			this.$renameFile.$file = $file;
+		}
+
+		delete_files($file) {
+			var me = this;
+			if ($file.hasClass('selected')) {
+				$file.siblings('.selected').each(function (idx, el) {
+					me.delete_folder($(el).attr('data-root'))
+				})
+			}else {
+				me.delete_folder($file.attr('data-root'))
+			}
+		}
+
+		delete_file(root){
+			if (typeof root === 'undefined') {
+				return
+			}
+			var me = this;
+			swal({
+				title: 'Are you sure?',
+				text: "You won't be able to revert this!",
+				type: 'warning',
+				showCancelButton: true,
+				confirmButtonColor: '#3085d6',
+				cancelButtonColor: '#d33',
+				confirmButtonText: 'Yes, delete it!'
+			}).then(function() {
+				me.ajax_for_file({
+					'root':root,
+					'type':'delete'
+				});
+				var $audio = $('#sound-delete')[0];
+				if ($audio.paused) {
+					$audio.play();
+				}else{
+					$audio.currentTime = 0
+				}
+				swal(
+						'Deleted!',
+						'Your file has been deleted.',
+						'success'
+				);
+			});
+		}
+
+
 
 		delete_directory($wrapper) {
 			var me = this;
@@ -552,6 +697,9 @@
 		setup_body() {
 			this.$body = $('<div class="modal-body">').appendTo(this.$wrapperContainer)
 		}
+		set_body_html($html) {
+			this.$body.html($html)
+		}
 		setup_footer() {
 			var me = this;
 			this.$footer = $('<div class="modal-footer">').appendTo(this.$wrapperContainer);
@@ -616,4 +764,7 @@
 			return this[fieldname].$input.val();
 		}
 	}
+
+
+
 </script>

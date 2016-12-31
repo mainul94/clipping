@@ -67,6 +67,24 @@ class ImageController extends Controller
         }
     }
 
+
+    public function file(Request $request)
+    {
+        if (strtolower($request->get('type')) === 'delete') {
+            Storage::disk($this->disk)->delete($request->get('root'));
+            return ['type'=>'delete', 'file'=>$request->get('root')];
+        } elseif (in_array($request->get('type'), ['Rename', 'Edit', 'Patch'])) {
+            $form_file = $request->get('root').
+                (strrev($request->get('root'))[0] == '/' || $request->get('file_name') == '/' ? '':'/').
+                $request->get('file_name');
+            $to_file = $request->get('root').
+                (strrev($request->get('root'))[0] == '/' || $request->get('new_name') == '/' ? '':'/').
+                $request->get('new_name');
+            Storage::disk($this->disk)->move($form_file,$to_file);
+            return ['type'=>'rename', 'from_file'=>$form_file, 'to_file'=>$to_file];
+        }
+    }
+
     /**
      * Show the form for creating a new resource.
      *
