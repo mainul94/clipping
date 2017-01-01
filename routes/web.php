@@ -18,7 +18,7 @@ $middleware = ['auth'];
 if (!empty(auth()->check())) {
     $prefix = strtolower(auth()->user()->type);
 }else {
-    $prefix = 'admin';
+    $prefix = '';
 }
 
 Route::group(compact('middleware', 'prefix'), function () {
@@ -36,6 +36,8 @@ Route::group(compact('middleware', 'prefix'), function () {
     Route::group(['prefix'=>'report'], function () {
         Route::get('{report}', 'ReportController');
     });
+    Route::any('directory','ImageController@directory');
+    Route::any('file','ImageController@file');
     Route::get('profile/edit','ProfileController@edit');
     Route::get('profile/{user?}','ProfileController@show');
     Route::patch('profile/{profile}','ProfileController@update');
@@ -80,4 +82,6 @@ Route::group(['middleware'=>['auth','api','cors']], function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index');
+Route::get('/user/activation/{token}', 'Auth\RegisterController@userActivation');
+
 

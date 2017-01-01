@@ -35,6 +35,7 @@ class TaskController extends Controller
         $rules =  [
             'title'=>'required',
             'total_qty'=>'required',
+            'total_amount'=>'max:8',
             'slug' => 'Unique:tasks'.($data && $data->id?',slug,'.$data->id:'')
         ];
 

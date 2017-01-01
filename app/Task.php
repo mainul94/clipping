@@ -127,12 +127,12 @@ class Task extends Model
     /**
      * @param $data
      */
-    public function setTotalAmountAttribute($data)
+    /*public function setTotalAmountAttribute($data)
     {
         if (empty($data)) {
             $this->attributes['total_amount'] = 0;
         }
-    }
+    }*/
 
 
     public function scopePending($query)
