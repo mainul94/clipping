@@ -21,8 +21,8 @@ class CreateFtpsTable extends Migration
             $table->string('password');
             $table->integer('port')->default(21);
             $table->string('root')->nullable();
-            $table->boolean('passive')->default(true);
-            $table->boolean('ssl')->default(true);
+            $table->boolean('passive')->default(false);
+            $table->boolean('ssl')->default(false);
             $table->integer('timeout',false, true)->default(180);
             $table->enum('status',[0,1])->default(1);
             $table->timestamps();

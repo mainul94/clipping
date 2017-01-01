@@ -35,6 +35,7 @@ class TaskController extends Controller
         $rules =  [
             'title'=>'required',
             'total_qty'=>'required',
+            'total_amount'=>'max:8',
             'slug' => 'Unique:tasks'.($data && $data->id?',slug,'.$data->id:'')
         ];
 
@@ -66,11 +67,11 @@ class TaskController extends Controller
     {
         return $this->editWith($task);
     }
-    
+
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param Task|object $id
      * @return Response
      */
     public function editWith(Task $id)

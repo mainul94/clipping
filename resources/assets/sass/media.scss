@@ -1,0 +1,275 @@
+$color : #222;
+$wrapper-bg : #eee;
+$folder-wrapper-bg : #fff;
+$folder-bg : #fafafa;
+$folder-color : slategrey;
+$folder-text-color : slategrey;
+$thumbnail-wrapper-bg : $folder-wrapper-bg;
+$selected-bg:#4285f4;
+$selected-color:#fff;
+$section-title-color:#646464;
+
+.mi-media-wrapper {
+  position: relative;
+  background-color: $wrapper-bg;
+  min-height:200px;
+  width:100%;
+  float:left;
+  padding:0 2em 2em 2em;
+  display: block;
+  max-height: 400px;
+  overflow-y: scroll;
+  .drags {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    color: #31708f;
+    background-color: rgba(190, 225, 255, 0.32);
+    border: .2em dashed rgb(27, 179, 179);
+    z-index: 999;
+    top: 0;
+    left: 0;
+  }
+  .section-title {
+    padding-top: 1em;
+    color: $section-title-color;
+    display: block;
+    float: left;
+    width: 100%;
+  }
+  .mi-folder-wrapper, .mi-file-wrapper {
+    display: block;
+    float: left;
+    width: 100%;
+  }
+  .mi-folder-sub-wrapper, .mi-file-sub-wrapper>.text {
+    float: left;
+    margin-top: 2%;
+    margin-right: 2%;
+    background-color: $folder-wrapper-bg;
+    overflow: hidden;
+    border-radius: 2px;
+    box-shadow: 0 1px 1px 0 rgba(0,0,0,.2);
+    display: flex;
+    .folder-icon, .mi-file-sub-wrapper>.text>.folder-icon {
+      float: left;
+      height: 100%;
+      width: 44px;
+      display: inline;
+      background-color: $folder-bg;
+      i.fa, .mi-file-sub-wrapper>.text>.folder-icon>i.fa {
+        margin:10px;
+        border-bottom-left-radius: 1px;
+        border-top-left-radius: 1px;
+        font-size: 1.6em;
+      }
+    }
+    .folder-text, .mi-file-sub-wrapper>.text>.folder-text {
+      float: left;
+      padding-right: 13px;
+      text-overflow:ellipsis;
+      color: $color;
+      white-space: nowrap;
+      overflow: hidden;
+      display: inline;
+      span, .mi-file-sub-wrapper>.text>.folder-text>span {
+        line-height: 40px;
+        padding-left: 10px;
+        padding-right: 13px;
+      }
+    }
+    @media (min-width: 1200px) {
+      width: 10.5%;
+    }
+    @media (min-width: 992px) {
+      width: 18%;
+    }
+    @media (min-width: 768px) {
+      width: 23%;
+    }
+  }
+
+  .mi-file-wrapper {
+    .mi-file-sub-wrapper {
+      width: 200px;
+      height: auto;
+      float: left;
+      display: block;
+      overflow: hidden;
+      background-color: transparent;
+      text-align: center;
+      margin-top: 15px;
+      margin-right: 15px;
+      .thumbnail-image {
+        height: 180px;
+        display: block;
+        overflow: hidden;
+        background-color: $folder-bg;
+        img, svg {
+          max-width: 100%;
+          max-height: 100%;
+        }
+      }
+      .text {
+        width:100% !important;
+        background-color: transparent;
+        .folder-icon {
+          background-color: inherit;
+        }
+      }
+    }
+  }
+
+
+  .mi-folder-sub-wrapper.selected, .mi-file-sub-wrapper.selected {
+    background-color: $selected-bg;
+    box-shadow: 0 2px 8px 0 rgba(0,0,0,.25);
+    color: $selected-color;
+    .folder-icon {
+      background-color: inherit;
+    }
+    .folder-text {
+      color: inherit;
+    }
+  }
+}
+
+///////////////////////Context Menu
+.context-menu-icon.context-menu-icon--fa {
+  line-height: 2em;
+}
+.context-menu-icon.context-menu-icon--fa::before {
+  color: inherit;
+}
+
+
+.ui-selecting {
+  background: lighten($selected-bg, 50) !important;
+}
+.ui-selected {
+  background-color: $selected-bg !important;
+  box-shadow: 0 2px 8px 0 rgba(0,0,0,.25) !important;
+  color: $selected-color !important;
+  .folder-icon {
+    background-color: inherit !important;
+  }
+  .folder-text {
+    color: inherit !important;
+  }
+}
+
+///////////////////////////////
+.mi-media-wrapper .breadcrumb{
+  display: flex;
+  -webkit-flex-direction: row;
+  flex-direction: row;
+  background-color: #fafafa;
+  border-bottom: 1px solid transparent;
+  border-top: 1px solid #e5e5e5;
+  -webkit-box-shadow: 0 2px 4px rgba(0,0,0,.2);
+  box-shadow: 0 2px 4px rgba(0,0,0,.2);
+  height: 53px;
+  position: relative;
+  -webkit-transition: height .35s cubic-bezier(0.4,0.0,1,1),border-color .4s;
+  transition: height .35s cubic-bezier(0.4,0.0,1,1),border-color .4s;
+  z-index: 5;
+  li {
+    -webkit-border-radius: 2px;
+    border-radius: 2px;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    color: #555;
+    cursor: pointer;
+    display: inline-block;
+    line-height: 30px;
+    overflow: hidden;
+    padding: 1px 6px;
+    text-overflow: ellipsis;
+    vertical-align: top;
+    white-space: nowrap;
+    max-width:200px;
+    font-size:1.4em;
+  }
+  li:last-child {
+    font-weight:bold;
+  }
+}
+.breadcrumb {
+  margin-left: -2em;
+  margin-right: -2em;
+}
+.dragstart {
+
+}
+///////////////////
+//Upload
+.notification-wrapper {
+  position: fixed;
+  width: 300px;
+  height: auto;
+  background-color: white;
+  bottom: 0;
+  right: 20px;
+  z-index: 99999;
+  border: 1px solid lightcyan;
+  border-radius: 5px 5px 0 0;
+  margin-bottom: 0;
+  padding: 0;
+  list-style: none;
+  .header {
+    background-color: $folder-bg;
+    width: 100%;
+    display: block;
+    a {
+      min-width: 25px;
+    }
+  }
+  > li {
+    display: flex;
+    float: left;
+    padding: 5px;
+    > ul {
+      padding: 0;
+      list-style: none;
+      float: left;
+      overflow-y: scroll;
+      height: auto;
+      width: 290px;
+      max-height: 360px;
+      >li {
+        margin-bottom: 10px;
+        >img[data-dz-thumbnail] {
+          width: 50px;
+          height: auto;
+        }
+        >span[data-dz-name] {
+          margin-left: 5px;
+          width: 100px;
+        }
+        >span[data-dz-size] {
+          margin-left: 5px;
+          width: 50px;
+        }
+        >span.dz-success-mark, >span.dz-error-mark {
+          margin-left: 5px;
+          width: 25px;
+        }
+        >.dz-progress {
+          width: 100%;
+          >.dz-upload {
+            background-color:mediumspringgreen;
+            display: block;
+            text-align: center;
+            color: #0a0a0a;
+            font-weight: bold;
+          }
+        }
+      }
+    }
+  }
+  >.minimize {
+    >ul {
+      max-height: 1px !important;
+    }
+  }
+}

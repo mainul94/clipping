@@ -68,4 +68,12 @@ class User extends Authenticatable
         return $this->hasMany(Invoice::class, 'client_id');
     }
 
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function ftp()
+    {
+        return $this->hasOne(Ftp::class);
+    }
 }

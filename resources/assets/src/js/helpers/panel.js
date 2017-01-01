@@ -48,7 +48,6 @@ function filtersForSelect2Dependancy(filters) {
  * @param f_v
  */
 function getvalueForSelect2(selector,table,select,filters,f_k,f_v,defaultValue) {
-    console.log();
     if (typeof selector === "object") {
         $selector = selector;
     }else {

@@ -6,74 +6,45 @@
  * Time: 1:00 AM
  */
 
-        ?>
+?>
 @extends('layouts.admin')
 
 @push('title') Task Edit @endpush
-
-
 {{--@section('content-header')--}}
-    {{--@include('_partial.breadcrumb',['breadcrumb_title'=>'Task Edit'])--}}
+{{--@include('_partial.breadcrumb',['breadcrumb_title'=>'Task Edit'])--}}
 {{--@endsection--}}
 @section('content')
-<div class="content">
-    <div class="x_panel">
-        <!-- Upload Images Modal -->
-        <div class="x_header">
-        <button type="button" class="btn btn-primary pull-right" data-toggle="modal" data-target="#uploadImages">
-            Upload Images
-        </button>
-        </div>
-
-
-        <!-- Modal -->
-        <div class="modal fade" id="uploadImages" role="dialog">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                        <h4 class="modal-title" id="myModalLabel">Images Upload</h4>
+    <div class="content">
+        <div class="x_panel">
+            {!! Form::model($id,['action'=>['TaskController@update',$id->id], 'method'=>'PATCH','class'=>'form-horizontal', /*'files' => true*/]) !!}
+            <h4 class="col-xs-12">JOB ID: {!! $id->id !!}</h4>
+            <div class="clearfix"></div>
+            <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+                <div class="panel panel-info">
+                    <div class="panel-heading" role="tab" id="headingOne">
+                        <h4 class="panel-title">
+                            <a role="button" class="center-block" data-toggle="collapse" data-parent="#accordion" href="#details" aria-expanded="true" aria-controls="details">
+                                Details <i class="fa fa-eye-slash pull-right" aria-hidden="true"></i>
+                            </a>
+                        </h4>
                     </div>
-                    <div class="modal-body">
-                                <!-- Nav tabs -->
-                        <ul class="nav nav-tabs" role="tablist">
-                            <li role="presentation" class="active"><a href="#directUpload" aria-controls="directUpload" role="tab" data-toggle="tab">Direct Upload</a></li>
-                            <li role="presentation"><a href="#ftpUpload" aria-controls="ftpUpload" role="tab" data-toggle="tab">Via FTP</a></li>
-                        </ul>
-
-                        <!-- Tab panes -->
-                        <div class="tab-content">
-                            <div role="tabpanel" class="tab-pane active" id="directUpload">
-                                <br>
-                                @include('admin.task._dropzonjs_upload')
-                            </div>
-                            <div role="tabpanel" class="tab-pane" id="ftpUpload">
-
-                                <blockquote>
-                                    <p>you can upload on this job from ftp <br>
-                                    Please login your FTP acount from FTP Client and upload file on "{{ $id->id }}" Folder</p>
-                                </blockquote>
-                            </div>
+                    <div id="details" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+                        <div class="panel-body">
+                            @include('admin.task._task')
                         </div>
-
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                     </div>
                 </div>
             </div>
+            {!! Form::close() !!}
+            <div class="row">
+                @include('media._content')
+            </div>
+            {{--@if(array_key_exists('images', $withData) && count($withData['images'])>0)
+				@include('admin.task._image_view')
+			@endif--}}
+            <div class="clearfix"></div>
+            @include('admin.comment.comment',['row'=>$id])
+            <div class="clearfix"></div>
         </div>
-        {{--/Upload Images Modal--}}
-        {!! Form::model($id,['action'=>['TaskController@update',$id->id], 'method'=>'PATCH','class'=>'form-horizontal', /*'files' => true*/]) !!}
-        <h4 class="col-xs-12">JOB ID: {!! $id->id !!}</h4>
-        @include('admin.task._task')
-        {!! Form::close() !!}
-        @if(array_key_exists('images', $withData) && count($withData['images'])>0)
-            @include('admin.task._image_view')
-        @endif
-        <div class="clearfix"></div>
-        @include('admin.comment.comment',['row'=>$id])
-        <div class="clearfix"></div>
     </div>
-</div>
 @endsection

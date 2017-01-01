@@ -7,14 +7,14 @@
  */
 ?>
 @extends('layouts.admin')
-@section('title') Page list @endsection
+@section('title') FTP list @endsection
 @section('content')
     <div class="row">
         <div class="col-md-12">
             <div class="x_panel">
                 <div class="x_title">
-                    <h3>Page list
-                        <small><a class="btn btn-primary pull-right" href="{!! action('PageController@create') !!}">New</a></small>
+                    <h3>FTP List
+                        <small><a class="btn btn-primary pull-right" href="{!! action('FTPController@create') !!}">New</a></small>
                     </h3>
                 </div>
                 <div class="x_content">
@@ -23,8 +23,10 @@
                         <thead>
                         <tr>
                             <th>#</th>
-                            <th>Page</th>
-                            <th>Slug</th>
+                            <th>User</th>
+                            <th>Email</th>
+                            <th>Host</th>
+                            <th>Username</th>
                             <th>Created By</th>
                             <th>Updated By</th>
                             <th>Action</th>
@@ -34,14 +36,16 @@
                         @foreach($rows as $sl=>$row)
                             <tr>
                                 <td>{!! $start + ++$sl !!}</td>
-                                <td>{!! $row->title !!}</td>
-                                <td>{!! $row->slug !!}</td>
+                                <td><a href="{!! action('ProfileController@show',[$row->user->id])!!}">{!! $row->user->name !!}</a></td>
+                                <td>{!! $row->user->email !!}</td>
+                                <td>{!! $row->host !!}</td>
+                                <td>{!! $row->username !!}</td>
                                 <td>{!! $row->createdBy->name or "" !!}</td>
                                 <td>{!! $row->updatedBy->name or "" !!}</td>
                                 <td class="text-center action-btn-wrapper">
-                                    <a class="text-success" href="{!! action('PageController@show',$row->slug) !!}"><i class="fa fa-eye"></i></a>
-                                    <a class="text-warning" href="{!! action('PageController@edit',$row->slug) !!}"><i class="fa fa-pencil-square-o"></i></a>
-                                    {!! Html::delete('PageController@destroy',$row->slug) !!}
+                                    <a class="text-success" href="{!! action('FTPController@show',$row->id) !!}"><i class="fa fa-eye"></i></a>
+                                    <a class="text-warning" href="{!! action('FTPController@edit',$row->id) !!}"><i class="fa fa-pencil-square-o"></i></a>
+                                    {!! Html::delete('FTPController@destroy',$row->id) !!}
                                 </td>
                             </tr>
                         @endforeach

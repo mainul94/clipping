@@ -7,6 +7,7 @@ use App\Category;
 use App\Comment;
 use App\Country;
 use App\Division;
+use App\Ftp;
 use App\Invoice;
 use App\Media;
 use App\Page;
@@ -42,6 +43,7 @@ class RouteBindProvider extends ServiceProvider
         $router->model('comment', Comment::class);
         $router->model('invoice', Invoice::class);
         $router->model('profile', Profile::class);
+        $router->model('ftp', Ftp::class);
     }
 
     /**

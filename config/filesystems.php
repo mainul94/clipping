@@ -61,6 +61,13 @@ return [
             'region' => 'your-region',
             'bucket' => 'your-bucket',
         ],
+        'ftp' => [
+            'driver' => 'ftp',
+            'host' => 'localhost',
+            'username' => 'ftp1user',
+            'password' => '123456',
+            'port' => 21
+        ]
 
     ],
 

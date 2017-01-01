@@ -9,14 +9,14 @@
 @extends('layouts.admin')
 @section('content')
     <div class="row">
-        <div class="col-md-12">
+        <div class="col-md-6">
             <div class="x_panel">
                 <div class="x_title">
-                    Create Page
+                    Add FTP Account
                 </div>
                 <div class="x_content">
-                    {!! Form::open(['action'=>'PageController@store', 'class'=>'form-horizontal']) !!}
-                    @include('admin.page._form')
+                    {!! Form::open(['action'=>'FTPController@store', 'class'=>'form-horizontal']) !!}
+                    @include('admin.ftp._form')
                     {!! Form::close() !!}
                 </div>
             </div>

@@ -9,14 +9,14 @@
 @extends('layouts.admin')
 @section('content')
     <div class="row">
-        <div class="col-md-12">
+        <div class="col-md-6">
             <div class="x_panel">
                 <div class="x_title">
-                    Edit Page
+                    Edit FTP Account Info
                 </div>
                 <div class="x_content">
-                    {!! Form::model($id,['action'=>['PageController@update',$id->slug], 'method'=>'PATCH', 'class'=>'form-horizontal']) !!}
-                    @include('admin.page._form')
+                    {!! Form::model($id,['action'=>['FTPController@update',$id->id], 'method'=>'PATCH', 'class'=>'form-horizontal']) !!}
+                    @include('admin.ftp._form')
                     {!! Form::close() !!}
                 </div>
             </div>
