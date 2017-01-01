@@ -18,7 +18,7 @@ $middleware = ['auth'];
 if (!empty(auth()->check())) {
     $prefix = strtolower(auth()->user()->type);
 }else {
-    $prefix = 'admin';
+    $prefix = '';
 }
 
 Route::group(compact('middleware', 'prefix'), function () {
@@ -82,4 +82,6 @@ Route::group(['middleware'=>['auth','api','cors']], function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index');
+Route::get('/user/activation/{token}', 'Auth\RegisterController@userActivation');
+
 
