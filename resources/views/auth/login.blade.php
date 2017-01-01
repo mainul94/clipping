@@ -15,6 +15,21 @@
                 <section class="login_content">
                     <form class="form-horizontal" role="form" method="POST" action="{{ url('/login') }}">
                         {{ csrf_field() }}
+                        <div class="clearfix"></div>
+                        @if ($message = Session::get('success'))
+                            <div class="alert alert-info">
+                                <p>
+                                    {{ $message }}
+                                </p>
+                            </div>
+                        @endif
+                        @if ($message = Session::get('warning'))
+                            <div class="alert alert-warning">
+                                <p>
+                                    {{ $message }}
+                                </p>
+                            </div>
+                        @endif
                         <h1>Login Form</h1>
                         <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
 
