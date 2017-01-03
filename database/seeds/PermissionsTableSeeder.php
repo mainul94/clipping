@@ -71,7 +71,28 @@ class PermissionsTableSeeder extends Seeder
                 'id' => 12,
                 'name' => 'Delete Permission',
                 'slug' => 'delete.permission'
-            ]
+            ],
+            ["id" => 13,	"name" => "Create Task",	"slug" => "create.task"],
+            ["id" => 14,	"name" => "Update Task",	"slug" => "update.task"],
+            ["id" => 15,	"name" => "View Task",	"slug" => "view.task"],
+            ["id" => 16,	"name" => "View Comment",	"slug" => "view.comment"],
+            ["id" => 17,	"name" => "Update Comment",	"slug" => "update.comment"],
+            ["id" => 18,	"name" => "Create Comment",	"slug" => "create.comment"],
+            ["id" => 19,	"name" => "Delete Comment",	"slug" => "delete.comment"],
+            ["id" => 20,	"name" => "Create Invoice",	"slug" => "create.invoice"],
+            ["id" => 21,	"name" => "View Invoice",	"slug" => "view.invoice"],
+            ["id" => 22,	"name" => "Update Invoice",	"slug" => "update.invoice"],
+            ["id" => 23,	"name" => "Delete Invoice",	"slug" => "delete.invoice"],
+            ["id" => 24,	"name" => "View Task Price", "slug" => "view.task.price"],
+            ["id" => 25,	"name" => "View Client Name", "slug" => "view.client.name"],
+            ["id" => 26,	"name" => "View Trail",	"slug" => "view.trail"],
+            ["id" => 27,	"name" => "View Quotation",	"slug" => "view.quotation"],
+            ["id" => 28,	"name" => "Delete Task",	"slug" => "delete.task"],
+            ["id" => 29,	"name" => "View FTP",	"slug" => "view.ftp"],
+            ["id" => 30,	"name" => "Create Ftp",	"slug" => "create.ftp"],
+            ["id" => 31,	"name" => "Update Ftp",	"slug" => "update.ftp"],
+            ["id" => 32,	"name" => "Delete Ftp",	"slug" => "delete.ftp"]
+
         ]);
         DB::table('permission_role')->insert([
             [
@@ -121,56 +142,86 @@ class PermissionsTableSeeder extends Seeder
             [
                 'role_id' => 1,
                 'permission_id' => 12
-            ]
-        ]);
-        DB::table('permission_user')->insert([
-            [
-                'user_id' => 1,
-                'permission_id' => 1
             ],
             [
-                'user_id' => 1,
-                'permission_id' => 2
+                'role_id' => 1,
+                'permission_id' => 13
             ],
             [
-                'user_id' => 1,
-                'permission_id' => 3
+                'role_id' => 1,
+                'permission_id' => 14
             ],
             [
-                'user_id' => 1,
-                'permission_id' => 4
+                'role_id' => 1,
+                'permission_id' => 15
             ],
             [
-                'user_id' => 1,
-                'permission_id' => 5
+                'role_id' => 1,
+                'permission_id' => 16
             ],
             [
-                'user_id' => 1,
-                'permission_id' => 6
+                'role_id' => 1,
+                'permission_id' => 17
             ],
             [
-                'user_id' => 1,
-                'permission_id' => 7
+                'role_id' => 1,
+                'permission_id' => 18
             ],
             [
-                'user_id' => 1,
-                'permission_id' => 8
+                'role_id' => 1,
+                'permission_id' => 19
             ],
             [
-                'user_id' => 1,
-                'permission_id' => 9
+                'role_id' => 1,
+                'permission_id' => 20
             ],
             [
-                'user_id' => 1,
-                'permission_id' => 10
+                'role_id' => 1,
+                'permission_id' => 21
             ],
             [
-                'user_id' => 1,
-                'permission_id' => 11
+                'role_id' => 1,
+                'permission_id' => 22
             ],
             [
-                'user_id' => 1,
-                'permission_id' => 12
+                'role_id' => 1,
+                'permission_id' => 23
+            ],
+            [
+                'role_id' => 1,
+                'permission_id' => 24
+            ],
+            [
+                'role_id' => 1,
+                'permission_id' => 25
+            ],
+            [
+                'role_id' => 1,
+                'permission_id' => 26
+            ],
+            [
+                'role_id' => 1,
+                'permission_id' => 27
+            ],
+            [
+                'role_id' => 1,
+                'permission_id' => 28
+            ],
+            [
+                'role_id' => 1,
+                'permission_id' => 29
+            ],
+            [
+                'role_id' => 1,
+                'permission_id' => 30
+            ],
+            [
+                'role_id' => 1,
+                'permission_id' => 31
+            ],
+            [
+                'role_id' => 1,
+                'permission_id' => 32
             ]
         ]);
     }
