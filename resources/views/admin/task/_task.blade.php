@@ -78,6 +78,53 @@
     </div>
     <div class="col-sm-6">
         <div class="form-group">
+            {!! Form::label('ftp_id','FTP',['class'=>'col-sm-2 control-label']) !!}
+            <div class="col-sm-10">
+                @if(empty($id))
+                    {!! Form::select('ftp_id',[],null,['class'=>'form-control','placeholder'=>'Default']) !!}
+                @elseif(!empty($id->ftp))
+                    <div class="col-md-3 col-xs-12 widget widget_tally_box">
+                        <div class="x_panel fixed_height_390">
+                            <div class="x_title">
+                                <h2>Sales Close</h2>
+                                <ul class="nav navbar-right panel_toolbox">
+                                    <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                                    </li>
+                                    <li class="dropdown">
+                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+                                    </li>
+                                    <li><a class="close-link"><i class="fa fa-close"></i></a>
+                                    </li>
+                                </ul>
+                                <div class="clearfix"></div>
+                            </div>
+                            <div class="x_content" style="display: block;">
+                                <ul class="legend list-unstyled">
+                                    <li>
+                                        <p>
+                                            <span class="col-sm-4">Title:</span><span class="col-sm-8">{!! $id->ftp->title or "" !!}</span>
+                                        </p>
+                                    </li>
+                                    <li>
+                                        <p>
+                                            <span class="col-sm-4">Host:</span><span class="col-sm-8">{!! $id->ftp->host or "" !!}</span>
+                                        </p>
+                                    </li>
+                                    <li>
+                                        <p>
+                                            <span class="col-sm-4">User:</span><span class="col-sm-8">{!! $id->ftp->username or "" !!}</span>
+                                        </p>
+                                    </li>
+                                </ul>
+
+                            </div>
+                        </div>
+                    </div>
+                @endif
+            </div>
+        </div>
+
+        <div class="form-group">
             {!! Form::label('comend','Comend',['class'=>'col-sm-2 control-label']) !!}
             <div class="col-sm-10">
                 {!! Form::textarea('comend',null,['class'=>'form-control','placeholder'=>'Comend']) !!}
@@ -140,8 +187,13 @@
 @section('script_call')
     @parent
 <script>
+    var $ftp_filters = '';
+    @if(auth()->user()->type == 'Client')
+        $ftp_filters = ['user_id', "{!! auth()->user()->id !!}"];
+    @endif
     getvalueForSelect2("select[name='rejected_task_id']",'tasks',['id','title'],[],'id','title');
     getvalueForSelect2("select[name='client_id']",'users',['id','name'],[['type','Client']],'id','name');
+    getvalueForSelect2("select[name='ftp_id']",'ftps',['id','title'],[$ftp_filters],'id','title',null,['Default','Default']);
 
     //    Set Reject job Id on chagne type;
     $('[name="type"]').on('change',function () {

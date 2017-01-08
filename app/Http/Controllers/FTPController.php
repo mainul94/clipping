@@ -24,6 +24,7 @@ class FTPController extends Controller
 	{
 		return [
 			'host'=>'required',
+			'title'=>'Max:100',
 			'username'=>'required',
             'password' => 'Confirmed|Min:6|Max:32'.(empty($data)?'|Required':'')
 		];

@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Ftp extends Model
 {
-    protected $fillable = ['user_id', 'driver', 'host', 'username', 'password', 'port', 'root', 'passive', 'ssl',
+    protected $fillable = ['user_id', 'driver', 'title', 'host', 'username', 'password', 'port', 'root', 'passive', 'ssl',
 	    'timeout', 'status'];
 
 	use CreateUpdateByRecord;

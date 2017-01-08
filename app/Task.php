@@ -10,7 +10,7 @@ class Task extends Model
 {
 
     protected $fillable = ['title','slug','referance','rejected_task_id','client_id','type','instruction','comend',
-        'total_qty','total_amount','task_type','status', 'delivery'];
+        'total_qty','total_amount','task_type','status', 'delivery', 'ftp_id'];
 
     use CreateUpdateByRecord, HasComment, Notifiable;
 
@@ -25,16 +25,6 @@ class Task extends Model
                 $builder->where('client_id',auth()->user()->id);
             }
         });
-
-        /**
-         * Get Task Filter status
-         *
-         */
-        /*static::addGlobalScope('filterTaskStatus', function (Builder $builder) {
-            if (request()->get('status')) {
-                $builder->where('status',request()->get('status'));
-            }
-        });*/
 
         /**
          * Entry client id on Save Data
@@ -174,5 +164,26 @@ class Task extends Model
     public function scopeFinished($query)
     {
         return $query->where('status', 'Finished')->get();
+    }
+
+    public function ftp()
+    {
+        return $this->belongsTo(Ftp::class);
+    }
+
+    public function getFtp()
+    {
+        if (is_null($this->ftp)) {
+            return collect(config('filesystem.disks.ftp'));
+        }
+        return $this->ftp;
+    }
+
+
+    public function setFtpIdAttribute($value)
+    {
+        if ($value == 'Default') {
+            $this->attributes['ftp_id'] = null;
+        }
     }
 }

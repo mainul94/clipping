@@ -19,6 +19,14 @@
     </div>
 </div>
 
+<div class="form-group {!! $errors->has('title')? 'has-error':'' !!}">
+    {!! Form::label('title','Title',['class'=>'col-md-3']) !!}
+    <div class="col-xs-12">
+        {!! Form::text('title', null, ['class'=>'form-control col-xs-12']) !!}
+        {!! $errors->first('title','<span class="help-block">:message</span>') !!}
+    </div>
+</div>
+
 <div class="form-group {!! $errors->has('host')? 'has-error':'' !!}">
     {!! Form::label('host','Host *',['class'=>'col-md-3 required']) !!}
     <div class="col-xs-12">

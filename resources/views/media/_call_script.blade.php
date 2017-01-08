@@ -629,11 +629,10 @@
 			}
 		}
 		make_directory() {
+			console.log(this.args.data.ftp)
 			this.$fileWrapper = $('<div>').addClass('mi-file-sub-wrapper').appendTo(this.$wrapper)
-					// ToDo Need Ftp information from daynamically and also check error if ftp not set
-					.html('<div class="thumbnail-image">\
-							<img src="ftp://{{ auth()->user()->ftp->username }}:{{ auth()->user()->ftp->password."@".auth()->user()->ftp->host}}/'+this.args.file+'" alt="">\
-					</div>\
+					{{--// ToDo Need Ftp information from daynamically and also check error if ftp not set /// <img src="ftp://{{ auth()->user()->ftp->username }}:{{ auth()->user()->ftp->password."@".auth()->user()->ftp->host}}/'+this.args.file+'" alt="">--}}
+					.html('<div class="thumbnail-image"></div>\
 					<div class="text">\
 					<div class="folder-icon">\
 					<i class="fa fa-picture-o" aria-hidden="true"></i>\

@@ -21,7 +21,10 @@ function filtersForSelect2Dependancy(filters) {
     }
     var newFilter = [];
     $.each(filters, function (k,v) {
-        var fl = [v[0]]
+        if (typeof v !== 'object') {
+            return
+        }
+        var fl = [v[0]];
 
         if (typeof v[1] === 'undefined') {
             fl.push('=')
@@ -47,7 +50,7 @@ function filtersForSelect2Dependancy(filters) {
  * @param f_k
  * @param f_v
  */
-function getvalueForSelect2(selector,table,select,filters,f_k,f_v,defaultValue) {
+function getvalueForSelect2(selector,table,select,filters,f_k,f_v,defaultValue, prepend_data) {
     if (typeof selector === "object") {
         $selector = selector;
     }else {
@@ -75,6 +78,18 @@ function getvalueForSelect2(selector,table,select,filters,f_k,f_v,defaultValue) 
                 // scrolling can be used
                 params.page = params.page || 1;
                 var newdata = [];
+                if (typeof prepend_data === 'object') {
+                    if (typeof prepend_data[0] === 'object') {
+                        for (var i=0; i < prepend_data.length; i++) {
+                            newdata.push({'id': prepend_data[i][0],'text': prepend_data[i][1]})
+                        }
+                    }
+                    else {
+                        console.log(newdata);
+                        newdata.push({'id': prepend_data[0],'text': prepend_data[1]})
+                        console.log(newdata);
+                    }
+                }
                 $.each(data, function (k,v) {
                     newdata.push({'id': v[f_k],'text': v[f_v]})
                 });

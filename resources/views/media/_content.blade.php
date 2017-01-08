@@ -23,13 +23,18 @@
 	{{--<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>--}}
 	@include('media._call_script')
 	<script>
+		var $ftp = '{!! $id->ftp !!}';
+		@if(empty($id->ftp))
+				$ftp = '{{ config('filesystem.disks.fpt') }}';
+		@endif
 		new MiMedia({
 			index_url: '{{ action("ImageController@index") }}',
 			directory_url: '{{ action("ImageController@directory") }}',
 			file_url: '{{ action("ImageController@file") }}',
 			image_upload_url: '{{ action("ImageController@store") }}',
 			data:{
-				root:'/job/{{ $id->id }}'
+				root:'/job/{{ $id->id }}',
+				ftp: $ftp
 			}
 		}); 
 	</script>
