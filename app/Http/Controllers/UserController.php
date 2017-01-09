@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\User;
 use Illuminate\Http\Request;
+use DB;
+use Mail;
 
 class UserController extends Controller
 {
@@ -13,7 +15,7 @@ class UserController extends Controller
     {
         $this->view_dir = 'admin.user.';
         $this->model = new User();
-        $this->permissionCheckSetup($request);
+        $this->permissionCheckSetup($request, ['sendActivationCode']);
         
     }
 
@@ -50,6 +52,21 @@ class UserController extends Controller
     public function afterUpdate($model, $request)
     {
         $this->afterSave($model, $request);
+    }
+
+
+    public function sendActivationCode(User $user)
+    {
+        $user = $user->toArray();
+        $user['link'] = str_random(30);
+        DB::table('user_activations')->insert(['id_user'=>$user['id'],'token'=>$user['link']]);
+
+        Mail::send('auth.emails.activation', $user, function($message) use ($user){
+            $message->to($user['email']);
+            $message->subject(config('app.name').' - Activation Code');
+        });
+        
+        return redirect()->intended()->with('message', ['type' => 'success', 'msg' => 'Resend activation email.']);
     }
     
 }

@@ -53,6 +53,11 @@
         {!! $errors->first('status','<span class="help-block">:message</span>') !!}
     </div>
 </div>
+@if(!empty($id))
+<div class="form-group">
+    <div class="col-md-7 col-md-offset-3"><a href="{!! action('UserController@sendActivationCode', $id->id) !!}" class="btn btn-info btn-xs">Resend email activation code</a></div>
+</div>
+@endif
 
 {{--<div class="form-group {!! $errors->has('role_id')? 'has-error':'' !!}">
     {!! Form::label('role_id','Role',['class'=>'control-label col-md-3']) !!}

@@ -81,6 +81,7 @@ Route::group(['middleware'=>['auth','api','cors']], function () {
 
 //    Get FTP Details
     Route::get('ftp-details/{task}','TaskController@getFTPDetails');
+    Route::get('resend-email-activation-code/{user}','UserController@sendActivationCode');
 });
 Auth::routes();
 
