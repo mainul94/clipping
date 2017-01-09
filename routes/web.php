@@ -78,6 +78,9 @@ Route::group(['middleware'=>['auth','api','cors']], function () {
             'msg' => $msg
         ]);
     });
+
+//    Get FTP Details
+    Route::get('ftp-details/{task}','TaskController@getFTPDetails');
 });
 Auth::routes();
 

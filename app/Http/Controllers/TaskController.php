@@ -26,7 +26,7 @@ class TaskController extends Controller
     {
         $this->view_dir = 'admin.task.';
         $this->model = new Task();
-        $this->permissionCheckSetup($request);
+        $this->permissionCheckSetup($request,['getFTPDetails']);
     }
 
 
@@ -130,5 +130,16 @@ class TaskController extends Controller
         $users = User::where('status', '1')->whereIn('type',['Admin', 'Support'])
             ->orWhere('id',$request->get('client_id'))->get();
         Notification::send($users, new TaskUpdate($task));
+    }
+
+
+    /**
+     * @param Request $request
+     * @param Task $task
+     * @return mixed
+     */
+    public function getFTPDetails(Request $request, Task $task)
+    {
+        return response()->json((array) $task->ftp);
     }
 }

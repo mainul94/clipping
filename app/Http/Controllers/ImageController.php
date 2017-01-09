@@ -17,13 +17,18 @@ class ImageController extends Controller
 
     public function __construct(Request $request)
     {
-        if (empty($request->get('ftp'))){
+        if (empty($request->get('task_id'))){
             $this->disk = 'ftp';
         }else
         {
-//            config(['filesystems.disks.ftp'.auth()->user()->id => auth()->user()->ftp]);
-            config(['filesystems.disks.ftp'.auth()->user()->id => $request->get('ftp')]);
-            $this->disk = 'ftp'.auth()->user()->id;
+            $task = Task::where('id', $request->get('task_id'))->first();
+            if (!empty($task))  {
+                config(['filesystems.disks.ftp'.$task->id => (array) $task->ftp]);
+                $this->disk = 'ftp'.$task->id;
+            }else{
+                $this->disk = 'local';
+            }
+
         }
     }
 
