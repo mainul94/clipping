@@ -46,6 +46,14 @@
     </div>
 </div>
 
+<div class="form-group {!! $errors->has('status')? 'has-error':'' !!}">
+    {!! Form::label('status','Status',['class'=>'control-label col-md-3']) !!}
+    <div class="col-md-7">
+        {!! Form::select('status',['1' => 'Active','0' => 'Inactive'], null, ['class'=>'form-control col-md-7 col-xs-12']) !!}
+        {!! $errors->first('status','<span class="help-block">:message</span>') !!}
+    </div>
+</div>
+
 {{--<div class="form-group {!! $errors->has('role_id')? 'has-error':'' !!}">
     {!! Form::label('role_id','Role',['class'=>'control-label col-md-3']) !!}
     <div class="col-md-7">
