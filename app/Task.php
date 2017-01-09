@@ -171,12 +171,12 @@ class Task extends Model
         return $this->belongsTo(Ftp::class);
     }
 
-    public function getFtp()
+    public function getFtpAttribute()
     {
-        if (is_null($this->ftp)) {
-            return collect(config('filesystem.disks.ftp'));
+        if (is_null($this->ftp()->first())) {
+            return (object) config('filesystems.disks.ftp');
         }
-        return $this->ftp;
+        $this->ftp();
     }
 
 
