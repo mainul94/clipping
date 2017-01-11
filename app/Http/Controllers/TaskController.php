@@ -74,7 +74,7 @@ class TaskController extends Controller
      * @param Task|object $id
      * @return Response
      */
-    public function editWith(Task $id)
+    /*public function editWith(Task $id)
     {
         $storage_dik ='local';
         $base_directory = '/jobs/'.$id->id;
@@ -94,7 +94,7 @@ class TaskController extends Controller
         }
 
         return ['images'=>$images];
-    }
+    }*/
 
     /**
      * Update the specified resource in storage.
