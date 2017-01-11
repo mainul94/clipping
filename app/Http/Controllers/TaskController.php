@@ -63,10 +63,10 @@ class TaskController extends Controller
         $this->sendTheNotificaion($request, $task);
     }
 
-    public function showWith(Task $task)
+    /*public function showWith(Task $task)
     {
         return $this->editWith($task);
-    }
+    }*/
 
     /**
      * Show the form for editing the specified resource.

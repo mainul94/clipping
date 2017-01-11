@@ -21,10 +21,13 @@
 			<div class="row">
 				@include('admin.task._task_show')
 			</div>
-			@if(array_key_exists('images', $withData) && count($withData['images'])>0)
+			<div class="row">
+				@include('media._content')
+			</div>
+			{{--@if(array_key_exists('images', $withData) && count($withData['images'])>0)
 				<h3>Images</h3>
 				@include('admin.task._image_view')
-			@endif
+			@endif--}}
 			<div class="clearfix"></div>
 			@include('admin.comment.comment',['row'=>$id])
 			<div class="clearfix"></div>
