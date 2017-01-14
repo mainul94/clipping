@@ -22,7 +22,7 @@ trait UploadFiles
     {
         if ($data->isValid()) {
             if (is_null($storageDir)) {
-                $storageDir = 'app/public/quotation/';
+                $storageDir = 'app/public/quotations/';
             }
             if (is_null($repDir)) {
                 $repDir = 'app/public';

@@ -45,13 +45,13 @@
                                 <td>{!! $row->quantity !!}</td>
                                 <td>{!! $row->instruction !!}</td>
                                 <td class="text-center action-btn-wrapper">
-                                    @permission("view.quotaion")
+                                    @permission("view.quotation")
                                     <a class="text-success" href="{!! action('QuotationController@show',$row->id) !!}"><i class="fa fa-eye"></i></a>
                                     @endpermission
-                                    @permission("update.quotaion")
+                                    @permission("update.quotation")
                                     <a class="text-warning" href="{!! action('QuotationController@edit',$row->id) !!}"><i class="fa fa-pencil-square-o"></i></a>
                                     @endpermission
-                                    @permission("delete.quotaion")
+                                    @permission("delete.quotation")
                                     {!! Html::delete('QuotationController@destroy',$row->id) !!}
                                     @endpermission
                                 </td>

@@ -19,7 +19,7 @@ const app = new Vue({
     el: 'body'
 });
 
-Echo.private('App.User.1')
+Echo.private('App.User.' + window.user_id)
     .notification((notification) => {
         Window.Notify.add_notification(notification,true);
         new PNotify({

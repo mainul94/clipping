@@ -63,9 +63,9 @@ class Task extends Model
 
     public function setTitleAttribute($data)
     {
-        $task = Task::where('slug','like',$data.'%');
+        $task = Task::where('slug','like',$data.'%')->count();
         if (empty($this->getAttribute('slug'))) {
-            $this->attributes['slug'] = str_slug($data.(count($task)?'-'.count($task):''));
+            $this->attributes['slug'] = str_slug($data.($task?'-'.$task:''));
         }
         $this->attributes['title'] = $data;
     }

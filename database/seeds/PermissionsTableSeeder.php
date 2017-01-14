@@ -91,7 +91,8 @@ class PermissionsTableSeeder extends Seeder
             ["id" => 29,	"name" => "View FTP",	"slug" => "view.ftp"],
             ["id" => 30,	"name" => "Create Ftp",	"slug" => "create.ftp"],
             ["id" => 31,	"name" => "Update Ftp",	"slug" => "update.ftp"],
-            ["id" => 32,	"name" => "Delete Ftp",	"slug" => "delete.ftp"]
+            ["id" => 32,	"name" => "Delete Ftp",	"slug" => "delete.ftp"],
+
 
         ]);
         DB::table('permission_role')->insert([
@@ -222,6 +223,126 @@ class PermissionsTableSeeder extends Seeder
             [
                 'role_id' => 1,
                 'permission_id' => 32
+            ],
+            [
+                'role_id' => 2,
+                'permission_id' => 13
+            ],
+            [
+                'role_id' => 2,
+                'permission_id' => 14
+            ],
+            [
+                'role_id' => 2,
+                'permission_id' => 15
+            ],
+            [
+                'role_id' => 2,
+                'permission_id' => 16
+            ],
+            [
+                'role_id' => 2,
+                'permission_id' => 17
+            ],
+            [
+                'role_id' => 2,
+                'permission_id' => 18
+            ],
+            [
+                'role_id' => 2,
+                'permission_id' => 20
+            ],
+            [
+                'role_id' => 2,
+                'permission_id' => 21
+            ],
+            [
+                'role_id' => 2,
+                'permission_id' => 24
+            ],
+            [
+                'role_id' => 2,
+                'permission_id' => 25
+            ],
+            [
+                'role_id' => 2,
+                'permission_id' => 26
+            ],
+            [
+                'role_id' => 2,
+                'permission_id' => 27
+            ],
+            [
+                'role_id' => 2,
+                'permission_id' => 28
+            ],
+            [
+                'role_id' => 2,
+                'permission_id' => 29
+            ],
+            [
+                'role_id' => 2,
+                'permission_id' => 30
+            ],
+            [
+                'role_id' => 2,
+                'permission_id' => 31
+            ],
+            [
+                'role_id' => 2,
+                'permission_id' => 32
+            ],
+            [
+                'role_id' => 3,
+                'permission_id' => 13
+            ],
+            [
+                'role_id' => 3,
+                'permission_id' => 14
+            ],
+            [
+                'role_id' => 3,
+                'permission_id' => 15
+            ],
+            [
+                'role_id' => 3,
+                'permission_id' => 16
+            ],
+            [
+                'role_id' => 3,
+                'permission_id' => 17
+            ],
+            [
+                'role_id' => 3,
+                'permission_id' => 18
+            ],
+            [
+                'role_id' => 3,
+                'permission_id' => 20
+            ],
+            [
+                'role_id' => 3,
+                'permission_id' => 21
+            ],
+            [
+                'role_id' => 3,
+                'permission_id' => 24
+            ],
+            [
+                'role_id' => 3,
+                'permission_id' => 25
+            ],
+            [
+                'role_id' => 3,
+                'permission_id' => 26
+            ],
+            [
+                'role_id' => 3,
+                'permission_id' => 27
+            ],
+            [
+                'role_id' => 3,
+                'permission_id' => 29
             ]
         ]);
     }

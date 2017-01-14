@@ -98,14 +98,14 @@
 						<div class="row">
 							<!-- accepted payments column -->
 							<div class="col-xs-6">
-								<p class="lead">Payment Methods:</p>
+								{{--<p class="lead">Payment Methods:</p>
 								<img src="{!! asset('images/visa.png') !!}" alt="Visa">
 								<img src="{!! asset('images/mastercard.png') !!}" alt="Mastercard">
 								<img src="{!! asset('images/american-express.png') !!}" alt="American Express">
 								<img src="{!! asset('images/paypal.png') !!}" alt="Paypal">
 								<p class="text-muted well well-sm no-shadow" style="margin-top: 10px;">
 									Etsy doostang zoodles disqus groupon greplin oooj voxy zoodles, weebly ning heekya handango imeem plugg dopplr jibjab, movity jajah plickers sifteo edmodo ifttt zimbra.
-								</p>
+								</p>--}}
 							</div>
 							<!-- /.col -->
 							<div class="col-xs-6">
@@ -138,7 +138,7 @@
 							<div class="col-xs-12">
 								<button class="btn btn-default hidden-print" onclick="window.print();"><i class="fa fa-print"></i> Print</button>
 								<button class="btn btn-success pull-right hidden-print"><i class="fa fa-credit-card"></i> Submit Payment</button>
-								<button class="btn btn-primary pull-right hidden-print" style="margin-right: 5px;"><i class="fa fa-download"></i> Generate PDF</button>
+								{{--<button class="btn btn-primary pull-right hidden-print" style="margin-right: 5px;"><i class="fa fa-download"></i> Generate PDF</button>--}}
 							</div>
 						</div>
 					</section>

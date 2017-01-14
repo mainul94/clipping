@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Quotation;
 use Illuminate\Http\Request;
 
-use App\Http\Requests;
 
 class QuotationController extends Controller
 {
@@ -20,11 +19,11 @@ class QuotationController extends Controller
 	}
 
 
-
 	/**
-	 * @param null $data
+	 * @param Quotation|null $data
+	 * @return array
 	 */
-	protected function validate_rules($data = null)
+	protected function validate_rules(Quotation $data = null)
 	{
 		return [
 			'name' => 'Required',
