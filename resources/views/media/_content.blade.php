@@ -6,7 +6,7 @@
  * Time: 8:51 PM
  */
 ?>
-<div class="row init-media">
+<div class="init-media">
 
 </div>
 

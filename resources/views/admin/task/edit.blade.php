@@ -24,11 +24,11 @@
                     <div class="panel-heading" role="tab" id="headingOne">
                         <h4 class="panel-title">
                             <a role="button" class="center-block" data-toggle="collapse" data-parent="#accordion" href="#details" aria-expanded="true" aria-controls="details">
-                                Details <i class="fa fa-eye-slash pull-right" aria-hidden="true"></i>
+                                Details <i class="fa fa-chevron-up pull-right" aria-hidden="true"></i>
                             </a>
                         </h4>
                     </div>
-                    <div id="details" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+                    <div id="details" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
                         <div class="panel-body">
                             @include('admin.task._task')
                         </div>
@@ -36,15 +36,32 @@
                 </div>
             </div>
             {!! Form::close() !!}
-            <div class="row">
-                @include('media._content')
-            </div>
             {{--@if(array_key_exists('images', $withData) && count($withData['images'])>0)
 				@include('admin.task._image_view')
 			@endif--}}
             <div class="clearfix"></div>
+        </div>
+        <div class="x_panel">
+            <div class="row">
+                @include('media._content')
+            </div>
+        </div>
+        <div class="x_panel">
             @include('admin.comment.comment',['row'=>$id])
-            <div class="clearfix"></div>
         </div>
     </div>
+@endsection
+
+@section('script_call')
+    @parent
+    <script>
+        $('a[data-toggle="collapse"]').on('click',function (e) {
+            e.preventDefault;
+            if ($(this).hasClass('collapsed')) {
+                $(this).children('.fa').removeClass('fa-chevron-down').addClass('fa-chevron-up')
+            }else {
+                $(this).children('.fa').addClass('fa-chevron-down').removeClass('fa-chevron-up')
+            }
+        })
+    </script>
 @endsection
