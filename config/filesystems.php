@@ -63,7 +63,7 @@ return [
         ],
         'ftp' => [
             'driver' => 'ftp',
-            'host' => 'localhost',
+            'host' => '97.107.128.147',
             'username' => 'ftp1user',
             'password' => '123456',
             'port' => 21

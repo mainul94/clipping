@@ -34,7 +34,7 @@
 					image_upload_url: '{{ action("ImageController@store") }}',
 					data:{
 						task_id: '{{ $id->id }}',
-						root:'/job/{{ $id->id }}'
+						root:'/jobs/{{ $id->id }}'
 					},
 					ftp: $ftp
 				});
