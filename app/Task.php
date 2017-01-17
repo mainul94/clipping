@@ -173,12 +173,18 @@ class Task extends Model
 
     public function getFtpAttribute()
     {
-        if (is_null($this->ftp()->first())) {
-            return (object) config('filesystems.disks.ftp');
-        }
-        $this->ftp();
+        if ( ! array_key_exists('ftp', $this->relations)) $this->load('ftp');
+
+        $ftp = ($this->getRelation('ftp')) ?$this->getRelation('ftp')->toArray(): $this->defaultFTP();
+
+        return $ftp;
     }
 
+
+    public function defaultFTP()
+    {
+        return config('filesystems.disks.ftp');
+    }
 
     public function setFtpIdAttribute($value)
     {
