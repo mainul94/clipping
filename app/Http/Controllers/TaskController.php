@@ -53,7 +53,7 @@ class TaskController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return Response
      */
-    public function afterSave(Task $task, Request $request)
+    /*public function afterSave(Task $task, Request $request)
     {
         $base_directory = '/public/jobs/'.$task->id;
         Storage::disk($task->storage)->makeDirectory($base_directory.'/Original/thumbnail');
@@ -61,7 +61,7 @@ class TaskController extends Controller
         Storage::disk($task->storage)->makeDirectory($base_directory.'/Done/thumbnail');
         Storage::disk($task->storage)->makeDirectory($base_directory.'/Done/preview');
         $this->sendTheNotificaion($request, $task);
-    }
+    }*/
 
     /*public function showWith(Task $task)
     {
