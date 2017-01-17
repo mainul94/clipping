@@ -83,6 +83,7 @@
                 @if(empty($id))
                     {!! Form::select('ftp_id',[],null,['class'=>'form-control','placeholder'=>'Default']) !!}
                 @elseif(!empty($id->ftp))
+                    @php $ftp = collect($id->ftp) @endphp
                     <div class="col-md-3 col-xs-12 widget widget_tally_box">
                         <div class="x_panel fixed_height_200">
                             <div class="x_title">
@@ -99,17 +100,17 @@
                                 <ul class="legend list-unstyled">
                                     <li>
                                         <p>
-                                            <span class="col-sm-4">Title:</span><span class="col-sm-8">{!! $id->ftp->title or "" !!}</span>
+                                            <span class="col-sm-4">Title:</span><span class="col-sm-8">{!! $ftp->get('title') !!}</span>
                                         </p>
                                     </li>
                                     <li>
                                         <p>
-                                            <span class="col-sm-4">Host:</span><span class="col-sm-8">{!! $id->ftp->host or "" !!}</span>
+                                            <span class="col-sm-4">Host:</span><span class="col-sm-8">{!! $ftp->get('host') !!}</span>
                                         </p>
                                     </li>
                                     <li>
                                         <p>
-                                            <span class="col-sm-4">User:</span><span class="col-sm-8">{!! $id->ftp->username or "" !!}</span>
+                                            <span class="col-sm-4">User:</span><span class="col-sm-8">{!! $ftp->get('username') !!}</span>
                                         </p>
                                     </li>
                                 </ul>

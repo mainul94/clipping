@@ -189,7 +189,8 @@ class Task extends Model
     public function setFtpIdAttribute($value)
     {
         if ($value == 'Default') {
-            $this->attributes['ftp_id'] = null;
+            $value = null;
         }
+        $this->attributes['ftp_id'] = $value;
     }
 }
