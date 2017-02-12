@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Setting extends Model
 {
-    protected $fillable =['key','value'];
+    protected $fillable =['name', 'options'];
 
     /**
      * Return All task status
@@ -18,6 +18,9 @@ class Setting extends Model
             'Rejected'=>'Rejected','Completed'=>'Completed','Finished'=>'Finished','Hold'=>'Hold'];
     }
 
+    protected $casts = [
+        'options' => 'array'
+    ];
 
     /**
      * Return User Type

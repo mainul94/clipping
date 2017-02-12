@@ -224,7 +224,7 @@ $menus = collect([
 								'link' => action('SettingController@index'),
 								'label_class' => 'label label-warning pull-right',
 								'label' => 'config',
-								'permission' => ''
+                                'permission' => 'update.setting'
 						])
 				])
 		])

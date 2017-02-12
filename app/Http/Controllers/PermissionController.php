@@ -8,8 +8,12 @@ use Illuminate\Http\Request;
 class PermissionController extends Controller
 {
     use CommonController;
-    
 
+
+    /**
+     * PermissionController constructor.
+     * @param Request $request
+     */
     public function __construct(Request $request)
     {
         $this->view_dir = 'admin.permission.';
@@ -19,9 +23,9 @@ class PermissionController extends Controller
     }
 
 
-
     /**
      * @param null $data
+     * @return array
      */
     protected function validate_rules($data = null)
     {
