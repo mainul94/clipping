@@ -188,6 +188,7 @@ return [
          * Custon Provider for this Project
          */
         App\Providers\ViewCustomProvider::class,
+        App\Providers\SettingServiceProvider::class,
         App\Providers\RouteBindProvider::class
     ],
 
