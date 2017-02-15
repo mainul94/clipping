@@ -10,7 +10,7 @@ function get_setting($name){
     $setting = \App\Setting::where('name', $name)->first();
     if ($setting) {
     	if (empty($setting->options)) {
-    		$setting->options = []
+    		$setting->options = [];
     	}
         return $setting;
     }else {
