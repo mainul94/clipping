@@ -14,7 +14,8 @@ class SettingServiceProvider extends ServiceProvider
     public function boot()
     {
         // Mail Config Change
-        config(['mail' => array_merge(config('mail'), get_setting('email_setting')->options)]);
+        $email = get_setting('email_setting');
+        config(['mail' => array_merge(config('mail'), ($email? $email->options : []))]);
 
         // FTP Config Change
 //        config(['mail' => array_merge(config('mail'), get_setting('email_setting')->options)]);
