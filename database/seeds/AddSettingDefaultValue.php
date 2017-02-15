@@ -14,14 +14,9 @@ class AddSettingDefaultValue extends Seeder
     {
         DB::table('settings')->insert([
             [
-                'id' => 1,
-                'name' => 'default_ftp',
-                'options' => "{'host':'97.107.128.147'}"
-            ],
-            [
                 'id' => 2,
                 'name' => 'email_setting',
-                'options' => 'null'
+                'options' => '{"driver":"smtp","host":"smtp.zoho.com","port":"465","username":"arif@dizitronbd.com","password":"diziarif","encryption":"tsl"}'
             ]
         ]);
     }
