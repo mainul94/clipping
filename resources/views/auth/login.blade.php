@@ -13,6 +13,8 @@
         <div class="login_wrapper">
             <div class="animate form login_form">
                 <section class="login_content">
+
+                    <div class="row"> <div class="col-sm-6 col-sm-offset-3"><img src="{{ asset('images/logo-01-300x200.png')  }}" alt="Clipping Associats" class="img-responsive"></div></div>
                     <form class="form-horizontal" role="form" method="POST" action="{{ url('/login') }}">
                         {{ csrf_field() }}
                         <div class="clearfix"></div>
@@ -30,7 +32,7 @@
                                 </p>
                             </div>
                         @endif
-                        <h1>Login Form</h1>
+                        <h1>Sign In</h1>
                         <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
 
                                 <input id="email" type="email" class="form-control" name="email" value="{{ old('email') }}" placeholder="E-Mail Address">
@@ -51,35 +53,30 @@
                                 </span>
                             @endif
                         </div>
-
+                        <button type="submit" class="btn btn-info btn-small submit col-xs-12">Sign In</button>
                         <div class="form-group">
-                            <div class="col-md-6 col-md-offset-1">
+                            <div class="col-md-6">
                                 <div class="checkbox">
                                     <label>
                                         <input type="checkbox" name="remember"> Remember Me
                                     </label>
                                 </div>
                             </div>
-                        </div>
-
-                        <div>
-                            <button type="submit" class="btn btn-default btn-small submit">Log in</button>
-                            <a class="reset_pass" href="{{ url('/password/reset') }}">Lost your password?</a>
+                            <div class="col-md-6">
+                                <a class="reset_pass" href="{{ url('/password/reset') }}">Lost your password?</a>
+                            </div>
                         </div>
 
                         <div class="clearfix"></div>
 
                         <div class="separator">
-                            <p class="change_link">New to site?
-                                <a href="{{ url('/register') }}" class="to_register"> Create Account </a>
+                            <p class="change_link">Don't have an account?
+                                <a href="{{ url('/register') }}" class="to_register"> Sign Up </a>
                             </p>
 
                             <div class="clearfix"></div>
 
-                            <div>
-                                <h1><img src="{{ asset('images/logo-01-300x200.png')  }}" alt="Clipping Associats" class="img-responsive"></h1>
-                                <p>©2016 All Rights Reserved.</p>
-                            </div>
+                            @include('_partial.copyright')
                         </div>
                     </form>
                 </section>

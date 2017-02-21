@@ -60,6 +60,6 @@ class Setting extends Model
 
     public function setOptionsAttribute($data)
     {
-        $this->attributes['options'] = $data;
+        $this->attributes['options'] = json_encode($data);
     }
 }

@@ -33,6 +33,11 @@
                                     <div class="col-sm-10">
                                         @if(in_array($opt, ['message', 'content', 'summery', 'details']))
                                             {!! Form::textarea('options['.$key.']', null, ['class'=>'form-control']) !!}
+                                        @elseif(starts_with('password', $key) || starts_with('pwd', $key))
+                                            <input type="password" value="{{ 'options['.$key.']' }}" class="form-control">
+                                            {{--{!! Form::password('options['.$key.']', ['class'=>'']) !!}--}}
+                                        @elseif(starts_with('file', $key) || starts_with('image', $key))
+                                            {!! Form::image('options['.$key.']', null, ['class'=>'form-control']) !!}
                                         @else
                                             {!! Form::text('options['.$key.']', null, ['class'=>'form-control']) !!}
                                         @endif

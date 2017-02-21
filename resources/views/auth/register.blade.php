@@ -13,9 +13,10 @@
         <div class="login_wrapper">
             <div class="animate form login_form">
                 <section class="login_content">
+                    <div class="row"> <div class="col-sm-6 col-sm-offset-3"><img src="{{ asset('images/logo-01-300x200.png')  }}" alt="Clipping Associats" class="img-responsive"></div></div>
                     <form class="form-horizontal" role="form" method="POST" action="{{ url('/register') }}">
                         {{ csrf_field() }}
-                        <h1>Create Account</h1>
+                        <h1>Sign Up</h1>
                         <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
 
                             <input id="name" type="text" class="form-control" name="name" value="{{ old('name') }}" placeholder="Name">
@@ -59,22 +60,18 @@
                         </div>
 
                         <div>
-                            <button type="submit" class="btn btn-default btn-small submit">Register</button>
+                            <button type="submit" class="btn btn-info btn-small submit col-xs-12">Sign Up</button>
                         </div>
 
                         <div class="clearfix"></div>
 
                         <div class="separator">
                             <p class="change_link">Already a member ?
-                                <a href="{{ url('/login') }}" class="to_register"> Log in </a>
+                                <a href="{{ url('/login') }}" class="to_register"> Sign In </a>
                             </p>
 
                             <div class="clearfix"></div>
-
-                            <div>
-                                <h1><img src="{{ asset('images/logo-01-300x200.png')  }}" alt="Clipping Associats" class="img-responsive"></h1>
-                                <p>©2016 All Rights Reserved.</p>
-                            </div>
+                            @include('_partial.copyright')
                         </div>
                     </form>
                 </section>
