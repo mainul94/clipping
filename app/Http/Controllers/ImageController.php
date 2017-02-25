@@ -35,7 +35,7 @@ class ImageController extends Controller
     /**s
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return array
      */
     public function index(Request $request)
     {
@@ -105,16 +105,67 @@ class ImageController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @return array
      */
     public function store(Request $request)
     {
 	    $paths = [];
 	    foreach ($request->file('images') as $file) {
 		    $path = $file->storeAs($request->get('root'), $file->getClientOriginalName(), $this->disk);
+
+            $preview = Image::make($file->getRealPath())->resize(600, null, function ($context) {
+                $context->aspectRatio();
+            })->encode('jpg');
+
+
+            $pre_dir = $request->get('root') . '/.preview/' ;
+            $this->make_directory($pre_dir);
+//            dd($preview);
+            Storage::disk($this->disk)->put($pre_dir. preg_replace('/\\.[^.\\s]{3,4}$/', '.jpg',
+                    $file->getClientOriginalName()),
+                $preview);
+
+            $thumbnail = Image::make($file->getRealPath())->resize(150, null, function ($context) {
+                $context->aspectRatio();
+            })->encode('jpg');
+
+            $thumb_dir = $request->get('root') . '/.thumbnail/';
+            $this->make_directory($thumb_dir);
+
+            Storage::disk($this->disk)->put($thumb_dir . preg_replace('/\\.[^.\\s]{3,4}$/', '.jpg',
+                    $file->getClientOriginalName()), $thumbnail);
+
 		    array_push($paths, $path);
 	    }
 	    return $paths;
+    }
+
+    /**
+     * @param $dir
+     */
+    public function make_directory($dir)
+    {
+        if (!Storage::disk($this->disk)->exists($dir)) {
+            Storage::disk($this->disk)->makeDirectory($dir);
+        }
+    }
+
+    public function get_thumbnail($file_url)
+    {
+        $file = str_replace(basename($file_url), '.thumbnail/'.basename($file_url), $file_url);
+        if (Storage::disk($this->disk)->exists($file)) {
+            return Storage::disk($this->disk)->get($file);
+        }
+        return true;
+    }
+
+    public function get_preview($file_url)
+    {
+        $file = str_replace(basename($file_url), '.preview/'.basename($file_url), $file_url);
+        if (Storage::disk($this->disk)->exists($file)) {
+            return Storage::disk($this->disk)->get($file);
+        }
+        return true;
     }
 
     /**

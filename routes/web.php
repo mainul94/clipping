@@ -38,6 +38,8 @@ Route::group(compact('middleware', 'prefix'), function () {
     });
     Route::any('directory','ImageController@directory');
     Route::any('file','ImageController@file');
+    Route::get('image_thumbnail/{file}','ImageController@get_thumbnail');
+    Route::get('image_preview/{file}','ImageController@get_preview');
     Route::get('profile/edit','ProfileController@edit');
     Route::get('profile/{user?}','ProfileController@show');
     Route::patch('profile/{profile}','ProfileController@update');
