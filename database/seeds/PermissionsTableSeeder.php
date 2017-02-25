@@ -92,8 +92,9 @@ class PermissionsTableSeeder extends Seeder
             ["id" => 30,	"name" => "Create Ftp",	"slug" => "create.ftp"],
             ["id" => 31,	"name" => "Update Ftp",	"slug" => "update.ftp"],
             ["id" => 32,	"name" => "Delete Ftp",	"slug" => "delete.ftp"],
-
-
+            ["id" => 33,	"name" => "View Setting",	"slug" => "view.setting"],
+            ["id" => 34,	"name" => "Update Setting",	"slug" => "update.setting"],
+            ["id" => 35,	"name" => "Create Setting",	"slug" => "create.setting"],
         ]);
         DB::table('permission_role')->insert([
             [
@@ -343,6 +344,18 @@ class PermissionsTableSeeder extends Seeder
             [
                 'role_id' => 3,
                 'permission_id' => 29
+            ],
+            [
+                'role_id' => 1,
+                'permission_id' => 33
+            ],
+            [
+                'role_id' => 1,
+                'permission_id' => 34
+            ],
+            [
+                'role_id' => 1,
+                'permission_id' => 35
             ]
         ]);
     }
