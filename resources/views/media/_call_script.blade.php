@@ -83,6 +83,7 @@
 				previewsContainer: '.notification-body',
 				uploadMultiple:true,
 				paramName: "images",
+                createImageThumbnails:true,
 				headers: {
 					'X-CSRF-TOKEN': "{{ csrf_token() }}"
 				},
@@ -93,7 +94,7 @@
 					$wrapper.$overWrapper.show();
 				},
 				sendingmultiple:function (file) {
-					console.log(file)
+//					console.log(file)
 				},
 				sending:function (file, xhr, formData) {
 					me.$notification.$wrappwer.show();
@@ -106,6 +107,7 @@
 				},
 				error:function (file) {
 					$(file.previewElement).addClass('alert-danger')
+						.append('<br>' + file.xhr.status + file.xhr.statusText)
 							.find('.dz-success-mark').hide();
 				},
 				complete:function (file) {
@@ -307,6 +309,9 @@
 			}).done(function (data) {
 				if (data.directories.length) {
 					$.each(data.directories, function (idx, directory) {
+                        if (directory.endsWith('.preview') || directory.endsWith('.thumbnail')) {
+                            return
+                        }
 						me.initialize_directory(directory)
 					});
 				}else {
@@ -487,6 +492,10 @@
 			var $model = new PopModel();
 			$model.set_title(MiMedia.basename($file.attr('data-root')));
 			$model.set_body_html($file.find('.thumbnail-image').html());
+            var img = $model.$body.find('img').get(0);
+            if (img) {
+                $(img).attr('src', $(img).attr('src').replace('/.thumbnail/', '/.preview/'));
+            }
 			$model.$body.css({
 				'overflow':'scroll',
 				'max-height': '400px'
@@ -632,7 +641,7 @@
 			this.$fileWrapper = $('<div>').addClass('mi-file-sub-wrapper').appendTo(this.$wrapper)
 					{{--// ToDo Need Ftp information from daynamically and also check error if ftp not set /// <img src="ftp://{{ auth()->user()->ftp->username }}:{{ auth()->user()->ftp->password."@".auth()->user()->ftp->host}}/'+this.args.file+'" alt="">--}}
 					.html('<div class="thumbnail-image">\
-					<img src="ftp://' + this.args.ftp.username + ':' + this.args.ftp.password + '@' + this.args.ftp.host + '/' + this.args.file + '" alt=""></div>\
+					<img src="ftp://' + this.args.ftp.username + ':' + this.args.ftp.password + '@' + this.args.ftp.host + '/' + this.args.file.replace(MiMedia.basename(this.args.file),'.thumbnail/'+MiMedia.basename(this.args.file).replace(this.args.file.substr(this.args.file.lastIndexOf('.') + 1), 'jpg')) + '" alt=""></div>\
 					<div class="text">\
 					<div class="folder-icon">\
 					<i class="fa fa-picture-o" aria-hidden="true"></i>\
