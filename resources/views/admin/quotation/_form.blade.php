@@ -107,7 +107,7 @@
     </div>
 </div>
 
-
+@if(auth()->user()->type == 'Admin')
 <div class="form-group {!! $errors->has('status')? 'has-error':'' !!}">
     {!! Form::label('status','Status',['class'=>'control-label col-md-3']) !!}
     <div class="col-md-9">
@@ -116,6 +116,7 @@
         {!! $errors->first('status','<span class="help-block">:message</span>') !!}
     </div>
 </div>
+@endif
 
 <div class="col-xs-12">
     {!! Form::submit('Save',['class'=>'btn btn-info pull-right']) !!}
