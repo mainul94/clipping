@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Builder;
 class Invoice extends Model
 {
     protected $fillable =['client_id', 'from_address', 'to_address', 'account', 'total_qty', 'subtotal', 'tax', 'totals',
-	    'currency', 'paid_amount', 'invoice_date', 'due_date', 'status', 'is_return'];
+	    'currency', 'paid_amount', 'invoice_date', 'due_date', 'status', 'is_return', 'note'];
 
 
 	/**

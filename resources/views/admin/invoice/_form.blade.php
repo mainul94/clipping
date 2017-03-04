@@ -119,8 +119,16 @@
     </div>
     {{--/Children--}}
 
+    <div class="col-sm-6">
+        <div class="form-group {!! $errors->has('note')? 'has-error':'' !!}">
+            {!! Form::label('note','Note') !!}
+            {!! Form::textarea('note', null, ['class'=>'form-control col-xs-12']) !!}
+            {!! $errors->first('note','<span class="help-block">:message</span>') !!}
+        </div>
+    </div>
+
     <div class="col-sm-6 pull-right">
-        <p class="lead">@if(isset($id->invoice_date))Amount Due {!! $id->invoice_date->format('Y-M-d') !!} @endif </p>
+        <p class="lead">@if(isset($id->due_date))Amount Due Date: {!! $id->due_date->format('Y-M-d') !!} @endif </p>
         <div class="table-responsive">
             <table class="table">
                 <tbody>
@@ -250,5 +258,12 @@
 //        $('[name^=amount]').on('change',function () {
 //            subtotals()
 //        });
+    </script>
+    <link href="{!! asset('vendors/summernote/css/summernote.css') !!}" rel="stylesheet">
+    <script src="{!! asset('vendors/summernote/js/summernote.js') !!}"></script>
+    <script>
+        $('[name=note]').summernote({
+            height:100
+        });
     </script>
 @endsection

@@ -38,7 +38,7 @@
 							<div class="col-sm-4 invoice-col">
 								From
 								<address>
-									<strong>Clipping Path Associate</strong>
+									<strong>{!! config('app.name') !!}</strong>
 									{!! $id->from_address !!}
 								</address>
 							</div>
@@ -98,18 +98,11 @@
 						<div class="row">
 							<!-- accepted payments column -->
 							<div class="col-xs-6">
-								{{--<p class="lead">Payment Methods:</p>
-								<img src="{!! asset('images/visa.png') !!}" alt="Visa">
-								<img src="{!! asset('images/mastercard.png') !!}" alt="Mastercard">
-								<img src="{!! asset('images/american-express.png') !!}" alt="American Express">
-								<img src="{!! asset('images/paypal.png') !!}" alt="Paypal">
-								<p class="text-muted well well-sm no-shadow" style="margin-top: 10px;">
-									Etsy doostang zoodles disqus groupon greplin oooj voxy zoodles, weebly ning heekya handango imeem plugg dopplr jibjab, movity jajah plickers sifteo edmodo ifttt zimbra.
-								</p>--}}
+								{!! $id->note or "" !!}
 							</div>
 							<!-- /.col -->
 							<div class="col-xs-6">
-								<p class="lead">@if(isset($id->invoice_date))Amount Due {!! $id->invoice_date->format('d-M-Y') !!} @endif </p>
+								<p class="lead">@if(isset($id->due_date))Amount Due Date: {!! $id->due_date->format('Y-M-d') !!} @endif </p>
 								<div class="table-responsive">
 									<table class="table">
 										<tbody>
