@@ -31,9 +31,9 @@
                                 <div class="col-xs-12 form-group {!! $errors->has('options['.$key.']')? 'has-error':'' !!}">
                                     {!! Form::label('options['.$key.']', title_case($key), ['class'=>'col-sm-2 control-label']) !!}
                                     <div class="col-sm-10">
-                                        @if(in_array($opt, ['message', 'content', 'summery', 'details']))
+                                        @if(in_array($opt, ['message', 'content', 'summery', 'details', 'password']))
                                             {!! Form::textarea('options['.$key.']', null, ['class'=>'form-control']) !!}
-                                        @elseif(starts_with('password', $key) || starts_with('pwd', $key))
+                                        @elseif(starts_with('pwd', $key))
                                             <input type="password" value="{{ 'options['.$key.']' }}" class="form-control">
                                             {{--{!! Form::password('options['.$key.']', ['class'=>'']) !!}--}}
                                         @elseif(starts_with('file', $key) || starts_with('image', $key))
