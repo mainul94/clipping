@@ -45,11 +45,16 @@ class TaskUpdate extends Notification implements ShouldQueue
      */
     public function toMail($notifiable)
     {
-        return (new MailMessage)
-	                ->subject($this->purpose.'Task '. $this->task->title)
-                    ->line('The introduction to the notification.')
-                    ->action('Notification Action', 'https://laravel.com')
-                    ->line('Thank you for using our application!');
+        $mail = new MailMessage();
+        $mail->subject($this->purpose.'Task '. $this->task->title)
+        ->line('The introduction to the notification.')
+        ->action('To Check', action('TaskController@show', $this->task->id))
+        ->line('Thank you for '.$this->purpose.'Task');
+        $mail->actionText = "Open the Task";
+        $mail->actionUrl = action('TaskController@show', $this->task->id);
+        return $mail;
+
+
     }
 
     /**
