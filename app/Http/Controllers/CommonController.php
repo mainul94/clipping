@@ -61,7 +61,10 @@ trait CommonController
 				$rows = $rows->where($filters);
 			}
         }
-        $rows = $rows->paginate();
+        if (!method_exists(__CLASS__, 'order_by')) {
+            $this->order_by = ['field' =>'id', 'order'=>'desc'];
+        }
+        $rows = $rows->orderBy($this->order_by['field'], $this->order_by['order'])->paginate();
         return view($this->view_dir.'list_view',compact('rows'))->with('withData',[]);
     }
 
@@ -210,7 +213,6 @@ trait CommonController
     {
 
         if ($this->checkPermission && !$request->user()->can($this->checkPermission)) {
-            dd('sd');
             return abort(403);
         }
 

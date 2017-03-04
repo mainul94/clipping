@@ -12,7 +12,14 @@ class User extends Authenticatable
 {
 
     use CanResetPassword, HasRoleAndPermission, Notifiable;
+    protected static function boot() {
+        parent::boot();
 
+        static::deleting(function($user) { // before delete() method call this
+            $user->profile()->delete();
+            // do the rest of the cleanup...
+        });
+    }
     /**
      * The attributes that are mass assignable.
      *

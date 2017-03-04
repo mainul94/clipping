@@ -41,9 +41,17 @@
                                     @endforeach
                                 </td>
                                 <td class="text-center action-btn-wrapper">
+                                    @permission("delete.user")
                                     <a class="text-success" href="{!! action('UserController@show',$row->id) !!}"><i class="fa fa-eye"></i></a>
+                                    @endpermission
+                                    @permission("update.user")
                                     <a class="text-warning" href="{!! action('UserController@edit',$row->id) !!}"><i class="fa fa-pencil-square-o"></i></a>
-                                    {!! Html::delete('UserController@destroy',$row->id) !!}
+                                    @endpermission
+                                    @permission("delete.user")
+                                    @if(!$row->hasRole('administrator'))
+                                        {!! Html::delete('UserController@destroy',$row->id) !!}
+                                    @endif
+                                    @endpermission
                                 </td>
                             </tr>
                         @endforeach
