@@ -60,6 +60,12 @@ class Setting extends Model
 
     public function setOptionsAttribute($data)
     {
+        foreach ($data as $key=>$file) {
+            if (gettype($file)=='object' && (str_is('file*', $key) || str_is('image*', $key))) {
+                $file->move('settings', $file->getClientOriginalName());
+                $data[$key] = 'settings/'. $file->getClientOriginalName();
+            }
+        }
         $this->attributes['options'] = json_encode($data);
     }
 }
