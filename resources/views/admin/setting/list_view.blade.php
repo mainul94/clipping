@@ -38,7 +38,7 @@
                                             {{--{!! Form::password('options['.$key.']', ['class'=>'']) !!}--}}
                                         @elseif(str_is('file*', $key) || str_is('image*', $key))
                                             @if(!empty($opt))
-                                                <img src="{{ url($opt) }}" alt="{{ title_case($key) }}">
+                                                <img class="img-thumbnail img-responsive" src="{{ url($opt) }}" alt="{{ title_case($key) }}">
                                             @endif
                                             {!! Form::file('options['.$key.']') !!}
                                         @else
