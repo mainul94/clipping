@@ -12,7 +12,7 @@ class AddLogoData extends Seeder
     public function run()
     {
         DB::table('settings')->insert([
-            'name'=>'logo1',
+            'name'=>'logo',
             'options'=>'{"file_logo":"settings/ca-logo.png"}'
         ]);
     }
