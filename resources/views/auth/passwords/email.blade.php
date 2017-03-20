@@ -13,7 +13,7 @@
         <div class="login_wrapper">
             <div class="animate form login_form">
                 <section class="login_content">
-                    <div class="row"> <div class="col-sm-6 col-sm-offset-3"><img src="{{ asset('images/logo-01-300x200.png')  }}" alt="Clipping Associats" class="img-responsive"></div></div>
+                    <div class="row"> <div class="col-sm-6 col-sm-offset-3"><img src="{{ get_company_logo()  }}" alt="Clipping Associats" class="img-responsive"></div></div>
                     <form class="form-horizontal" role="form" method="POST" action="{{ url('/password/email') }}">
                         {{ csrf_field() }}
                         <h1>Password Reset</h1>

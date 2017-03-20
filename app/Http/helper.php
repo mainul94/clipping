@@ -17,3 +17,9 @@ function get_setting($name){
         return null;
     }
 };
+
+function get_company_logo()
+{
+    $logo = get_setting('logo');
+    return $logo? url($logo->options['file_logo']) : '/images/f-icon.png';
+}

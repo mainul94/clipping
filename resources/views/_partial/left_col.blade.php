@@ -9,8 +9,8 @@
 <div class="left_col scroll-view">
     <div class="navbar nav_title" style="border: 0;">
         <a href="{!! url('/') !!}" class="site_title">
-            <img src="{{ asset('images/f-icon.png')  }}" alt="Clipping Associats" class="img-responsive">
-	        <span>Clipping Associates</span>
+            <img src="{{ get_company_logo()  }}" alt="Clipping Associats" class="img-responsive">
+	        {{--<span>Clipping Associates</span>--}}
         </a>
     </div>
 
