@@ -23,7 +23,7 @@ class TaskUpdate extends Notification implements ShouldQueue
     public function __construct(Task $task)
     {
         $this->task = $task;
-        $this->purpose = is_null($task->updatedBy)? 'Created New': 'Updated the';
+        $this->purpose = empty($task->updatedBy)? 'Created New': 'Updated the';
     }
 
     /**
@@ -53,8 +53,6 @@ class TaskUpdate extends Notification implements ShouldQueue
         $mail->actionText = "Open the Task";
         $mail->actionUrl = action('TaskController@show', $this->task->id);
         return $mail;
-
-
     }
 
     /**

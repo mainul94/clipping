@@ -108,6 +108,16 @@ class TaskController extends Controller
         $this->sendTheNotificaion($request, $task);
     }
 
+
+    /**
+     * @param Task $task
+     * @param Request $request
+     */
+    public function afterSave(Task $task, Request $request)
+    {
+        $this->sendTheNotificaion($request, $task);
+    }
+
     /**
      * Remove the specified resource from storage.
      *

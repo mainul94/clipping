@@ -12,7 +12,7 @@ class Task extends Model
     protected $fillable = ['title','slug','referance','rejected_task_id','client_id','type','instruction','comend',
         'total_qty','total_amount','task_type','status', 'delivery', 'ftp_id'];
 
-    use CreateUpdateByRecord, HasComment, Notifiable;
+    use HasComment, Notifiable;
 
     protected $dates = ['delivery'];
 
@@ -33,6 +33,14 @@ class Task extends Model
             if (auth()->user()->type == "Client") {
                 $table->client_id = auth()->user()->id;
             }
+            $table->created_by = auth()->user()->id;
+        });
+
+        /**
+         * Entry Update Date On Save Data
+         */
+        static::updating(function($table)  {
+            $table->updated_by = auth()->user()->id;
         });
     }
 
