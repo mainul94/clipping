@@ -27,7 +27,9 @@
 						<div class="row">
 							<div class="col-xs-12 invoice-header">
 								<h1>
-									<i class="fa fa-globe"></i> Invoice.
+									<span class="row">
+										<span class="col-sm-2"><img class="img-responsive" src="{{ get_company_logo() }}" alt="Company Logo"></span>
+									</span>
 									<small class="pull-right">@if(isset($id->invoice_date))Date: {!! $id->invoice_date->format('d-M-Y') !!} @endif</small>
 								</h1>
 							</div>
